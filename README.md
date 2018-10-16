@@ -59,7 +59,7 @@ nRF52840 Micro Dev Kit USB Dongle is available on the following channels (click 
 
 [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/collections/frontpage/products/nrf52840-mdk-usb-dongle)
 
-[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/)
+[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html)
 
 [![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/Zelin/nrf52840-micro-dev-kit-usb-dongle/)
 
