@@ -45,6 +45,21 @@ Get what you need here or visit [https://wiki.makerdiary.com/nrf52840-mdk-usb-do
 * [How to Build an OpenThread Border Router with Raspberry Pi 3B](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/OTBR)
 * [How to Build a Thread Network Sniffer with Wireshark](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/thread-sniffer)
 
+## Software Resource
+
+The nRF52840 Micro Dev Kit USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*, *Web Bluetooth*, *iBeacon*, *Eddystone*, and more.
+
+| Software  | Brief Description |
+| ---------- | ----- |
+| [nRF5 SDK](nrf5-sdk/) | Offical Software Development Kit for nRF51 and nRF52 Series |
+| [OpenThread Border Router](OTBR/) | An open source border router, designed to work with OpenThread |
+| [Thread Network Sniffer](thread-sniffer/) | Help you to efficiently analyze Thread network traffic|
+| [Web Bluetooth](https://webbluetoothcg.github.io/web-bluetooth/) | Bluetooth support for the Web |
+| [iBeacon](https://developer.apple.com/ibeacon/) | A Bluetooth low energy advertising message format designed by Apple |
+| [Eddystone](https://github.com/google/eddystone) | A protocol specification that defines a Bluetooth low energy message format for proximity beacon messages |
+| [CircuitPython](https://github.com/adafruit/circuitpython/blob/master/ports/nrf/README.md) | A Python language for microcontrollers designed to simplify experimentation and learning |
+| [TinyGo](https://github.com/aykevl/tinygo/issues/30) | Go compiler for small devices, based on LLVM |
+| [Rust for nrf52840-mdk](https://github.com/nrf-rs/nrf52840-mdk-rs) | Rust support for the nrf52840-mdk development board |
 
 ## Hardware Resource
 
