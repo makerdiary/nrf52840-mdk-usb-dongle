@@ -179,7 +179,7 @@ This section details how to use the Thread Commissioning App to commission an Op
 
 You should prepare another Dongle or an nRF52840 board(such as [nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/)). Flash the board with the OpenThread CLI firmware. Here is the pre-built CLI firmware for the Dongle:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/firmware/openthread/cli"><button data-md-color-primary="marsala">Pre-built CLI firmware</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/cli"><button data-md-color-primary="marsala">CLI firmware</button></a>
 
 !!! note 
 	For programming, just follow the "[Programming](../programming/)" section.

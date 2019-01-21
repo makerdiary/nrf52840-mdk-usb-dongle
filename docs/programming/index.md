@@ -35,7 +35,7 @@ Launch *Programmer* app from nRF Connect, you can find the dongle and select it 
 
 Add an application `.hex` file, you will see the memory layout of the HEX file. Make sure the application address starts from `0x00001000`, and then Write it into the Dongle:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/example/nrf5-sdk/blinky/hex"><button data-md-color-primary="marsala">Example Hex File</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex"><button data-md-color-primary="marsala">Blinky Hex File</button></a>
 
 !!! warning
 	You MUST provide a correct application firmware without covering the Master Boot Record(MBR) and Bootloader. That is to say the application address should start from `0x00001000` and not exceed `0x000E0000`.
@@ -101,7 +101,7 @@ There is no SoftDevice required here, just set `--sd-req` to `0x00`.
 !!! tip
     See the [nrfutil User Guide](http://infocenter.nordicsemi.com/pdf/nrfutil_v1.3.pdf) for more commands details.
 
-Here we take the [blinky example](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/example/nrf5-sdk/blinky/hex) as an example:
+Here we take the [blinky example](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex) as an example:
 
 ![](images/generating-dfu-package.png)
 

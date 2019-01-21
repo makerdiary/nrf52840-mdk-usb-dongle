@@ -103,7 +103,7 @@ Now, you can scan for networks on the NCP Joiner. If you have formed a Thread ne
 
 More features will be added to the NCP firmware gradually over time. The latest pre-built NCP firmware is a `.hex` file. You can download here:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/firmware/openthread/ncp"><button data-md-color-primary="marsala">Download the latest NCP firmware</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/ncp"><button data-md-color-primary="marsala">NCP firmware</button></a>
 
 While holding the dongle's RESET/USR button, connect it to your computer. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. It is now ready for programming.
 
