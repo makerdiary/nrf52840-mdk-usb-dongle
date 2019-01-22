@@ -95,7 +95,7 @@ If the RPI3B is in **degraded** state, some other service has failed to start. C
 sudo systemctl --failed
 ```
 
-If the failed service is **tayga** or **dnsmasq**, it is normal. These services are completely configured as part of the [Wi-Fi Access Point Setup](#wi-fi-access-point-setup).
+If the failed service is **tayga** or **dnsmasq**, it is normal. These services are completely configured as part of the [Wi-Fi Access Point Setup](https://openthread.io/guides/border-router/access-point).
 
 ### Verify NCP
 
