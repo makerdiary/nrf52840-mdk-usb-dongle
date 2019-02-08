@@ -1,6 +1,10 @@
 PROJECT_NAME     := blinky_nrf52840_mdk
-TARGETS          := nrf52840_xxaa
+DEFAULT_TARGET   := nrf52840_xxaa
+TARGETS          := $(DEFAULT_TARGET)
 OUTPUT_DIRECTORY := _build
+
+USED_SOFTDEVICE = 0
+HW_VERSION := 52
 
 SDK_ROOT := ../../../../nrf_sdks/nRF5_SDK_15.0.0_a53641a
 PROJ_DIR := ..
@@ -43,94 +47,4 @@ INC_FOLDERS += \
   $(PROJ_DIR) \
   $(SDK_ROOT)/components/libraries/util \
 
-# Libraries common to all targets
-LIB_FILES += \
-
-# Optimization flags
-OPT = -O3 -g3
-# Uncomment the line below to enable link time optimization
-#OPT += -flto
-
-# C flags common to all targets
-CFLAGS += $(OPT)
-CFLAGS += -DBOARD_CUSTOM
-CFLAGS += -DBSP_DEFINES_ONLY
-#CFLAGS += -DCONFIG_GPIO_AS_PINRESET
-CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52840_XXAA
-CFLAGS += -mcpu=cortex-m4
-CFLAGS += -mthumb -mabi=aapcs
-CFLAGS += -Wall -Werror
-CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-# keep every function in a separate section, this allows linker to discard unused ones
-CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
-CFLAGS += -fno-builtin -fshort-enums
-
-# C++ flags common to all targets
-CXXFLAGS += $(OPT)
-
-# Assembler flags common to all targets
-ASMFLAGS += -g3
-ASMFLAGS += -mcpu=cortex-m4
-ASMFLAGS += -mthumb -mabi=aapcs
-ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-ASMFLAGS += -DBOARD_CUSTOM
-ASMFLAGS += -DBSP_DEFINES_ONLY
-#ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
-ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52840_XXAA
-
-# Linker flags
-LDFLAGS += $(OPT)
-LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk -T$(LINKER_SCRIPT)
-LDFLAGS += -mcpu=cortex-m4
-LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-# let linker dump unused sections
-LDFLAGS += -Wl,--gc-sections
-# use newlib in nano version
-LDFLAGS += --specs=nano.specs
-
-nrf52840_xxaa: CFLAGS += -D__HEAP_SIZE=8192
-nrf52840_xxaa: CFLAGS += -D__STACK_SIZE=8192
-nrf52840_xxaa: ASMFLAGS += -D__HEAP_SIZE=8192
-nrf52840_xxaa: ASMFLAGS += -D__STACK_SIZE=8192
-
-# Add standard libraries at the very end of the linker input, after all objects
-# that may need symbols provided by these libraries.
-LIB_FILES += -lc -lnosys -lm
-
-
-.PHONY: default help
-
-# Default target - first one defined
-default: nrf52840_xxaa
-
-# Print all targets that can be built
-help:
-	@echo following targets are available:
-	@echo		nrf52840_xxaa
-	@echo		sdk_config - starting external tool for editing sdk_config.h
-	@echo		flash      - flashing binary
-
-TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
-
-
-include $(TEMPLATE_PATH)/Makefile.common
-
-$(foreach target, $(TARGETS), $(call define_target, $(target)))
-
-.PHONY: flash erase
-
-# Flash the program
-flash: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	@echo Flashing: $<
-	pyocd-flashtool -d debug -t nrf52 -se $<
-
-erase:
-	pyocd-flashtool -d debug -t nrf52 -ce
-
-
-SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
-CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
-sdk_config:
-	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+include $(PROJ_DIR)/../Makefile.common
