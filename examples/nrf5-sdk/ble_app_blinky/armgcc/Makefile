@@ -1,11 +1,18 @@
 PROJECT_NAME     := ble_app_blinky_nrf52840_dongle_s140
-TARGETS          := nrf52840_xxaa
+DEFAULT_TARGET   := nrf52840_xxaa
+TARGETS          := $(DEFAULT_TARGET)
 OUTPUT_DIRECTORY := _build
+
+USED_SOFTDEVICE = 1
+HW_VERSION := 52
+SD_VERSION := s140
+NRF_SD_BLE_API_VERSION := 6
+FULL_NRF_SD_BLE_API_VERSION := $(NRF_SD_BLE_API_VERSION).0.0
 
 SDK_ROOT := ../../../../nrf_sdks/nRF5_SDK_15.0.0_a53641a
 PROJ_DIR := ..
 
-$(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
+$(OUTPUT_DIRECTORY)/$(DEFAULT_TARGET).out: \
   LINKER_SCRIPT  := ble_app_blinky_gcc_nrf52.ld
 
 # Source files common to all targets
@@ -187,117 +194,5 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/usbd \
   $(SDK_ROOT)/components/nfc/ndef/conn_hand_parser/ac_rec_parser \
   $(SDK_ROOT)/components/ble/ble_services/ble_hrs \
-# Libraries common to all targets
-LIB_FILES += \
 
-# Optimization flags
-OPT = -O3 -g3
-# Uncomment the line below to enable link time optimization
-#OPT += -flto
-
-# C flags common to all targets
-CFLAGS += $(OPT)
-CFLAGS += -DBOARD_CUSTOM
-#CFLAGS += -DCONFIG_GPIO_AS_PINRESET
-CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52840_XXAA
-CFLAGS += -DNRF_SD_BLE_API_VERSION=6
-CFLAGS += -DS140
-CFLAGS += -DSOFTDEVICE_PRESENT
-CFLAGS += -DSWI_DISABLE0
-CFLAGS += -mcpu=cortex-m4
-CFLAGS += -mthumb -mabi=aapcs
-CFLAGS += -Wall -Werror -Wno-unused-function
-CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-# keep every function in a separate section, this allows linker to discard unused ones
-CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
-CFLAGS += -fno-builtin -fshort-enums
-
-# C++ flags common to all targets
-CXXFLAGS += $(OPT)
-
-# Assembler flags common to all targets
-ASMFLAGS += -g3
-ASMFLAGS += -mcpu=cortex-m4
-ASMFLAGS += -mthumb -mabi=aapcs
-ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-ASMFLAGS += -DBOARD_CUSTOM
-#ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
-ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52840_XXAA
-ASMFLAGS += -DNRF_SD_BLE_API_VERSION=6
-ASMFLAGS += -DS140
-ASMFLAGS += -DSOFTDEVICE_PRESENT
-ASMFLAGS += -DSWI_DISABLE0
-
-# Linker flags
-LDFLAGS += $(OPT)
-LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk -T$(LINKER_SCRIPT)
-LDFLAGS += -mcpu=cortex-m4
-LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
-# let linker dump unused sections
-LDFLAGS += -Wl,--gc-sections
-# use newlib in nano version
-LDFLAGS += --specs=nano.specs
-
-nrf52840_xxaa: CFLAGS += -D__HEAP_SIZE=8192
-nrf52840_xxaa: CFLAGS += -D__STACK_SIZE=8192
-nrf52840_xxaa: ASMFLAGS += -D__HEAP_SIZE=8192
-nrf52840_xxaa: ASMFLAGS += -D__STACK_SIZE=8192
-
-# Add standard libraries at the very end of the linker input, after all objects
-# that may need symbols provided by these libraries.
-LIB_FILES += -lc -lnosys -lm
-
-
-.PHONY: default help
-
-# Default target - first one defined
-default: nrf52840_xxaa
-
-# Print all targets that can be built
-help:
-	@echo following targets are available:
-	@echo		nrf52840_xxaa
-	@echo		flash_softdevice
-	@echo		sdk_config - starting external tool for editing sdk_config.h
-	@echo		flash      - flashing binary
-
-TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
-
-
-include $(TEMPLATE_PATH)/Makefile.common
-
-$(foreach target, $(TARGETS), $(call define_target, $(target)))
-
-.PHONY: flash flash_softdevice erase
-
-# Flash the program
-flash: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	@echo Flashing: $<
-	pyocd-flashtool -d debug -t nrf52 -se $<
-
-# Flash softdevice
-flash_softdevice:
-	@echo Flashing: s140_nrf52_6.0.0_softdevice.hex
-	pyocd-flashtool -d debug -t nrf52 -se $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_6.0.0_softdevice.hex
-
-erase:
-	pyocd-flashtool -d debug -t nrf52 -ce
-
-# merge app and softdevice
-MERGEHEX_TOOL := $(PROJ_DIR)/../../../tools/mergehex/OSX/mergehex
-
-mergehex:
-	$(MERGEHEX_TOOL) -m $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_6.0.0_softdevice.hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex -o $(OUTPUT_DIRECTORY)/nrf52840_xxaa_s140.hex
-
-flash_all:
-	@echo Merging hex...
-	$(MERGEHEX_TOOL) -m $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_6.0.0_softdevice.hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex -o $(OUTPUT_DIRECTORY)/nrf52840_xxaa_s140.hex
-	@echo Flashing: nrf52840_xxaa_s140.hex
-	pyocd-flashtool -d debug -t nrf52 -se $(OUTPUT_DIRECTORY)/nrf52840_xxaa_s140.hex
-
-SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
-CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
-sdk_config:
-	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+include $(PROJ_DIR)/../Makefile.common

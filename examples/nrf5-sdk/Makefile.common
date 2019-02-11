@@ -1,0 +1,184 @@
+# This is a common Makefile that gets included from the example Mafefiles.
+
+# Optimization flags
+OPT = -O3 -g3
+# Uncomment the line below to enable link time optimization
+#OPT += -flto
+
+UPPERCASE_DEFAULT_TARGET := $(shell echo $(DEFAULT_TARGET) | tr '[:lower:]' '[:upper:]')
+UPPERCASE_SD_VERSION := $(shell echo $(SD_VERSION) | tr '[:lower:]' '[:upper:]')
+
+# C flags common to all targets
+CFLAGS += $(OPT)
+CFLAGS += -DBOARD_CUSTOM
+#CFLAGS += -DCONFIG_GPIO_AS_PINRESET
+CFLAGS += -DFLOAT_ABI_HARD
+CFLAGS += -D$(UPPERCASE_DEFAULT_TARGET)
+
+ifeq ($(USED_SOFTDEVICE),1)
+	CFLAGS += -DNRF_SD_BLE_API_VERSION=$(NRF_SD_BLE_API_VERSION)
+	CFLAGS += -D$(UPPERCASE_SD_VERSION)
+	CFLAGS += -DSOFTDEVICE_PRESENT
+	CFLAGS += -DSWI_DISABLE0
+else
+	CFLAGS += -DBSP_DEFINES_ONLY
+endif
+
+CFLAGS += -mcpu=cortex-m4
+CFLAGS += -mthumb -mabi=aapcs
+CFLAGS += -Wall -Werror
+# CFLAGS += -Wno-unused-function
+CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+# keep every function in a separate section, this allows linker to discard unused ones
+CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
+CFLAGS += -fno-builtin -fshort-enums
+
+# C++ flags common to all targets
+CXXFLAGS += $(OPT)
+
+# Assembler flags common to all targets
+ASMFLAGS += -g3
+ASMFLAGS += -mcpu=cortex-m4
+ASMFLAGS += -mthumb -mabi=aapcs
+ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ASMFLAGS += -DBOARD_CUSTOM
+#ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
+ASMFLAGS += -DFLOAT_ABI_HARD
+ASMFLAGS += -D$(UPPERCASE_DEFAULT_TARGET)
+
+ifeq ($(USED_SOFTDEVICE),1)
+	ASMFLAGS += -DNRF_SD_BLE_API_VERSION=$(NRF_SD_BLE_API_VERSION)
+	ASMFLAGS += -D$(UPPERCASE_SD_VERSION)
+	ASMFLAGS += -DSOFTDEVICE_PRESENT
+	ASMFLAGS += -DSWI_DISABLE0
+else
+	ASMFLAGS += -DBSP_DEFINES_ONLY
+endif
+
+# Linker flags
+LDFLAGS += $(OPT)
+LDFLAGS += -mthumb -mabi=aapcs -L$(SDK_ROOT)/modules/nrfx/mdk -T$(LINKER_SCRIPT)
+LDFLAGS += -mcpu=cortex-m4
+LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+# let linker dump unused sections
+LDFLAGS += -Wl,--gc-sections
+# use newlib in nano version
+LDFLAGS += --specs=nano.specs
+
+$(DEFAULT_TARGET): CFLAGS += -D__HEAP_SIZE=8192
+$(DEFAULT_TARGET): CFLAGS += -D__STACK_SIZE=8192
+$(DEFAULT_TARGET): ASMFLAGS += -D__HEAP_SIZE=8192
+$(DEFAULT_TARGET): ASMFLAGS += -D__STACK_SIZE=8192
+
+# Add standard libraries at the very end of the linker input, after all objects
+# that may need symbols provided by these libraries.
+LIB_FILES += -lc -lnosys -lm
+
+.PHONY: default help
+
+# Default target - first one defined
+default: $(DEFAULT_TARGET)
+
+# Print all targets that can be built
+help:
+	@echo following targets are available:
+	@echo		$(DEFAULT_TARGET)
+	@echo		flash_softdevice
+	@echo		sdk_config - starting external tool for editing sdk_config.h
+	@echo		flash      - flashing binary
+	@echo       flash-usb-serial - flash via USB serial device \(requires nrfutil\).
+
+PLATFORM = $(shell uname -s)
+ifeq ($(PLATFORM),Linux)
+	GNU_INSTALL_ROOT ?= /usr/bin/
+endif
+
+TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
+include $(TEMPLATE_PATH)/Makefile.common
+
+$(foreach target, $(TARGETS), $(call define_target, $(target)))
+
+APPLICATION_HEX := $(OUTPUT_DIRECTORY)/$(DEFAULT_TARGET).hex
+
+USB_SERIAL_DEVICE ?= /dev/ttyACM0
+PKG_ZIP = $(OUTPUT_DIRECTORY)/$(PROJECT_NAME)_pkg.zip
+
+ifeq ($(USED_SOFTDEVICE),1)
+
+SD_PKG_ZIP = $(OUTPUT_DIRECTORY)/$(PROJECT_NAME)_sd_pkg.zip
+FULL_SD_VERSION := $(SD_VERSION)_nrf$(HW_VERSION)_$(FULL_NRF_SD_BLE_API_VERSION)
+SOFTDEVICE_HEX  := $(SDK_ROOT)/components/softdevice/$(SD_VERSION)/hex/$(FULL_SD_VERSION)_softdevice.hex
+MERGED_HEX      := $(OUTPUT_DIRECTORY)/$(DEFAULT_TARGET)_$(SD_VERSION).hex
+
+ifeq ($(PLATFORM),Linux)
+MERGEHEX_OS = Linux-i386
+else
+MERGEHEX_OS = OSX
+endif
+
+MERGEHEX_TOOL   := $(PROJ_DIR)/../../../tools/mergehex/$(MERGEHEX_OS)/mergehex
+
+# NOTE: Consult 'nrfutil pkg generate --help' for the SD -> FWID mappings.
+# eg. s140_nrf52_6.0.0 -> 0xA9
+FWID = $(shell nrfutil pkg generate --help | awk -F '|' '/\|$(FULL_SD_VERSION)/ {print $$3}')
+
+.PHONY: flash_softdevice mergehex flash_all
+
+# Flash softdevice
+flash_softdevice: $(SOFTDEVICE_HEX)
+	@echo Flashing: $(SOFTDEVICE_HEX)
+	pyocd-flashtool -d debug -t nrf$(HW_VERSION) -se $(SOFTDEVICE_HEX)
+
+# merge app and softdevice
+$(MERGED_HEX): $(SOFTDEVICE_HEX) $(APPLICATION_HEX)
+	@echo Merging hex...
+	$(MERGEHEX_TOOL) -m $(SOFTDEVICE_HEX) $(APPLICATION_HEX) -o $(MERGED_HEX)
+
+mergehex: $(MERGED_HEX)
+
+flash_all: $(MERGED_HEX)
+	@echo Flashing: $(MERGED_HEX)
+	pyocd-flashtool -d debug -t nrf$(HW_VERSION) -se $(MERGED_HEX)
+
+# If the target has no softdevice programmed, it would be nice to do it from the Makefile.
+# This does not seem to be possible at the moment.
+# The following two commented rulse need to work, in order to program the softdevice.
+
+#$(SD_PKG_ZIP): $(SOFTDEVICE_HEX)
+#	nrfutil pkg generate --hw-version $(HW_VERSION) --sd-req 0x00 --application-version 1 --application $< $@
+
+#flash-usb-serial-sd: $(SD_PKG_ZIP)
+#	nrfutil dfu usb-serial -pkg $(SD_PKG_ZIP) -p $(USB_SERIAL_DEVICE)
+
+$(PKG_ZIP): $(APPLICATION_HEX)
+	nrfutil pkg generate --hw-version $(HW_VERSION) --sd-req $(FWID) --application-version 1 --application $< $@
+
+#flash-usb-serial: $(PKG_ZIP) flash-usb-serial-sd
+flash-usb-serial: $(PKG_ZIP)
+	nrfutil dfu usb-serial -pkg $(PKG_ZIP) -p $(USB_SERIAL_DEVICE)
+
+else
+
+FWID = 0x00
+$(PKG_ZIP): $(APPLICATION_HEX)
+	nrfutil pkg generate --hw-version $(HW_VERSION) --sd-req $(FWID) --application-version 1 --application $< $@
+
+flash-usb-serial: $(PKG_ZIP)
+	nrfutil dfu usb-serial -pkg $(PKG_ZIP) -p $(USB_SERIAL_DEVICE)
+
+endif
+
+.PHONY: flash erase flash-usb-serial
+
+# Flash the program
+flash: $(APPLICATION_HEX)
+	@echo Flashing: $<
+	pyocd-flashtool -d debug -t nrf$(HW_VERSION) -se $<
+
+erase:
+	pyocd-flashtool -d debug -t nrf$(HW_VERSION) -ce
+
+SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
+CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
+sdk_config:
+	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
