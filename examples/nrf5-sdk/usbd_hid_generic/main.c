@@ -512,7 +512,7 @@ static void init_bsp(void)
     APP_ERROR_CHECK(ret);
 
     INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_LEFT );
-    INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_RIGHT);
+    //INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_RIGHT);
 
     /* Configure LEDs */
     bsp_board_init(BSP_INIT_LEDS);
