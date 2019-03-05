@@ -47,7 +47,7 @@ extern "C" {
 #include "nrf_gpio.h"
 
 #ifdef CONFIG_GPIO_AS_PINRESET
-#undef CONFIG_GPIO_AS_PINRESET
+#error "CONFIG_GPIO_AS_PINRESET Should NOT be defined! Comment <CFLAGS += -DCONFIG_GPIO_AS_PINRESET> and <ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET> in Makefile."
 #endif
 
 // LEDs definitions for nRF52840-MDK USB Dongle
