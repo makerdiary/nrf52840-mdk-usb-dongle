@@ -1,10 +1,14 @@
-PROJECT_NAME     := open_bootloader_usb_mbr_nrf52840_mdk_usb_dongle
+PROJECT_NAME     := nrf52840_mdk_usb_dongle_open_bootloader
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
+FW_VERSION_MAJOR := 1
+FW_VERSION_MINOR := 2
+FW_VERSION_PATCH := 0
+FW_VERSION       := $(FW_VERSION_MAJOR).$(FW_VERSION_MINOR).$(FW_VERSION_PATCH)
 
-SDK_ROOT := ../../../../nrf_sdks/nRF5_SDK_15.0.0_a53641a
+MDK_ROOT := ../../../..
+SDK_ROOT := $(MDK_ROOT)/nrf_sdks/nRF5_SDK_15.2.0_9412b96
 PROJ_DIR := ..
-
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
   LINKER_SCRIPT  := open_bootloader_gcc_nrf52.ld
@@ -13,8 +17,8 @@ $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
 SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
   $(SDK_ROOT)/components/libraries/bootloader/serial_dfu/nrf_dfu_serial_usb.c \
-  $(SDK_ROOT)/components/libraries/experimental_log/src/nrf_log_frontend.c \
-  $(SDK_ROOT)/components/libraries/experimental_log/src/nrf_log_str_formatter.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
   $(SDK_ROOT)/components/boards/boards.c \
   $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
   $(SDK_ROOT)/components/libraries/crypto/backend/cc310_bl/cc310_bl_backend_ecc.c \
@@ -44,8 +48,9 @@ SRC_FILES += \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf_format.c \
   $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage.c \
   $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage_nvmc.c \
-  $(SDK_ROOT)/components/libraries/experimental_memobj/nrf_memobj.c \
+  $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
   $(SDK_ROOT)/components/libraries/queue/nrf_queue.c \
+  $(SDK_ROOT)/components/libraries/ringbuf/nrf_ringbuf.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
   $(SDK_ROOT)/components/libraries/slip/slip.c \
@@ -65,6 +70,13 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c \
   $(PROJ_DIR)/dfu_public_key.c \
   $(PROJ_DIR)/main.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_final.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_dfu_timers.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_fw_activation.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_info.c \
+  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_wdt.c \
   $(SDK_ROOT)/external/nano-pb/pb_common.c \
   $(SDK_ROOT)/external/nano-pb/pb_decode.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/dfu-cc.pb.c \
@@ -79,28 +91,30 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_ver_validation.c \
   $(SDK_ROOT)/components/libraries/bootloader/serial_dfu/nrf_dfu_serial.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_final.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_dfu_timers.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_fw_activation.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_info.c \
-  $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_wdt.c \
+  $(SDK_ROOT)/external/utf_converter/utf.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_chacha_poly_aead.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_ecc.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_ecdh.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_ecdsa.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_eddsa.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hash.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c \
 
 # Include folders common to all targets
 INC_FOLDERS += \
-  $(PROJ_DIR)/config \
+  $(SDK_ROOT)/external/nrf_oberon/include \
   $(SDK_ROOT)/modules/nrfx/drivers/include \
   $(SDK_ROOT)/components/libraries/crypto/backend/micro_ecc \
-  $(SDK_ROOT)/modules/nrfx/hal \
+  $(SDK_ROOT)/components/libraries/memobj \
   $(SDK_ROOT)/components/libraries/crc32 \
   $(SDK_ROOT)/components/libraries/experimental_section_vars \
   $(SDK_ROOT)/components/libraries/mem_manager \
-  $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw \
+  $(SDK_ROOT)/components/libraries/fstorage \
   $(SDK_ROOT)/components/libraries/util \
   $(SDK_ROOT)/modules/nrfx \
   $(SDK_ROOT)/components/libraries/timer/experimental \
   $(SDK_ROOT)/components/libraries/timer \
+  $(SDK_ROOT)/components/libraries/log \
   $(SDK_ROOT)/components/libraries/crypto/backend/oberon \
   $(SDK_ROOT)/components/libraries/low_power_pwm \
   $(SDK_ROOT)/components/libraries/crypto/backend/cifra \
@@ -109,9 +123,9 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crypto/backend/cc310_bl \
   $(SDK_ROOT)/components/drivers_nrf/nrf_soc_nosd \
   $(SDK_ROOT)/components/softdevice/mbr/nrf52840/headers \
+  $(SDK_ROOT)/components/libraries/log/src \
   $(SDK_ROOT)/components/libraries/bootloader/dfu \
   $(SDK_ROOT)/components/libraries/bootloader/serial_dfu \
-  $(SDK_ROOT)/components/libraries/usbd/config \
   $(SDK_ROOT)/external/nrf_cc310_bl/include \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc \
   $(SDK_ROOT)/components/libraries/usbd \
@@ -120,6 +134,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/stack_info \
   $(SDK_ROOT)/components/libraries/crypto/backend/nrf_hw \
   $(SDK_ROOT)/components/libraries/led_softblink \
+  $(SDK_ROOT)/external/nrf_oberon \
   $(SDK_ROOT)/components/libraries/strerror \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
   $(SDK_ROOT)/components/boards \
@@ -127,29 +142,31 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/bootloader \
   $(SDK_ROOT)/external/fprintf \
   $(SDK_ROOT)/components/libraries/crypto \
+  $(MDK_ROOT)/config \
   $(PROJ_DIR)/config \
   $(SDK_ROOT)/components/libraries/scheduler \
   $(SDK_ROOT)/components/libraries/slip \
-  $(SDK_ROOT)/components/libraries/experimental_log/src \
+  $(SDK_ROOT)/modules/nrfx/hal \
+  $(SDK_ROOT)/external/utf_converter \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
   $(PROJ_DIR) \
   $(SDK_ROOT)/components/libraries/sortlist \
-  $(SDK_ROOT)/components/libraries/fstorage \
+  $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw \
   $(SDK_ROOT)/modules/nrfx/mdk \
-  $(SDK_ROOT)/components/libraries/mutex \
   $(SDK_ROOT)/external/nrf_cc310/include \
   $(SDK_ROOT)/external/nano-pb \
   $(SDK_ROOT)/components/libraries/queue \
-  $(SDK_ROOT)/components/libraries/experimental_log \
-  $(SDK_ROOT)/components/libraries/experimental_memobj \
+  $(SDK_ROOT)/components/libraries/mutex \
   $(SDK_ROOT)/components/drivers_nrf/usbd \
+  $(SDK_ROOT)/components/libraries/ringbuf \
 
 # Libraries common to all targets
 LIB_FILES += \
-  $(SDK_ROOT)/external/nrf_cc310_bl/lib/libnrf_cc310_bl_0.9.9.a \
+  $(SDK_ROOT)/external/nrf_oberon/lib/nrf52/liboberon_2.0.5.a \
+  $(SDK_ROOT)/external/nrf_cc310_bl/lib/libnrf_cc310_bl_0.9.10.a \
 
 # Optimization flags
 OPT = -Os -g3
@@ -161,6 +178,8 @@ CFLAGS += $(OPT)
 CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 CFLAGS += -DBOARD_CUSTOM
+CFLAGS += -DNRF52840_MDK_USB_DONGLE
+# Note: Comment CONFIG_GPIO_AS_PINRESET for nRF52840-MDK USB Dongle!
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52840_XXAA
@@ -185,6 +204,8 @@ ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ASMFLAGS += -DAPP_TIMER_V2
 ASMFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 ASMFLAGS += -DBOARD_CUSTOM
+ASMFLAGS += -DNRF52840_MDK_USB_DONGLE
+# Note: Comment CONFIG_GPIO_AS_PINRESET for nRF52840-MDK USB Dongle!
 #ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52840_XXAA
@@ -229,30 +250,36 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: flash flash_mbr mergehex flash_all erase
+.PHONY: flash flash_mbr erase
 
 # Flash the program
-flash: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	@echo Flashing: $<
-	pyocd-flashtool -t nrf52 -se $<
+flash: default
+	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+	pyocd flash -t nrf52840 -e sector --format hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 
 # Flash softdevice
 flash_mbr:
 	@echo Flashing: mbr_nrf52_2.3.0_mbr.hex
-	pyocd-flashtool -t nrf52 -se $(SDK_ROOT)/components/softdevice/mbr/nrf52840/hex/mbr_nrf52_2.3.0_mbr.hex
-
-# Merge the app and mbr
-mergehex:
-	@echo Merging nrf52840_xxaa.hex and mbr_nrf52_2.3.0_mbr.hex
-	mergehex -m $(SDK_ROOT)/components/softdevice/mbr/nrf52840/hex/mbr_nrf52_2.3.0_mbr.hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex -o $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex
-
-# Flash merged hex
-flash_all: $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex
-	@echo Flashing: $<
-	pyocd-flashtool -t nrf52 -ce $<
+	pyocd flash -t nrf52840 -e sector --format hex $(SDK_ROOT)/components/softdevice/mbr/nrf52840/hex/mbr_nrf52_2.3.0_mbr.hex
 
 erase:
-	pyocd-flashtool -t nrf52 -ce
+	pyocd erase -t nrf52840 -c
+
+# Merge bootloader and mbr
+merge_mbr: default
+	@echo Merging: mbr_nrf52_2.3.0_mbr.hex and nrf52840_xxaa.hex
+	mergehex -m $(SDK_ROOT)/components/softdevice/mbr/nrf52840/hex/mbr_nrf52_2.3.0_mbr.hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex -o $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex
+
+pkg: merge_mbr
+	@echo Generating DFU package...
+	nrfutil pkg generate --hw-version 52 --sd-req 0 --bootloader $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex --bootloader-version $(FW_VERSION_MAJOR)$(FW_VERSION_MINOR)$(FW_VERSION_PATCH) --key-file $(PROJ_DIR)/dfu_private_key.pem $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).zip
+
+copy: pkg
+	@echo Copying firmware and package...
+	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).hex
+	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa_mbr.hex $(MDK_ROOT)/firmware/open_bootloader/$(PROJECT_NAME)_v$(FW_VERSION).hex
+	cp $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).zip $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).zip
+	cp $(OUTPUT_DIRECTORY)/$(PROJECT_NAME).zip $(MDK_ROOT)/firmware/open_bootloader/$(PROJECT_NAME)_v$(FW_VERSION).zip
 
 SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
