@@ -10,7 +10,7 @@ mbed-os/
 site
 factory_test_app
 dfu
-open_bootloader/dfu_private_key.pem
+dfu_private_key.pem
 
 mkdocs-material/*
 material/*
