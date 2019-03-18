@@ -29,7 +29,7 @@ theme:
   # Default values, taken from mkdocs_theme.yml
   language: en
   feature:
-    tabs: true
+    tabs: false
   palette:
     primary: marsala
     accent: marsala
@@ -84,7 +84,7 @@ markdown_extensions:
   - pymdownx.tilde
 
 # Page tree
-pages:
+nav:
   - Introduction: index.md
   - Getting Started: getting-started/index.md
   - Programming: programming/index.md
