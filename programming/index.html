@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
     
@@ -38,30 +38,64 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
     
     
       
-        <title>Programming - nRF52840 Micro Dev Kit USB Dongle</title>
+        <title>nRF52840 Micro Dev Kit USB Dongle</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.982221ab.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.c61db26e.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.3b80946a.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
       
     
     
-      <script src="../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../assets/javascripts/modernizr.1f0bcf2b.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-54344624-2", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -75,7 +109,7 @@
         
         
           <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
-    viewBox="0 0 416 448" id="github">
+    viewBox="0 0 416 448" id="__github">
   <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
         8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
         18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
@@ -95,9 +129,9 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
       <a href="#how-to-program-the-nrf52840-micro-dev-kit-usb-dongle" tabindex="1" class="md-skip">
         Skip to content
@@ -115,33 +149,30 @@
         </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                nRF52840 Micro Dev Kit USB Dongle
-              </span>
-              <span class="md-header-nav__topic">
-                Programming
-              </span>
-            
+            <span class="md-header-nav__topic">
+              nRF52840 Micro Dev Kit USB Dongle
+            </span>
+            <span class="md-header-nav__topic">
+              Programming
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="search"></label>
+  <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="search"></label>
+      <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
       </button>
@@ -158,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -169,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      nrf52840-mdk-usb-dongle
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    nrf52840-mdk-usb-dongle
+  </div>
+</a>
           </div>
         </div>
       
@@ -195,42 +223,6 @@
         
       
       
-        
-
-<nav class="md-tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href=".." title="Introduction" class="md-tabs__link md-tabs__link--active">
-        Introduction
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -239,12 +231,12 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="drawer">
-    <span class="md-nav__button md-logo">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 Micro Dev Kit USB Dongle" class="md-nav__button md-logo">
       
         <img src="../images/logo.svg" width="48" height="48">
       
-    </span>
+    </a>
     nRF52840 Micro Dev Kit USB Dongle
   </label>
   
@@ -254,20 +246,18 @@
 
   
 
-
-  <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      nrf52840-mdk-usb-dongle
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    nrf52840-mdk-usb-dongle
+  </div>
+</a>
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -305,12 +295,12 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="toc">
+      <label class="md-nav__link md-nav__link--active" for="__toc">
         Programming
       </label>
     
@@ -325,7 +315,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -513,7 +503,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -637,25 +627,25 @@
 <li>macOS</li>
 </ul>
 <p>After nRF Connect is installed, you can find Programmer in the app list by selecting <strong>Add/remove apps</strong>.</p>
-<p><img alt="" src="./images/install-nrf-connect-programmer.png" /></p>
+<p><img alt="" src="images/install-nrf-connect-programmer.png" /></p>
 <h3 id="programming-application">Programming Application<a class="headerlink" href="#programming-application" title="Permanent link">&para;</a></h3>
 <p>To program the Dongle, it must be in bootloader mode.</p>
 <p>While holding the dongle's RESET/USR button, connect it to your computer. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. The Dongle is now ready for programming.</p>
 <p>Launch <em>Programmer</em> app from nRF Connect, you can find the dongle and select it to start programming.</p>
-<p><img alt="" src="./images/launching-programmer.png" /></p>
+<p><img alt="" src="images/launching-programmer.png" /></p>
 <p>Add an application <code>.hex</code> file, you will see the memory layout of the HEX file. Make sure the application address starts from <code>0x00001000</code>, and then Write it into the Dongle:</p>
 <p><a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex"><button data-md-color-primary="marsala">Blinky Hex File</button></a></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>You MUST provide a correct application firmware without covering the Master Boot Record(MBR) and Bootloader. That is to say the application address should start from <code>0x00001000</code> and not exceed <code>0x000E0000</code>.</p>
 </div>
-<p><img alt="" src="./images/adding-hex-file.png" /></p>
+<p><img alt="" src="images/adding-hex-file.png" /></p>
 <p>After programming, please physically reset the Dongle by re-plugging it. The new firmware should work as expected.</p>
-<p><img alt="" src="./images/blinky_example.jpg" /></p>
+<p><img alt="" src="images/blinky_example.jpg" /></p>
 <h3 id="programming-softdevice">Programming SoftDevice<a class="headerlink" href="#programming-softdevice" title="Permanent link">&para;</a></h3>
 <p>If you want to run your application with BLE/ANT, a SoftDevice is required before programming the application. </p>
 <p>Select a SoftDevice <code>.hex</code> file from <code>&lt;nRF5 SDK&gt;/components/softdevice/s140/hex</code>, and then write it into the Dongle:</p>
-<p><img alt="" src="./images/programming-softdevice.png" /></p>
+<p><img alt="" src="images/programming-softdevice.png" /></p>
 <h2 id="using-nrfutil">Using nrfutil<a class="headerlink" href="#using-nrfutil" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/NordicSemiconductor/pc-nrfutil">nrfutil</a> is a Python package and command-line utility that supports Device Firmware Updates (DFU) and cryptographic functionality.</p>
 <p>The nrfutil application and its library offer the following features:</p>
@@ -694,7 +684,7 @@
 <p>See the <a href="http://infocenter.nordicsemi.com/pdf/nrfutil_v1.3.pdf">nrfutil User Guide</a> for more commands details.</p>
 </div>
 <p>Here we take the <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex">blinky example</a> as an example:</p>
-<p><img alt="" src="./images/generating-dfu-package.png" /></p>
+<p><img alt="" src="images/generating-dfu-package.png" /></p>
 <p>To update the firmware, the Dongle must be in bootloader mode.</p>
 <p>While holding the dongle's RESET/USR button, connect it to your host. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. It is now ready for programming.</p>
 <p>This command takes several options that you can list using:</p>
@@ -705,7 +695,7 @@
 <div class="codehilite"><pre><span></span>nrfutil dfu usb_serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
 </pre></div>
 
-<p><img alt="" src="./images/nrfutil-programming.png" /></p>
+<p><img alt="" src="images/nrfutil-programming.png" /></p>
 <p>The new application firmware should work as expected after Device programmed.</p>
 <h3 id="updating-softdevice">Updating SoftDevice<a class="headerlink" href="#updating-softdevice" title="Permanent link">&para;</a></h3>
 <p>If you want to run your application with BLE/ANT, a SoftDevice is required before programming the application. </p>
@@ -717,7 +707,7 @@
 <div class="codehilite"><pre><span></span>nrfutil dfu usb_serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
 </pre></div>
 
-<p><img alt="" src="./images/nrfutil-sd-programming.png" /></p>
+<p><img alt="" src="images/nrfutil-sd-programming.png" /></p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>Content on this page is licensed under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.</p>
 <h2 id="create-an-issue">Create an Issue<a class="headerlink" href="#create-an-issue" title="Permanent link">&para;</a></h2>
@@ -789,16 +779,14 @@
           </div>
         
         powered by
-        <a href="http://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org">MkDocs</a>
         and
         <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
-        
   <div class="md-footer-social">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
       <a href="https://community.makerdiary.com" class="md-footer-social__link fa fa-comments"></a>
     
@@ -812,21 +800,15 @@
     
   </div>
 
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../assets/javascripts/application.daa92ae3.js"></script>
+      <script src="../assets/javascripts/application.24c73612.js"></script>
       
-      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-54344624-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
   </body>

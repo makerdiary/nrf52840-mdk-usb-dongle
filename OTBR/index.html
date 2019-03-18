@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
     
@@ -38,30 +38,64 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
     
     
       
-        <title>OpenThread Border Router - nRF52840 Micro Dev Kit USB Dongle</title>
+        <title>nRF52840 Micro Dev Kit USB Dongle</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.8d40d89b.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.982221ab.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.c61db26e.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.3b80946a.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
       
     
     
-      <script src="../assets/javascripts/modernizr.20ef595d.js"></script>
+      <script src="../assets/javascripts/modernizr.1f0bcf2b.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-54344624-2", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -75,7 +109,7 @@
         
         
           <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
-    viewBox="0 0 416 448" id="github">
+    viewBox="0 0 416 448" id="__github">
   <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
         8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
         18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
@@ -95,9 +129,9 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
       <a href="#openthread-border-router-an-open-source-border-router-designed-to-work-with-openthread" tabindex="1" class="md-skip">
         Skip to content
@@ -115,33 +149,30 @@
         </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                nRF52840 Micro Dev Kit USB Dongle
-              </span>
-              <span class="md-header-nav__topic">
-                OpenThread Border Router
-              </span>
-            
+            <span class="md-header-nav__topic">
+              nRF52840 Micro Dev Kit USB Dongle
+            </span>
+            <span class="md-header-nav__topic">
+              OpenThread Border Router
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="search"></label>
+  <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="search"></label>
+      <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
       </button>
@@ -158,7 +189,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -169,20 +199,18 @@
 
   
 
-
-  <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      nrf52840-mdk-usb-dongle
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    nrf52840-mdk-usb-dongle
+  </div>
+</a>
           </div>
         </div>
       
@@ -195,42 +223,6 @@
         
       
       
-        
-
-<nav class="md-tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href=".." title="Introduction" class="md-tabs__link md-tabs__link--active">
-        Introduction
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -239,12 +231,12 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="drawer">
-    <span class="md-nav__button md-logo">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 Micro Dev Kit USB Dongle" class="md-nav__button md-logo">
       
         <img src="../images/logo.svg" width="48" height="48">
       
-    </span>
+    </a>
     nRF52840 Micro Dev Kit USB Dongle
   </label>
   
@@ -254,20 +246,18 @@
 
   
 
-
-  <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      nrf52840-mdk-usb-dongle
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    nrf52840-mdk-usb-dongle
+  </div>
+</a>
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -329,12 +319,12 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="toc">
+      <label class="md-nav__link md-nav__link--active" for="__toc">
         OpenThread Border Router
       </label>
     
@@ -349,7 +339,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -596,7 +586,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -789,7 +779,7 @@
                 <h1 id="openthread-border-router-an-open-source-border-router-designed-to-work-with-openthread">OpenThread Border Router <br><small>An open source border router, designed to work with OpenThread</small><a class="headerlink" href="#openthread-border-router-an-open-source-border-router-designed-to-work-with-openthread" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>A Thread Border Router serves as a gateway between the Internet and the Thread network. OpenThread's implementation of a Border Router is called OpenThread Border Router (OTBR).</p>
-<p><img alt="" src="./images/otbr-arch-borderagent_2x.png" /></p>
+<p><img alt="" src="images/otbr-arch-borderagent_2x.png" /></p>
 <p>OTBR includes a number of features, including:</p>
 <ul>
 <li><a href="https://openthread.io/guides/border-router/web-gui">Web GUI</a> for configuration and management</li>
@@ -840,7 +830,7 @@
 </li>
 <li>
 <p>Attach the Dongle to the Border Router platform via USB.</p>
-<p><img alt="RPI3B &amp; nRF52840 Dongle" src="./images/rpi3b&amp;nrf52840.jpg" /></p>
+<p><img alt="RPI3B &amp; nRF52840 Dongle" src="images/rpi3b&amp;nrf52840.jpg" /></p>
 </li>
 <li>
 <p>Configure the Dongle's serial port in <code>wpantund</code>. Add the serial port name to <code>/etc/wpantund.conf</code>. For example, for a serial port name of <code>ttyACM0</code>:</p>
@@ -888,7 +878,7 @@
 
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>For more features(such as external commissioning), you can follow the <a href="./../getting-started/#update-ncp-firmware">Update NCP firmware</a> section to running the latest NCP firmware.</p>
+<p>For more features(such as external commissioning), you can follow the <a href="../getting-started/#update-ncp-firmware">Update NCP firmware</a> section to running the latest NCP firmware.</p>
 </div>
 <p>If the <code>NCP:State</code> is <code>uninitialized</code>, troubleshoot with the following:</p>
 <ol>
@@ -910,25 +900,25 @@
 <p>Now, you can use the OpenThread Border Router (OTBR) Web GUI to configure and form, join, or check the status of a Thread network.</p>
 <p>The Border Router enables Access Point mode and advertises the <strong>BorderRouter-AP</strong> network default. </p>
 <p>Connect to the <strong>BorderRouter-AP</strong> Wi-Fi network and access the Web GUI by visiting the OTBR's local IPv4 address(<code>10.42.0.1</code> default) in a mobile browser:</p>
-<p><img alt="" src="./images/otbr_web_gui_index.jpg" /></p>
+<p><img alt="" src="images/otbr_web_gui_index.jpg" /></p>
 <h4 id="join-a-thread-network">Join a Thread network<a class="headerlink" href="#join-a-thread-network" title="Permanent link">&para;</a></h4>
 <p>Use the <strong>Join</strong> menu option to scan for and join an existing Thread network.</p>
 <h4 id="form-a-thread-network">Form a Thread network<a class="headerlink" href="#form-a-thread-network" title="Permanent link">&para;</a></h4>
 <p>Use the <strong>Form</strong> menu option to create a new Thread network.</p>
-<p><img alt="" src="./images/form_thread_network.jpg" /></p>
+<p><img alt="" src="images/form_thread_network.jpg" /></p>
 <p>After the network forms, confirm by checking the <strong>Status</strong> menu option or running <code>sudo wpanctl status</code> on the command line of the OTBR:</p>
-<p><img alt="" src="./images/checking_status_mobile.jpg" /></p>
-<p><img alt="" src="./images/checking_network_status.png" /></p>
+<p><img alt="" src="images/checking_status_mobile.jpg" /></p>
+<p><img alt="" src="images/checking_network_status.png" /></p>
 <h3 id="external-thread-commissioning">External Thread Commissioning<a class="headerlink" href="#external-thread-commissioning" title="Permanent link">&para;</a></h3>
 <p>OpenThread Border Router (OTBR) features a Thread Border Agent, which supports external Thread Commissioning. In external Thread Commissioning, a device outside of the Thread network (for example, a mobile phone) commissions new devices onto the network.</p>
-<p><img alt="" src="./images/thread-commissioning.jpg" /></p>
+<p><img alt="" src="images/thread-commissioning.jpg" /></p>
 <p>This section details how to use the Thread Commissioning App to commission an OpenThread device onto a network created and managed by the OTBR Web GUI.</p>
 <h4 id="set-up-the-joiner-device">Set up the Joiner device<a class="headerlink" href="#set-up-the-joiner-device" title="Permanent link">&para;</a></h4>
 <p>You should prepare another Dongle or an nRF52840 board(such as <a href="https://wiki.makerdiary.com/nrf52840-mdk/">nRF52840-MDK</a>). Flash the board with the OpenThread CLI firmware. Here is the pre-built CLI firmware for the Dongle:</p>
 <p><a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/cli"><button data-md-color-primary="marsala">CLI firmware</button></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For programming, just follow the "<a href="./../programming/">Programming</a>" section.</p>
+<p>For programming, just follow the "<a href="../programming/">Programming</a>" section.</p>
 </div>
 <p>Once the Joiner device is ready, obtain its factory-assigned IEEE EUI-64. Use the <code>eui64</code> command in the OpenThread CLI:</p>
 <div class="codehilite"><pre><span></span>&gt; eui64
@@ -941,11 +931,11 @@ Done
 <p><a href="https://play.google.com/store/apps/details?id=org.threadgroup.commissioner&hl=en"><button data-md-color-primary="marsala">Thread Commissioning App</button></a></p>
 <h4 id="connect-to-the-border-router">Connect to the Border Router<a class="headerlink" href="#connect-to-the-border-router" title="Permanent link">&para;</a></h4>
 <p>Start the Thread Commissioning App, then tap <strong>FIND WI-FI NETWORK</strong> and connect your phone running the Thread Commissioning App to the Wi-Fi access point.</p>
-<p><img alt="" src="./images/start-commisioning-app.jpg" />
-<img alt="" src="./images/connect-to-ap.jpg" /></p>
+<p><img alt="" src="images/start-commisioning-app.jpg" />
+<img alt="" src="images/connect-to-ap.jpg" /></p>
 <p>Select the target Border Router from the available list. The name is the same as the Thread network created by the OTBR Web GUI. If the same Border Router shows up multiple times with different IPv4 and IPv6 addresses, select the one with the static IPv4 address used for the Wi-Fi access point setup (<code>10.42.0.1</code> here).</p>
 <p>When prompted for a password, enter the passphrase (Commissioner Credential) set by the OTBR Web GUI.</p>
-<p><img alt="" src="./images/enter-commissioner-credential.jpg" /></p>
+<p><img alt="" src="images/enter-commissioner-credential.jpg" /></p>
 <h4 id="commission-the-joiner">Commission the Joiner<a class="headerlink" href="#commission-the-joiner" title="Permanent link">&para;</a></h4>
 <p>Once connected to the Border Router, the app provides the option to scan a Connect QR Code or enter a Join Passphrase manually.</p>
 <p>Thread Connect QR Codes are created with the following text string format:</p>
@@ -953,9 +943,9 @@ Done
 </pre></div>
 Where <code>eui</code> is the Joiner device's EUI64 value and <code>cc</code> is the Joiner Credential.</p>
 <p>Use this text string with an online QR Code generator(such as <a href="https://unitag.io">unitag.io</a>) to create a QR Code for scanning.</p>
-<p><img alt="" src="./images/generate-joiner-qr-code.png" /></p>
+<p><img alt="" src="images/generate-joiner-qr-code.png" /></p>
 <p>In the Thread Commissioning App, scan the Connect QR Code of the Joiner device:</p>
-<p><img alt="" src="./images/scan-joiner-qrcode.jpg" /></p>
+<p><img alt="" src="images/scan-joiner-qrcode.jpg" /></p>
 <p>While the app is waiting, enter the OpenThread CLI on the Joiner device and start the Joiner role with that same Joiner Credential:</p>
 <div class="codehilite"><pre><span></span>&gt; ifconfig up
 Done
@@ -967,7 +957,7 @@ Done
 <div class="codehilite"><pre><span></span>&gt; Join success
 </pre></div>
 
-<p><img alt="" src="./images/add-joiner-successfully.jpg" /></p>
+<p><img alt="" src="images/add-joiner-successfully.jpg" /></p>
 <h4 id="join-the-network">Join the network<a class="headerlink" href="#join-the-network" title="Permanent link">&para;</a></h4>
 <p>On the Joiner device, start the Thread protocol to automatically join the network.</p>
 <div class="codehilite"><pre><span></span>&gt; thread start
@@ -1081,16 +1071,14 @@ Done
           </div>
         
         powered by
-        <a href="http://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org">MkDocs</a>
         and
         <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
-        
   <div class="md-footer-social">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
       <a href="https://community.makerdiary.com" class="md-footer-social__link fa fa-comments"></a>
     
@@ -1104,21 +1092,15 @@ Done
     
   </div>
 
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="../assets/javascripts/application.daa92ae3.js"></script>
+      <script src="../assets/javascripts/application.24c73612.js"></script>
       
-      <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-54344624-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
     
   </body>
