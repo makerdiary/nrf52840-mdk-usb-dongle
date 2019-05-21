@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017 - 2018, Nordic Semiconductor ASA
+ * Copyright (c) 2017 - 2019, Nordic Semiconductor ASA
  *
  * All rights reserved.
  *
@@ -87,17 +87,24 @@ static void thread_ncp_init(void)
 
     otNcpInit(m_app.p_ot_instance);
 
+#ifdef OPENTHREAD_FTD
     otThreadSetRouterSelectionJitter(m_app.p_ot_instance, ROUTER_SELECTION_JITTER);
+#endif
 
+#ifndef OPENTHREAD_RADIO
     uint32_t err_code = bsp_thread_init(m_app.p_ot_instance);
     APP_ERROR_CHECK(err_code);
+#endif
 }
 
 /**@brief Function for deinitializing the Thread Stack in NCP mode.
 */
 static void thread_ncp_deinit(void)
 {
+#ifndef OPENTHREAD_RADIO
     bsp_thread_deinit(m_app.p_ot_instance);
+#endif
+
     otInstanceFinalize(m_app.p_ot_instance);
     m_app.p_ot_instance = NULL;
 }

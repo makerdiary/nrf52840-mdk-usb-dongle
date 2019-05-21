@@ -1,16 +1,17 @@
-PROJECT_NAME     := ot_ncp_nrf52840_mdk_usb_dongle
+PROJECT_NAME     := thread_ncp_ftd_nrf52840_mdk_usb_dongle
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 FW_VERSION_MAJOR := 1
-FW_VERSION_MINOR := 2
+FW_VERSION_MINOR := 3
 FW_VERSION_PATCH := 0
+FW_VERSION       := $(FW_VERSION_MAJOR).$(FW_VERSION_MINOR).$(FW_VERSION_PATCH)
 
-MDK_ROOT := ../../../..
-SDK_ROOT := $(MDK_ROOT)/nrf_sdks/nRF5_SDK_for_Thread_and_Zigbee
+MDK_ROOT := ../../../../..
+SDK_ROOT := $(MDK_ROOT)/nrf_sdks/nRF5SDKforThreadandZigbeev300d310e71
 PROJ_DIR := ..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
-  LINKER_SCRIPT  := $(SDK_ROOT)/external/openthread/linker_scripts/openthread_nrf52840_bootloader.ld
+  LINKER_SCRIPT  := thread_ncp_ftd_usb_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -45,17 +46,18 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_clock.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_power.c \
-  $(SDK_ROOT)/components/drivers_nrf/usbd/nrf_drv_usbd.c \
   $(SDK_ROOT)/components/drivers_nrf/nrf_soc_nosd/nrf_nvic.c \
   $(SDK_ROOT)/modules/nrfx/hal/nrf_nvmc.c \
   $(SDK_ROOT)/components/drivers_nrf/nrf_soc_nosd/nrf_soc.c \
+  $(SDK_ROOT)/modules/nrfx/soc/nrfx_atomic.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_clock.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_gpiote.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_power.c \
-  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_power_clock.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_systick.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
   $(SDK_ROOT)/components/libraries/bsp/bsp.c \
   $(SDK_ROOT)/components/libraries/bsp/bsp_thread.c \
-  $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/../main.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -64,52 +66,54 @@ SRC_FILES += \
 
 # Include folders common to all targets
 INC_FOLDERS += \
-  $(SDK_ROOT)/components/softdevice/mbr/nrf52840/headers \
-  $(SDK_ROOT)/components/drivers_nrf/usbd \
-  $(SDK_ROOT)/external/fprintf \
+  $(SDK_ROOT)/external/utf_converter \
+  $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
+  $(SDK_ROOT)/integration/nrfx \
   $(PROJ_DIR) \
-  $(SDK_ROOT)/integration/nrfx/legacy \
-  $(SDK_ROOT)/components/libraries/experimental_section_vars \
-  $(SDK_ROOT)/components/libraries/usbd \
-  $(SDK_ROOT)/components/libraries/atomic_fifo \
-  $(SDK_ROOT)/components/libraries/usbd/class/cdc \
-  $(SDK_ROOT)/components/libraries/delay \
+  $(SDK_ROOT)/components/libraries/scheduler \
   $(MDK_ROOT)/config \
   $(PROJ_DIR)/config \
-  $(SDK_ROOT)/components/toolchain/cmsis/include \
-  $(SDK_ROOT)/components/libraries/balloc \
-  $(SDK_ROOT)/components/libraries/log \
-  $(SDK_ROOT)/components/libraries/memobj \
-  $(SDK_ROOT)/components/libraries/atomic \
-  $(SDK_ROOT)/components \
-  $(SDK_ROOT)/external/utf_converter \
-  $(SDK_ROOT)/components/libraries/scheduler \
+  $(SDK_ROOT)/components/libraries/experimental_section_vars \
+  $(SDK_ROOT)/components/libraries/atomic_fifo \
+  $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/libraries/strerror \
-  $(SDK_ROOT)/integration/nrfx \
+  $(SDK_ROOT)/components/boards \
+  $(SDK_ROOT)/components/drivers_nrf/nrf_soc_nosd \
+  $(SDK_ROOT)/components/libraries/usbd/class/cdc \
+  $(SDK_ROOT)/components/libraries/button \
+  $(SDK_ROOT)/components/libraries/log \
+  $(SDK_ROOT)/modules/nrfx/hal \
+  $(SDK_ROOT)/components/libraries/log/src \
+  $(SDK_ROOT)/components/libraries/bsp \
+  $(SDK_ROOT)/components/softdevice/mbr/nrf52840/headers \
+  $(SDK_ROOT)/integration/nrfx/legacy \
   $(SDK_ROOT)/modules/nrfx/drivers/include \
   $(SDK_ROOT)/components/libraries/ringbuf \
-  $(SDK_ROOT)/modules/nrfx \
-  $(SDK_ROOT)/components/drivers_nrf/nrf_soc_nosd \
-  $(SDK_ROOT)/components/libraries/log/src \
-  $(SDK_ROOT)/external/segger_rtt \
-  $(SDK_ROOT)/modules/nrfx/hal \
-  $(SDK_ROOT)/external/openthread/include \
-  $(SDK_ROOT)/components/libraries/bsp \
-  $(SDK_ROOT)/modules/nrfx/mdk \
-  $(SDK_ROOT)/components/boards \
-  $(SDK_ROOT)/components/libraries/timer \
-  $(SDK_ROOT)/components/libraries/button \
-  $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
+  $(SDK_ROOT)/external/fprintf \
+  $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/util \
+  $(SDK_ROOT)/modules/nrfx \
+  $(SDK_ROOT)/external/openthread/include \
+  $(SDK_ROOT)/components \
+  $(SDK_ROOT)/external/segger_rtt \
+  $(SDK_ROOT)/components/libraries/memobj \
+  $(SDK_ROOT)/components/libraries/usbd \
+  $(SDK_ROOT)/components/libraries/atomic \
+  $(SDK_ROOT)/components/libraries/delay \
+  $(SDK_ROOT)/components/toolchain/cmsis/include \
+  $(SDK_ROOT)/external/nrf_cc310/include \
+  $(SDK_ROOT)/components/libraries/timer \
 
 # Libraries common to all targets
 LIB_FILES += \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libopenthread-ncp-ftd.a \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libopenthread-diag.a \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libopenthread-ftd.a \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libopenthread-platform-utils.a \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libmbedcrypto-software.a \
-  $(SDK_ROOT)/external/openthread/lib/gcc/libopenthread-nrf52840-sdk-usb.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libopenthread-ncp-ftd.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libopenthread-diag.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libopenthread-ftd.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libopenthread-platform-utils.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libmbedcrypto.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libopenthread-nrf52840-sdk.a \
+  $(MDK_ROOT)/deps/openthread/output/nrf52840/lib/libnordicsemi-nrf52840-radio-driver.a \
+  $(SDK_ROOT)/external/nrf_cc310/lib/cortex-m4/hard-float/libnrf_cc310_0.9.12.a \
 
 # Optimization flags
 OPT = -O3 -g3
@@ -120,10 +124,11 @@ OPT = -O3 -g3
 CFLAGS += $(OPT)
 CFLAGS += -DBOARD_CUSTOM
 CFLAGS += -DNRF52840_MDK_USB_DONGLE
-# Note: Comment CONFIG_GPIO_AS_PINRESET for nRF52840-MDK USB Dongle!
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
+CFLAGS += -DMBR_PRESENT
 CFLAGS += -DNRF52840_XXAA
+CFLAGS += -DOPENTHREAD_FTD=1
 CFLAGS += -DSWI_DISABLE0
 CFLAGS += -DUSBD_POWER_DETECTION=1
 CFLAGS += -mcpu=cortex-m4
@@ -136,7 +141,6 @@ CFLAGS += -fno-builtin -fshort-enums
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
-
 # Assembler flags common to all targets
 ASMFLAGS += -g3
 ASMFLAGS += -mcpu=cortex-m4
@@ -144,10 +148,11 @@ ASMFLAGS += -mthumb -mabi=aapcs
 ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ASMFLAGS += -DBOARD_CUSTOM
 ASMFLAGS += -DNRF52840_MDK_USB_DONGLE
-# Note: Comment CONFIG_GPIO_AS_PINRESET for nRF52840-MDK USB Dongle!
 #ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
+ASMFLAGS += -DMBR_PRESENT
 ASMFLAGS += -DNRF52840_XXAA
+ASMFLAGS += -DOPENTHREAD_FTD=1
 ASMFLAGS += -DSWI_DISABLE0
 ASMFLAGS += -DUSBD_POWER_DETECTION=1
 
@@ -180,6 +185,7 @@ default: nrf52840_xxaa
 help:
 	@echo following targets are available:
 	@echo		nrf52840_xxaa
+	@echo		flash_mbr
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
 
@@ -190,15 +196,15 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: flash erase pkg copy factory
+.PHONY: flash erase pkg copy
 
 # Flash the program
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	pyocd flash -t nrf52840 -e sector --format hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+	pyocd flash -t nrf52840 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 
 erase:
-	pyocd erase -t nrf52840 -c
+	pyocd erase -t nrf52840 --chip
 
 # Generate DFU package
 pkg: default
@@ -208,14 +214,8 @@ pkg: default
 # Copy firmware and package
 copy: pkg
 	@echo Copying firmware and package...
-	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex $(PROJ_DIR)/hex/$(PROJECT_NAME).hex
-	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.zip $(PROJ_DIR)/hex/$(PROJ_DIR)/hex/$(PROJECT_NAME).zip
-
-factory: default
-	@echo Generating factory firmware with bootloader...
-	nrfutil settings generate --family NRF52840 --application $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex --application-version ${FW_VERSION_MAJOR}${FW_VERSION_MINOR}${FW_VERSION_PATCH} --bootloader-version ${FW_VERSION_MAJOR}${FW_VERSION_MINOR}${FW_VERSION_PATCH} --bl-settings-version 2 $(OUTPUT_DIRECTORY)/sett.hex
-	mergehex -m $(OUTPUT_DIRECTORY)/sett.hex $(MDK_ROOT)/firmware/open_bootloader/nrf52840_mdk_usb_dongle_open_bootloader_v$(FW_VERSION_MAJOR).$(FW_VERSION_MINOR).$(FW_VERSION_PATCH).hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex -o $(OUTPUT_DIRECTORY)/$(PROJECT_NAME)_factory.hex
-	pyocd flash -t nrf52840 -e chip --format hex $(OUTPUT_DIRECTORY)/$(PROJECT_NAME)_factory.hex
+	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).hex
+	cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.zip $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).zip
 
 SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
