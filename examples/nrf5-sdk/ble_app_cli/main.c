@@ -746,6 +746,9 @@ void idle_task(void * p_context)
 
     advertising_start(erase_bonds);
 
+    // Set the TX Power
+    APP_ERROR_CHECK(sd_ble_gap_tx_power_set(BLE_GAP_TX_POWER_ROLE_ADV, 0, 8));
+
     // Enter main loop.
     for (;;)
     {
