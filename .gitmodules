@@ -1,0 +1,3 @@
+[submodule "deps/openthread"]
+	path = deps/openthread
+	url = https://github.com/makerdiary/openthread.git
