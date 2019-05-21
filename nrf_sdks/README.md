@@ -1,5 +1,3 @@
-## Installing the nRF5 SDK
-
 ## Install the nRF5 SDK
 
 Download the SDK file [nRF5_SDK_v15.2.0_9412b96](https://www.nordicsemi.com/Software-and-Tools/Software/nRF5-SDK/Download#infotabs) from [www.nordicsemi.com](https://www.nordicsemi.com).
