@@ -7,7 +7,7 @@ During development, you may need to check what kind of data is wirelessly transm
 
 ## What you'll need
 
-* nRF52840 Micro Dev Kit USB Dongle
+* nRF52840 MDK USB Dongle
 * PC running a Linux based operating system or MacOS
 * Wireshark 2.4.1 or newer
 * Python 2.7.10
@@ -29,7 +29,7 @@ $ sudo apt-get install wireshark
 
 ## Connecting the USB Dongle
 
-Connect the nRF52840 Micro Dev Kit USB Dongle to your host as shown below: 
+Connect the nRF52840 MDK USB Dongle to your host as shown below: 
 
 ![](images/connecting-dongle.jpg)
 

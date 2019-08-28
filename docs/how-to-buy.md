@@ -1,16 +1,12 @@
-# How to Buy nRF52840 Micro Dev Kit USB Dongle
+# How to Buy nRF52840 MDK USB Dongle
 
 ## Buy Online
 
-nRF52840 Micro Dev Kit USB Dongle is available on the following channels (click to go directly to the product):
+nRF52840 MDK USB Dongle is available on the following channels (click to go directly to the product):
 
-[![makerdiary store](images/makerdiary-store-logo.png)](https://store.makerdiary.com/collections/frontpage/products/nrf52840-mdk-usb-dongle)
-
-[![SeeedStudio](images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html)
-
-[![Amazon](images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG)
-
-[![Tindie](images/tindie-logo.png)](https://www.tindie.com/products/Zelin/nrf52840-micro-dev-kit-usb-dongle/)
+| **nRF52840 MDK USB Dongle(PCBA)** | **nRF52840 MDK USB Dongle w/ Case** |
+| -------- | ------------------------------ |
+| [![makerdiary store](images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) <br/> <br/>[![SeeedStudio](images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) <br/> <br/>[![Amazon](images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) <br/> <br/>[![Tindie](images/tindie-logo.png)](https://www.tindie.com/products/14856/) | [![makerdiary store](images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) <br/> <br/>[![SeeedStudio](images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) <br/> <br/>[![Amazon](images/amazon_logo.png)](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) <br/> <br/>[![Tindie](images/tindie-logo.png)](https://www.tindie.com/products/17394/) |
 
 ## Bulk & Customization
 

@@ -18,12 +18,12 @@ OTBR includes a number of features, including:
 
 For more technical details, [openthread.io](https://openthread.io/guides/border_router) is the best place for you.
 
-In the following documentation sections, you'll build an OpenThread Border Router with nRF52840 Micro Dev Kit USB Dongle and Raspberry Pi 3B.
+In the following documentation sections, you'll build an OpenThread Border Router with nRF52840 MDK USB Dongle and Raspberry Pi 3B.
 
 ## Required hardware
 
 * Raspberry Pi 3B
-* nRF52840 Micro Dev Kit USB Dongle with the latest NCP firmware
+* nRF52840 MDK USB Dongle with the latest NCP firmware
 * 4 GB (or larger) microSD card and microSD card reader
 * microUSB power supply for Raspberry Pi 3B
 

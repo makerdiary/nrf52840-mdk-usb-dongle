@@ -1,4 +1,4 @@
-Interested in contributing to the nRF52840 Micro Dev Kit USB Dongle project? Want to report a bug? Before you do, please read the following guidelines.
+Interested in contributing to the nRF52840 MDK USB Dongle project? Want to report a bug? Before you do, please read the following guidelines.
 
 ## Got a question or problem?
 

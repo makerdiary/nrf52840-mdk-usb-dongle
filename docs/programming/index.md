@@ -1,6 +1,6 @@
-#How to program the nRF52840 Micro Dev Kit USB Dongle
+#How to program the nRF52840 MDK USB Dongle
 
-The nRF52840 Micro Dev Kit USB Dongle contains an Open Bootloader with Device Firmware Update (DFU) functionality. You can easily program the Dongle using the following tools:
+The nRF52840 MDK USB Dongle contains an Open Bootloader with Device Firmware Update (DFU) functionality. You can easily program the Dongle using the following tools:
 
 * [nRF Connet for Desktop](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF-Connect-for-Desktop)
 * [nrfutil](https://github.com/NordicSemiconductor/pc-nrfutil/) from the command line.
@@ -112,13 +112,13 @@ While holding the dongle's RESET/USR button, connect it to your host. When the D
 This command takes several options that you can list using:
 
 ``` sh
-nrfutil dfu usb_serial --help
+nrfutil dfu usb-serial --help
 ```
 
 Below is the execution of a DFU procedure of the file generated above over `/dev/cu.usbmodem1411`:
 
 ``` sh
-nrfutil dfu usb_serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
+nrfutil dfu usb-serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
 ```
 
 ![](images/nrfutil-programming.png)
@@ -138,7 +138,7 @@ nrfutil pkg generate --hw-version 52 --sd-req 0x00 --softdevice s140_nrf52_6.0.0
 Then update the package using the following command:
 
 ``` sh
-nrfutil dfu usb_serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
+nrfutil dfu usb-serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
 ```
 
 ![](images/nrfutil-sd-programming.png)

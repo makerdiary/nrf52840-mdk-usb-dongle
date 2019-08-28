@@ -1,14 +1,14 @@
-# Getting started with nRF52840 Micro Dev Kit USB Dongle
+# Getting started with nRF52840 MDK USB Dongle
 
-**Congratulations on getting the nRF52840 Micro Dev Kit USB Dongle!**
+## Introduction
 
-This guide details how to get started with the nRF52840 Micro Dev Kit USB Dongle development, and what to expect when you do so.
+This guide details how to get started with the nRF52840 MDK USB Dongle development, and what to expect when you do so.
 
 When you get a new dongle, it has been preprogrammed with the OpenThread NCP image. So you can easily set up a Thread NCP Joiner, which can be securely authenticated and commissioned onto a Thread network.
 
 ## What you'll need
 
-* nRF52840 Micro Dev Kit USB Dongle
+* nRF52840 MDK USB Dongle
 * PC running a Linux based operating system or MacOS
 * wpantund
 
@@ -22,7 +22,7 @@ Follow the [wpantund Installation Guide](https://github.com/openthread/wpantund/
 
 ## Connecting the USB Dongle
 
-Connect the nRF52840 Micro Dev Kit USB Dongle to your host as shown below: 
+Connect the nRF52840 MDK USB Dongle to your host as shown below: 
 
 ![](images/connecting-dongle.jpg)
 

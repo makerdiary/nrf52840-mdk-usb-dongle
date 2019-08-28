@@ -1,14 +1,12 @@
-# nRF52840 Micro Dev Kit USB Dongle <br><small>A small and low-cost nRF52840 Micro Development Kit in USB Dongle Form Factor</small>
+# nRF52840 MDK USB Dongle <br><small>A small and low-cost nRF52840 Micro Development Kit in USB Dongle Form Factor</small>
 
 ## Description
 
-The nRF52840 Micro Dev Kit USB Dongle is a small and low-cost development platform enabled by the nRF52840 multiprotocol SoC in a convenient USB dongle form factor.
+The nRF52840 MDK USB Dongle is a small and low-cost development platform enabled by the nRF52840 multiprotocol SoC in a convenient USB dongle form factor.
 
-The nRF52840 Micro Dev Kit USB Dongle features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G Chip antenna on board.
+The design features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G Chip antenna on board. It can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz multiprotocol node or development board. Alternatively the USB Dongle can be used as a Network Co-Processor(NCP) with a simple connection to a PC or other USB enabled device.
 
-The USB Dongle can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz multiprotocol node or development board. Alternatively the USB Dongle can be used as a Network Co-Processor(NCP) with a simple connection to a PC or other USB enabled device.
-
-![](images/nrf52840-mdk-usb-dongle-overview.jpg)
+[![](images/dongle_pcba_case.jpg)](https://store.makerdiary.com/search?q=nrf52840+dongle)
 
 ## Hardware Features
 
@@ -34,7 +32,7 @@ The USB Dongle can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz mu
 
 ## Software Resource
 
-The nRF52840 Micro Dev Kit USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*, *Web Bluetooth*, *iBeacon*, *Eddystone*, and more.
+The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*, *Web Bluetooth*, *iBeacon*, *Eddystone*, and more.
 
 | Software  | Brief Description |
 | ---------- | ----- |
@@ -53,7 +51,7 @@ The nRF52840 Micro Dev Kit USB Dongle can be used to play with : *nRF5 SDK*, *Op
 
 | Releases | Design Files                   |
 | -------- | ------------------------------ |
-| V1.0     | [nRF52840 Micro Dev Kit USB Dongle V1.0 Pinout Diagram](hardware/nrf52840-mdk-usb-dongle-pinout_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 Schematic](hardware/nrf52840-mdk-usb-dongle-sch_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 Board File](hardware/nrf52840-mdk-usb-dongle-board_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 3D STEP](hardware/nrf52840-mdk-usb-dongle-3d_v1_0.step)|
+| V1.0     | [nRF52840 MDK USB Dongle V1.0 Pinout Diagram](hardware/nrf52840-mdk-usb-dongle-pinout_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 Schematic](hardware/nrf52840-mdk-usb-dongle-sch_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 Board File](hardware/nrf52840-mdk-usb-dongle-board_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 3D STEP](hardware/nrf52840-mdk-usb-dongle-3d_v1_0.step)|
 
 ## Create an Issue
 

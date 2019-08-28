@@ -1,6 +1,6 @@
 
 # Project information
-site_name: nRF52840 Micro Dev Kit USB Dongle
+site_name: nRF52840 MDK USB Dongle
 site_description: nRF52840 Micro Development Kit (USB Dongle Form Factor)
 site_author: makerdiary
 site_url: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/
@@ -11,7 +11,7 @@ repo_url: https://github.com/makerdiary/nrf52840-mdk-usb-dongle
 edit_uri: "https://github.com/makerdiary/nrf52840-mdk-usb-dongle/docs"
 
 # Copyright
-copyright: 'Copyright &copy; 2018 <a href="https://makerdiary.com">makerdiary.com</a>'
+copyright: 'Copyright &copy; 2019 <a href="https://makerdiary.com">makerdiary.com</a>'
 
 # Configuration
 theme:
