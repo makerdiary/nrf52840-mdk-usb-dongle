@@ -42,7 +42,7 @@
     
     
       
-        <title>nRF52840 Micro Dev Kit USB Dongle</title>
+        <title>nRF52840 MDK USB Dongle</title>
       
     
     
@@ -133,7 +133,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#how-to-program-the-nrf52840-micro-dev-kit-usb-dongle" tabindex="1" class="md-skip">
+      <a href="#how-to-program-the-nrf52840-mdk-usb-dongle" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -142,7 +142,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 Micro Dev Kit USB Dongle" class="md-header-nav__button md-logo">
+        <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 MDK USB Dongle" class="md-header-nav__button md-logo">
           
             <img src="../images/logo.svg" width="24" height="24">
           
@@ -155,7 +155,7 @@
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             <span class="md-header-nav__topic">
-              nRF52840 Micro Dev Kit USB Dongle
+              nRF52840 MDK USB Dongle
             </span>
             <span class="md-header-nav__topic">
               Programming
@@ -232,12 +232,12 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 Micro Dev Kit USB Dongle" class="md-nav__button md-logo">
+    <a href="https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/" title="nRF52840 MDK USB Dongle" class="md-nav__button md-logo">
       
         <img src="../images/logo.svg" width="48" height="48">
       
     </a>
-    nRF52840 Micro Dev Kit USB Dongle
+    nRF52840 MDK USB Dongle
   </label>
   
     <div class="md-nav__source">
@@ -610,8 +610,8 @@
                   <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/docs/programming/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="how-to-program-the-nrf52840-micro-dev-kit-usb-dongle">How to program the nRF52840 Micro Dev Kit USB Dongle<a class="headerlink" href="#how-to-program-the-nrf52840-micro-dev-kit-usb-dongle" title="Permanent link">&para;</a></h1>
-<p>The nRF52840 Micro Dev Kit USB Dongle contains an Open Bootloader with Device Firmware Update (DFU) functionality. You can easily program the Dongle using the following tools:</p>
+                <h1 id="how-to-program-the-nrf52840-mdk-usb-dongle">How to program the nRF52840 MDK USB Dongle<a class="headerlink" href="#how-to-program-the-nrf52840-mdk-usb-dongle" title="Permanent link">&para;</a></h1>
+<p>The nRF52840 MDK USB Dongle contains an Open Bootloader with Device Firmware Update (DFU) functionality. You can easily program the Dongle using the following tools:</p>
 <ul>
 <li><a href="https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF-Connect-for-Desktop">nRF Connet for Desktop</a></li>
 <li><a href="https://github.com/NordicSemiconductor/pc-nrfutil/">nrfutil</a> from the command line.</li>
@@ -688,11 +688,11 @@
 <p>To update the firmware, the Dongle must be in bootloader mode.</p>
 <p>While holding the dongle's RESET/USR button, connect it to your host. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. It is now ready for programming.</p>
 <p>This command takes several options that you can list using:</p>
-<div class="codehilite"><pre><span></span>nrfutil dfu usb_serial --help
+<div class="codehilite"><pre><span></span>nrfutil dfu usb-serial --help
 </pre></div>
 
 <p>Below is the execution of a DFU procedure of the file generated above over <code>/dev/cu.usbmodem1411</code>:</p>
-<div class="codehilite"><pre><span></span>nrfutil dfu usb_serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
+<div class="codehilite"><pre><span></span>nrfutil dfu usb-serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
 </pre></div>
 
 <p><img alt="" src="images/nrfutil-programming.png" /></p>
@@ -704,7 +704,7 @@
 </pre></div>
 
 <p>Then update the package using the following command:</p>
-<div class="codehilite"><pre><span></span>nrfutil dfu usb_serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
+<div class="codehilite"><pre><span></span>nrfutil dfu usb-serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
 </pre></div>
 
 <p><img alt="" src="images/nrfutil-sd-programming.png" /></p>
@@ -775,7 +775,7 @@
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018 <a href="https://makerdiary.com">makerdiary.com</a>
+            Copyright &copy; 2019 <a href="https://makerdiary.com">makerdiary.com</a>
           </div>
         
         powered by
