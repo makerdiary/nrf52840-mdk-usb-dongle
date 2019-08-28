@@ -1,16 +1,15 @@
-# nRF52840 Micro Dev Kit USB Dongle 
+# nRF52840 MDK USB Dongle 
 
 > A small and low-cost nRF52840 Micro Development Kit in USB Dongle Form Factor
 
 ## Description
 
-The nRF52840 Micro Dev Kit USB Dongle is a small and low-cost development platform enabled by the nRF52840 multiprotocol SoC in a convenient USB dongle form factor.
+The nRF52840 MDK USB Dongle is a small and low-cost development platform enabled by the nRF52840 multiprotocol SoC in a convenient USB dongle form factor.
 
-The nRF52840 Micro Dev Kit USB Dongle features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G Chip antenna on board.
+The design features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G Chip antenna on board. It can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz multiprotocol node or development board. Alternatively the USB Dongle can be used as a Network Co-Processor(NCP) with a simple connection to a PC or other USB enabled device.
 
-The USB Dongle can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz multiprotocol node or development board. Alternatively the USB Dongle can be used as a Network Co-Processor(NCP) with a simple connection to a PC or other USB enabled device.
+[![](docs/images/dongle_pcba_case.jpg)](https://store.makerdiary.com/search?q=nrf52840+dongle)
 
-![](docs/images/nrf52840-mdk-usb-dongle-overview.jpg)
 
 ## Hardware Features
 
@@ -47,7 +46,7 @@ Get what you need here or visit [https://wiki.makerdiary.com/nrf52840-mdk-usb-do
 
 ## Software Resource
 
-The nRF52840 Micro Dev Kit USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*, *Web Bluetooth*, *iBeacon*, *Eddystone*, and more.
+The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*, *Web Bluetooth*, *iBeacon*, *Eddystone*, and more.
 
 | Software  | Brief Description |
 | ---------- | ----- |
@@ -65,20 +64,16 @@ The nRF52840 Micro Dev Kit USB Dongle can be used to play with : *nRF5 SDK*, *Op
 
 | Releases | Design Files                   |
 | -------- | ------------------------------ |
-| V1.0     | [nRF52840 Micro Dev Kit USB Dongle V1.0 Pinout Diagram](docs/hardware/nrf52840-mdk-usb-dongle-pinout_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 Schematic](docs/hardware/nrf52840-mdk-usb-dongle-sch_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 Board File](docs/hardware/nrf52840-mdk-usb-dongle-board_v1_0.pdf)<br/>[nRF52840 Micro Dev Kit USB Dongle V1.0 3D STEP](docs/hardware/nrf52840-mdk-usb-dongle-3d_v1_0.step)|
+| V1.0     | [nRF52840 MDK USB Dongle V1.0 Pinout Diagram](docs/hardware/nrf52840-mdk-usb-dongle-pinout_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 Schematic](docs/hardware/nrf52840-mdk-usb-dongle-sch_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 Board File](docs/hardware/nrf52840-mdk-usb-dongle-board_v1_0.pdf)<br/>[nRF52840 MDK USB Dongle V1.0 3D STEP](docs/hardware/nrf52840-mdk-usb-dongle-3d_v1_0.step)|
 
 
-## How to Get nRF52840 Micro Dev Kit USB Dongle?
+## How to Get nRF52840 MDK USB Dongle?
 
-nRF52840 Micro Dev Kit USB Dongle is available on the following channels (click to go directly to the product):
+nRF52840 MDK USB Dongle is available on the following channels (click to go directly to the product):
 
-[![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/collections/frontpage/products/nrf52840-mdk-usb-dongle)
-
-[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html)
-
-[![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG)
-
-[![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/Zelin/nrf52840-micro-dev-kit-usb-dongle/)
+| nRF52840 MDK USB Dongle(PCBA) | nRF52840 MDK USB Dongle w/ Case |
+| -------- | ------------------------------ |
+| [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) <br/> <br/>[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) <br/> <br/>[![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) <br/> <br/>[![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/14856/) | [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) <br/> <br/>[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) <br/> <br/>[![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) <br/> <br/>[![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/17394/) |
 
 ## Contributing
 
