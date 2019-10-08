@@ -71,9 +71,14 @@ The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*,
 
 nRF52840 MDK USB Dongle is available on the following channels (click to go directly to the product):
 
-| nRF52840 MDK USB Dongle(PCBA) | nRF52840 MDK USB Dongle w/ Case |
-| -------- | ------------------------------ |
-| [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) <br/> <br/>[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) <br/> <br/>[![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) <br/> <br/>[![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/14856/) | [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) <br/> <br/>[![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) <br/> <br/>[![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) <br/> <br/>[![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/products/17394/) |
+| Online Store | nRF52840 MDK USB Dongle(PCBA) | nRF52840 MDK USB Dongle w/ Case |
+| ------------ | ------------ | --------------- |
+| [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) |
+| [![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) |
+| [![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) |
+| [![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/stores/Zelin/) | [Order Now](https://www.tindie.com/products/14856/) | [Order Now](https://www.tindie.com/products/17394/) |
+| [![Taobao](docs/images/taobao-logo.png)](https://zaowubang.taobao.com) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.2.40a7796cfSeI5n&id=578378054977) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.4.40a7796cfSeI5n&id=597968842403) |
+
 
 ## Contributing
 
