@@ -5,7 +5,7 @@
 
 A Thread Border Router serves as a gateway between the Internet and the Thread network. OpenThread's implementation of a Border Router is called OpenThread Border Router (OTBR).
 
-![](images/otbr-arch-borderagent_2x.png)
+![](assets/images/otbr-arch-borderagent_2x.png)
 
 OTBR includes a number of features, including:
 
@@ -64,7 +64,7 @@ OTBR communicates with the Dongle(serves as NCP) via `wpantund`. On Raspberry Pi
 
 4. Attach the Dongle to the Border Router platform via USB.
 
-	![RPI3B & nRF52840 Dongle](images/rpi3b&nrf52840.jpg)
+	![RPI3B & nRF52840 Dongle](assets/images/rpi3b&nrf52840.jpg)
 
 5. Configure the Dongle's serial port in `wpantund`. Add the serial port name to `/etc/wpantund.conf`. For example, for a serial port name of `ttyACM0`:
 
@@ -121,7 +121,7 @@ wpan0 => [
 ```
 
 !!! tip
-	For more features(such as external commissioning), you can follow the [Update NCP firmware](../getting-started/#update-ncp-firmware) section to running the latest NCP firmware.
+	For more features(such as external commissioning), you can follow the [Update NCP firmware](getting-started.md/#update-ncp-firmware) section to running the latest NCP firmware.
 
 If the `NCP:State` is `uninitialized`, troubleshoot with the following:
 
@@ -146,7 +146,7 @@ The Border Router enables Access Point mode and advertises the **BorderRouter-AP
 
 Connect to the **BorderRouter-AP** Wi-Fi network and access the Web GUI by visiting the OTBR's local IPv4 address(`10.42.0.1` default) in a mobile browser:
 
-![](images/otbr_web_gui_index.jpg)
+![](assets/images/otbr_web_gui_index.jpg)
 
 #### Join a Thread network
 
@@ -156,22 +156,22 @@ Use the **Join** menu option to scan for and join an existing Thread network.
 
 Use the **Form** menu option to create a new Thread network.
 
-![](images/form_thread_network.jpg)
+![](assets/images/form_thread_network.jpg)
 
 
 After the network forms, confirm by checking the **Status** menu option or running `sudo wpanctl status` on the command line of the OTBR:
 
 
-![](images/checking_status_mobile.jpg)
+![](assets/images/checking_status_mobile.jpg)
 
-![](images/checking_network_status.png)
+![](assets/images/checking_network_status.png)
 
 
 ### External Thread Commissioning
 
 OpenThread Border Router (OTBR) features a Thread Border Agent, which supports external Thread Commissioning. In external Thread Commissioning, a device outside of the Thread network (for example, a mobile phone) commissions new devices onto the network.
 
-![](images/thread-commissioning.jpg)
+![](assets/images/thread-commissioning.jpg)
 
 This section details how to use the Thread Commissioning App to commission an OpenThread device onto a network created and managed by the OTBR Web GUI.
 
@@ -182,7 +182,7 @@ You should prepare another Dongle or an nRF52840 board(such as [nRF52840-MDK](ht
 <a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/cli"><button data-md-color-primary="red-bud">CLI firmware</button></a>
 
 !!! note 
-	For programming, just follow the "[Programming](../programming/)" section.
+	For programming, just follow the "[Programming](programming.md)" section.
 
 
 Once the Joiner device is ready, obtain its factory-assigned IEEE EUI-64. Use the `eui64` command in the OpenThread CLI:
@@ -203,14 +203,14 @@ External commissioning is supported by the Thread Commissioning App, available f
 
 Start the Thread Commissioning App, then tap **FIND WI-FI NETWORK** and connect your phone running the Thread Commissioning App to the Wi-Fi access point.
 
-![](images/start-commisioning-app.jpg)
-![](images/connect-to-ap.jpg)
+![](assets/images/start-commisioning-app.jpg)
+![](assets/images/connect-to-ap.jpg)
 
 Select the target Border Router from the available list. The name is the same as the Thread network created by the OTBR Web GUI. If the same Border Router shows up multiple times with different IPv4 and IPv6 addresses, select the one with the static IPv4 address used for the Wi-Fi access point setup (`10.42.0.1` here).
 
 When prompted for a password, enter the passphrase (Commissioner Credential) set by the OTBR Web GUI.
 
-![](images/enter-commissioner-credential.jpg)
+![](assets/images/enter-commissioner-credential.jpg)
 
 #### Commission the Joiner
 
@@ -225,11 +225,11 @@ Where `eui` is the Joiner device's EUI64 value and `cc` is the Joiner Credential
 
 Use this text string with an online QR Code generator(such as [unitag.io](https://unitag.io)) to create a QR Code for scanning.
 
-![](images/generate-joiner-qr-code.png)
+![](assets/images/generate-joiner-qr-code.png)
 
 In the Thread Commissioning App, scan the Connect QR Code of the Joiner device:
 
-![](images/scan-joiner-qrcode.jpg)
+![](assets/images/scan-joiner-qrcode.jpg)
 
 While the app is waiting, enter the OpenThread CLI on the Joiner device and start the Joiner role with that same Joiner Credential:
 
@@ -246,7 +246,7 @@ Wait a minute for the DTLS handshake to complete between the Commissioner and Jo
 > Join success
 ```
 
-![](images/add-joiner-successfully.jpg)
+![](assets/images/add-joiner-successfully.jpg)
 
 #### Join the network
 

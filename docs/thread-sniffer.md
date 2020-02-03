@@ -31,11 +31,11 @@ $ sudo apt-get install wireshark
 
 Connect the nRF52840 MDK USB Dongle to your host as shown below: 
 
-![](images/connecting-dongle.jpg)
+![](assets/images/connecting-dongle.jpg)
 
 The USB Dongle will be recognized as an nRF52840 OpenThread Device like this:
 
-![](images/nrf52840-openthread-device-info.png)
+![](assets/images/nrf52840-openthread-device-info.png)
 
 ## Starting Wireshark with the Sniffer
 
@@ -61,11 +61,11 @@ The parameters stand for the following:
 * *–crc*: Disables the wrong FCS warning resulting from the fact that Nordic radio replaces one byte of CRC with LQI after a packet is received and verified. 
 * *–no-reset*: Used when NCP is connected via the native USB connection, otherwise this parameter should be omitted.
 
-![](images/starting-sniffer.png)
+![](assets/images/starting-sniffer.png)
 
 Enter the menu **Wireshark** -> **Preferences**, and then go to **Protocols** -> **IEEE 802.15.4**.
 
-![](images/ieee802154-settings.png)
+![](assets/images/ieee802154-settings.png)
 
 Edit the Decryption Keys with the following values:
 
@@ -76,22 +76,22 @@ Edit the Decryption Keys with the following values:
 * Key hash: `Thread hash`
 
 
-![](images/decryption-keys.png)
+![](assets/images/decryption-keys.png)
 
 Go to **Protocols** -> **Thread** and edit the settings.
 
-![](images/thread-settings.png)
+![](assets/images/thread-settings.png)
 
 Go to **Protocols** -> **6LoWPAN** and edit the settings.
 
-![](images/6lowpan-settings.png)
+![](assets/images/6lowpan-settings.png)
 
 Now you are ready to get the Thread packets and analyze network traffic.
 
 !!! tip
     You can follow this guide to [Build a Thread network with nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/openthread/) for testing.
 
-![](images/wireshark-sniffering.png)
+![](assets/images/wireshark-sniffering.png)
 
 
 ## Reference

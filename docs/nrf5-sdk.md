@@ -1,6 +1,6 @@
 # nRF5 SDK <br><small>Offical Software Development Kit for nRF51 and nRF52 Series</small>
 
-[![](images/SDK-icon_small.png)](http://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF5-SDK)
+[![](assets/images/SDK-icon_small.png)](http://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF5-SDK)
 
 ## Introduction
 
@@ -33,11 +33,11 @@ $ make
 While holding the dongle's RESET/USR button, connect it to your computer. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. The Dongle is now ready for programming.
 
 !!! note 
-	For programming, just follow the "[Programming](../programming/)" section.
+	For programming, just follow the "[Programming](programming.md)" section.
 
 After programmed correctly, observe that the LEDs are blinking:
 
-![](images/blinky_example.jpg)
+![](assets/images/blinky_example.jpg)
 
 ## Running examples that use a SoftDevice
 
@@ -58,12 +58,12 @@ The SoftDevice binary is located in folder `components/softdevice/<SoftDevice>/h
 	$ make clean & make
 	```
 
-3. Follow the [Programming](../programming) guide to program the Application and SoftDevice separately
+3. Follow the [Programming](programming.md) guide to program the Application and SoftDevice separately
 .
 
 4. Open nRF Connect App and start scanning, a device called *nRF52840-MDK-Dongle* will be found! You can try to connect it and turn on/off the LED.
 
-![ble_app_blinky demo](images/ble_app_blinky_demo.jpg)
+![ble_app_blinky demo](assets/images/ble_app_blinky_demo.jpg)
 
 
 ## More examples

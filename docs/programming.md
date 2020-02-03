@@ -21,7 +21,7 @@ nRF Connect currently supports the following operating systems:
 
 After nRF Connect is installed, you can find Programmer in the app list by selecting **Add/remove apps**.
 
-![](images/install-nrf-connect-programmer.png)
+![](assets/images/install-nrf-connect-programmer.png)
 
 ### Programming Application
 
@@ -31,7 +31,7 @@ While holding the dongle's RESET/USR button, connect it to your computer. When t
 
 Launch *Programmer* app from nRF Connect, you can find the dongle and select it to start programming.
 
-![](images/launching-programmer.png)
+![](assets/images/launching-programmer.png)
 
 Add an application `.hex` file, you will see the memory layout of the HEX file. Make sure the application address starts from `0x00001000`, and then Write it into the Dongle:
 
@@ -40,11 +40,11 @@ Add an application `.hex` file, you will see the memory layout of the HEX file. 
 !!! warning
 	You MUST provide a correct application firmware without covering the Master Boot Record(MBR) and Bootloader. That is to say the application address should start from `0x00001000` and not exceed `0x000E0000`.
 
-![](images/adding-hex-file.png)
+![](assets/images/adding-hex-file.png)
 
 After programming, please physically reset the Dongle by re-plugging it. The new firmware should work as expected.
 
-![](images/blinky_example.jpg)
+![](assets/images/blinky_example.jpg)
 
 ### Programming SoftDevice
 
@@ -52,7 +52,7 @@ If you want to run your application with BLE/ANT, a SoftDevice is required befor
 
 Select a SoftDevice `.hex` file from `<nRF5 SDK>/components/softdevice/s140/hex`, and then write it into the Dongle:
 
-![](images/programming-softdevice.png)
+![](assets/images/programming-softdevice.png)
 
 ## Using nrfutil
 
@@ -103,7 +103,7 @@ There is no SoftDevice required here, just set `--sd-req` to `0x00`.
 
 Here we take the [blinky example](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex) as an example:
 
-![](images/generating-dfu-package.png)
+![](assets/images/generating-dfu-package.png)
 
 To update the firmware, the Dongle must be in bootloader mode.
 
@@ -121,7 +121,7 @@ Below is the execution of a DFU procedure of the file generated above over `/dev
 nrfutil dfu usb-serial -pkg dfu_blinky.zip -p /dev/cu.usbmodem1411
 ```
 
-![](images/nrfutil-programming.png)
+![](assets/images/nrfutil-programming.png)
 
 The new application firmware should work as expected after Device programmed.
 
@@ -141,7 +141,7 @@ Then update the package using the following command:
 nrfutil dfu usb-serial -pkg s140_nrf52_6.0.0_softdevice_dfu_pkg.zip -p /dev/cu.usbmodem1411
 ```
 
-![](images/nrfutil-sd-programming.png)
+![](assets/images/nrfutil-sd-programming.png)
 
 
 ## License

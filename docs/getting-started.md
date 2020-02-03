@@ -24,11 +24,11 @@ Follow the [wpantund Installation Guide](https://github.com/openthread/wpantund/
 
 Connect the nRF52840 MDK USB Dongle to your host as shown below: 
 
-![](images/connecting-dongle.jpg)
+![](assets/images/connecting-dongle.jpg)
 
 The USB Dongle will be recognized as an nRF52840 OpenThread Device like this:
 
-![](images/nrf52840-openthread-device-info.png)
+![](assets/images/nrf52840-openthread-device-info.png)
 
 ## Configure wpantund
 
@@ -93,7 +93,7 @@ utun7 => [
 
 Now, you can scan for networks on the NCP Joiner. If you have formed a Thread network, the output should be similar to the below:
 
-![](images/verifying-ncp.png)
+![](assets/images/verifying-ncp.png)
 
 !!! tip
     You can follow this guide to [Build a Thread network with nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/openthread/) for testing.
@@ -108,7 +108,7 @@ More features will be added to the NCP firmware gradually over time. The latest 
 While holding the dongle's RESET/USR button, connect it to your computer. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. It is now ready for programming.
 
 !!! note 
-	For programming, just follow the "[Programming](../programming/)" section.
+	For programming, just follow the "[Programming](programming.md)" section.
 
 ## How to build NCP firmware?
 
@@ -147,8 +147,8 @@ You can also build the latest NCP firmware by yourself. The following steps deta
 
 See the following topics for further introduction:
 
-* [Build an OpenThread Border Router with Raspberry Pi 3B](../OTBR)
-* [Build a Thread Network Sniffer with Wireshark](../thread-sniffer)
+* [Build an OpenThread Border Router with Raspberry Pi 3B](OTBR.md)
+* [Build a Thread Network Sniffer with Wireshark](thread-sniffer.md)
 
 
 ## Clone the repository
