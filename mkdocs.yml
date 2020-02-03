@@ -16,7 +16,7 @@ copyright: 'Copyright &copy; 2019 <a href="https://makerdiary.com">makerdiary.co
 # Configuration
 theme:
   name: null
-  custom_dir: 'material'
+  custom_dir: 'mkdocs-material/material'
 
   # 404 page
   static_templates:
@@ -31,13 +31,19 @@ theme:
   feature:
     tabs: false
   palette:
-    primary: marsala
-    accent: marsala
+    primary: red-bud
+    accent: red-bud
   font:
     text: Roboto
     code: Roboto Mono
   favicon: 'images/favicon.png'
   logo: 'images/logo.svg'
+
+# Plugins
+plugins:
+  - search
+  - minify:
+      minify_html: true
 
 # Customization
 extra:
@@ -50,8 +56,6 @@ extra:
       link: https://github.com/makerdiary
     - type: twitter
       link: https://twitter.com/makerdiary
-    - type: facebook
-      link: https://www.facebook.com/makerdiary
 #  disqus: 'makerdiary'
 #  discourse: 'community.makerdiary.com'
 
@@ -72,10 +76,14 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.keys
-  - pymdownx.magiclink
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: makerdiary
+      repo: nrf52840-mdk-usb-dongle
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences

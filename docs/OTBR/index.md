@@ -179,7 +179,7 @@ This section details how to use the Thread Commissioning App to commission an Op
 
 You should prepare another Dongle or an nRF52840 board(such as [nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/)). Flash the board with the OpenThread CLI firmware. Here is the pre-built CLI firmware for the Dongle:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/cli"><button data-md-color-primary="marsala">CLI firmware</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/cli"><button data-md-color-primary="red-bud">CLI firmware</button></a>
 
 !!! note 
 	For programming, just follow the "[Programming](../programming/)" section.
@@ -197,7 +197,7 @@ Done
 
 External commissioning is supported by the Thread Commissioning App, available for download on the Google Play Store for Android devices.
 
-<a href="https://play.google.com/store/apps/details?id=org.threadgroup.commissioner&hl=en"><button data-md-color-primary="marsala">Thread Commissioning App</button></a>
+<a href="https://play.google.com/store/apps/details?id=org.threadgroup.commissioner&hl=en"><button data-md-color-primary="red-bud">Thread Commissioning App</button></a>
 
 #### Connect to the Border Router
 
@@ -314,5 +314,5 @@ Content on this page is licensed under the [Creative Commons Attribution 3.0 Lic
 
 Interested in contributing to this project? Want to report a bug? Feel free to click here:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="marsala"><i class="fa fa-github"></i> Create an Issue</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="red-bud"><i class="fa fa-github"></i> Create an Issue</button></a>
 

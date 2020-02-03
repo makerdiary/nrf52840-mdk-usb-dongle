@@ -57,5 +57,5 @@ The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*,
 
 Interested in contributing to this project? Want to report a bug? Feel free to click here:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="marsala"><i class="fa fa-github"></i> Create an Issue</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="red-bud"><i class="fa fa-github"></i> Create an Issue</button></a>
 

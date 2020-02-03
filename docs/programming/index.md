@@ -35,7 +35,7 @@ Launch *Programmer* app from nRF Connect, you can find the dongle and select it 
 
 Add an application `.hex` file, you will see the memory layout of the HEX file. Make sure the application address starts from `0x00001000`, and then Write it into the Dongle:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex"><button data-md-color-primary="marsala">Blinky Hex File</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/examples/nrf5-sdk/blinky/hex"><button data-md-color-primary="red-bud">Blinky Hex File</button></a>
 
 !!! warning
 	You MUST provide a correct application firmware without covering the Master Boot Record(MBR) and Bootloader. That is to say the application address should start from `0x00001000` and not exceed `0x000E0000`.
@@ -72,7 +72,7 @@ The nrfutil application and its library offer the following features:
 
 Here is the latest user guide from Nordic Semiconductor:
 
-<a href="http://infocenter.nordicsemi.com/pdf/nrfutil_v1.3.pdf"><button data-md-color-primary="marsala">nrfutil User Guide v1.3</button></a>
+<a href="http://infocenter.nordicsemi.com/pdf/nrfutil_v1.3.pdf"><button data-md-color-primary="red-bud">nrfutil User Guide v1.3</button></a>
 
 ### Installing from PyPI
 
@@ -152,5 +152,5 @@ Content on this page is licensed under the [Creative Commons Attribution 3.0 Lic
 
 Interested in contributing to this project? Want to report a bug? Feel free to click here:
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="marsala"><i class="fa fa-github"></i> Create an Issue</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="red-bud"><i class="fa fa-github"></i> Create an Issue</button></a>
 

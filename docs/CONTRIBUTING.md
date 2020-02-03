@@ -12,4 +12,4 @@ If you found a bug in the source code, you can help us by submitting an issue to
 
 You can request a new feature by submitting an issue to our GitHub Repository. Be sure that it is of use for everyone.
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="marsala"><i class="fa fa-github"></i> Create an Issue</button></a>
+<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="red-bud"><i class="fa fa-github"></i> Create an Issue</button></a>
