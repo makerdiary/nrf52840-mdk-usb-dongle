@@ -29,15 +29,15 @@ theme:
   # Default values, taken from mkdocs_theme.yml
   language: en
   feature:
-    tabs: false
+    tabs: true
   palette:
     primary: red-bud
     accent: red-bud
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: 'images/favicon.png'
-  logo: 'images/logo.svg'
+  favicon: 'assets/images/favicon.png'
+  logo: 'assets/images/logo.svg'
 
 # Plugins
 plugins:
@@ -94,11 +94,11 @@ markdown_extensions:
 # Page tree
 nav:
   - Introduction: index.md
-  - Getting Started: getting-started/index.md
-  - Programming: programming/index.md
-  - nRF5 SDK: nrf5-sdk/index.md
-  - OpenThread Border Router: OTBR/index.md
-  - Thread Network Sniffer: thread-sniffer/index.md
+  - Getting Started: getting-started.md
+  - Programming: programming.md
+  - nRF5 SDK: nrf5-sdk.md
+  - OpenThread Border Router: OTBR.md
+  - Thread Network Sniffer: thread-sniffer.md
   - How to Buy: how-to-buy.md
   - Contributing: CONTRIBUTING.md
   - License: LICENSE.md
