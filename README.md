@@ -8,7 +8,7 @@ The nRF52840 MDK USB Dongle is a small and low-cost development platform enabled
 
 The design features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G Chip antenna on board. It can be used as a low-cost Bluetooth5/Tread/802.15.4/ANT/2.4GHz multiprotocol node or development board. Alternatively the USB Dongle can be used as a Network Co-Processor(NCP) with a simple connection to a PC or other USB enabled device.
 
-[![](docs/images/dongle_pcba_case.jpg)](https://store.makerdiary.com/search?q=nrf52840+dongle)
+[![](docs/assets/images/dongle_pcba_case.jpg)](https://store.makerdiary.com/search?q=nrf52840+dongle)
 
 
 ## Hardware Features
@@ -31,7 +31,7 @@ The design features a programmable user button, RGB LED, up to 12 GPIOs and 2.4G
 
 ## Pinout Diagram
 
-[![](docs/images/nrf52840-mdk-usb-dongle-pinout.png)](docs/images/nrf52840-mdk-usb-dongle-pinout.png)
+[![](docs/assets/images/nrf52840-mdk-usb-dongle-pinout.png)](docs/assets/images/nrf52840-mdk-usb-dongle-pinout.png)
 
 ## Documentation
 
@@ -50,15 +50,19 @@ The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*,
 
 | Software  | Brief Description |
 | ---------- | ----- |
-| [nRF5 SDK](nrf5-sdk/) | Offical Software Development Kit for nRF51 and nRF52 Series |
-| [OpenThread Border Router](OTBR/) | An open source border router, designed to work with OpenThread |
-| [Thread Network Sniffer](thread-sniffer/) | Help you to efficiently analyze Thread network traffic|
+| [nRF5 SDK](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/nrf5-sdk) | Offical Software Development Kit for nRF51 and nRF52 Series |
+| [OpenThread Border Router](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/OTBR) | An open source border router, designed to work with OpenThread |
+| [Thread Network Sniffer](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/thread-sniffer) | Help you to efficiently analyze Thread network traffic|
 | [Web Bluetooth](https://webbluetoothcg.github.io/web-bluetooth/) | Bluetooth support for the Web |
 | [iBeacon](https://developer.apple.com/ibeacon/) | A Bluetooth low energy advertising message format designed by Apple |
 | [Eddystone](https://github.com/google/eddystone) | A protocol specification that defines a Bluetooth low energy message format for proximity beacon messages |
-| [CircuitPython](https://github.com/adafruit/circuitpython/blob/master/ports/nrf/README.md) | A Python language for microcontrollers designed to simplify experimentation and learning |
-| [TinyGo](https://github.com/aykevl/tinygo/issues/30) | Go compiler for small devices, based on LLVM |
+| [CircuitPython](https://circuitpython.org/board/makerdiary_nrf52840_mdk_usb_dongle/) | A programming language designed to simplify experimenting and learning to code on low-cost microcontroller boards |
+| [TinyGo](https://tinygo.org/microcontrollers/machine/nrf52840-mdk/) | Go compiler for small devices, based on LLVM |
 | [Rust for nrf52840-mdk](https://github.com/nrf-rs/nrf52840-mdk-rs) | Rust support for the nrf52840-mdk development board |
+| [Web Device CLI](https://github.com/makerdiary/web-device-cli) | A Web Command Line Interface via NUS (Nordic UART Service) using Web Bluetooth API |
+| [nRF52 FIDO U2F Security Key](https://github.com/makerdiary/nrf52-u2f) | An Open-Source FIDO U2F implementation on nRF52 SoC |
+| [OpenSK](https://github.com/makerdiary/OpenSK) | An open-source implementation for security keys written in Rust that supports both FIDO U2F and FIDO2 standards released by [Google](https://github.com/google/OpenSK) |
+
 
 ## Hardware Resource
 
@@ -73,11 +77,11 @@ nRF52840 MDK USB Dongle is available on the following channels (click to go dire
 
 | Online Store | nRF52840 MDK USB Dongle(PCBA) | nRF52840 MDK USB Dongle w/ Case |
 | ------------ | ------------ | --------------- |
-| [![makerdiary store](docs/images/makerdiary-store-logo.png)](https://store.makerdiary.com) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) |
-| [![SeeedStudio](docs/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) |
-| [![Amazon](docs/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) |
-| [![Tindie](docs/images/tindie-logo.png)](https://www.tindie.com/stores/Zelin/) | [Order Now](https://www.tindie.com/products/14856/) | [Order Now](https://www.tindie.com/products/17394/) |
-| [![Taobao](docs/images/taobao-logo.png)](https://zaowubang.taobao.com) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.2.40a7796cfSeI5n&id=578378054977) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.4.40a7796cfSeI5n&id=597968842403) |
+| [![makerdiary store](docs/assets/images/makerdiary-store-logo.png)](https://store.makerdiary.com) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle) | [Order Now](https://store.makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) |
+| [![SeeedStudio](docs/assets/images/seeed_logo_2018_horizontal.png)](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-p-3184.html) | [Order Now](https://www.seeedstudio.com/nRF52840-MDK-USB-Dongle-w-Case-p-4094.html) |
+| [![Amazon](docs/assets/images/amazon_logo.png)](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/gp/product/B07MJ12XLG) | [Order Now](https://www.amazon.com/GeeekPi-nRF52840-MDK-Dongle-Case/dp/B07TSJHTSY) |
+| [![Tindie](docs/assets/images/tindie-logo.png)](https://www.tindie.com/stores/Zelin/) | [Order Now](https://www.tindie.com/products/14856/) | [Order Now](https://www.tindie.com/products/17394/) |
+| [![Taobao](docs/assets/images/taobao-logo.png)](https://zaowubang.taobao.com) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.2.40a7796cfSeI5n&id=578378054977) | [Order Now](https://item.taobao.com/item.htm?spm=a1z10.1-c-s.w4004-18605444714.4.40a7796cfSeI5n&id=597968842403) |
 
 
 ## Contributing
@@ -88,7 +92,7 @@ We would love for you to contribute to this project and help make it even better
 
 **MIT License**
 
-Copyright (c) 2019 [makerdiary](https://makerdiary.com)
+Copyright (c) 2020 [makerdiary](https://makerdiary.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
