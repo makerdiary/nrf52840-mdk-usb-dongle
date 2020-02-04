@@ -64,7 +64,9 @@ nrfutil dfu usb-serial -pkg app_dfu_package.zip -p <your-serial-port-name>
 
 ## DFU via UF2 Bootloader
 
-UF2 Bootloader is an easy-to-use bootloader that appears as a flash drive. You can just copy `.uf2`-format application images to the flash drive to load new firmware. The prebuilt UF2 Bootloader firmware is located in [uf2_bootloader](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/uf2_bootloader).
+UF2 Bootloader is an easy-to-use bootloader that appears as a flash drive. You can just copy `.uf2`-format application images to the flash drive to load new firmware. 
+
+The source code and the project file of UF2 Bootloader is located in [uf2-bootloader](https://github.com/makerdiary/uf2-bootloader) repository.
 
 To create your own UF2 DFU update image, simply use the [Python conversion script](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/tools) on a `.bin` file or `.hex` file, specifying the family as `0xADA52840`.
 
