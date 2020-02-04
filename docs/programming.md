@@ -71,19 +71,19 @@ To create your own UF2 DFU update image, simply use the [Python conversion scrip
 !!! tip
 	If using a `.bin` file with the conversion script you must specify application address with the `-b` switch, this address depend on the SoftDevice size/version e.g S140 v6 is `0x26000`.
 
-To create a UF2 image from a .bin file:
+To create a UF2 image from a `.bin` file:
 ``` sh
 uf2conv.py firmware.bin -c -b 0x26000 -f 0xADA52840
 ```
 
-To create a UF2 image from a .hex file:
+To create a UF2 image from a `.hex` file:
 ``` sh
 uf2conv.py firmware.hex -c -f 0xADA52840
 ```
 
 Enter DFU mode by holding the dongle's RESET/USR button and connecting to your PC. A flash drive with the name **MDK-DONGLE** will appear.
 
-Just copy the `.uf2`-format image to the flash drive the to load new firmware. 
+Just copy the `.uf2`-format image to the flash drive to load new firmware. 
 
 ## Upgrade to UF2 Bootloader from Open Bootloader
 
