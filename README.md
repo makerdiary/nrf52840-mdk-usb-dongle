@@ -43,6 +43,7 @@ Get what you need here or visit [https://wiki.makerdiary.com/nrf52840-mdk-usb-do
 * [Getting Started with nRF5 SDK](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/getting-started)
 * [How to Build an OpenThread Border Router with Raspberry Pi 3B](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/OTBR)
 * [How to Build a Thread Network Sniffer with Wireshark](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/thread-sniffer)
+* [How to Make a FIDO2 Security Key with Google OpenSK](https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/opensk)
 
 ## Software Resource
 
