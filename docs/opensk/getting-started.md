@@ -17,12 +17,12 @@ Currently, the prebuilt OpenSK firmware only works with the UF2 Bootloader. If y
 
 !!! note
 	As Open Bootloader update must come from signed packages, the new UF2 Bootloader must be signed.
-	The signed package is located in: [firmware/open_bootloader/uf2_bootloader-0.2.13-42-g82464f9-nosd_signed.zip](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/open_bootloader)
+	The signed package is located in: [firmware/open_bootloader/uf2_bootloader-0.2.13-44-gb2b4284-nosd_signed.zip](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/open_bootloader)
 
 Enter DFU mode by holding the dongle's RESET/USR button and connecting to your PC. Use the following command to update firmware:
 
 ``` sh
-nrfutil dfu usb-serial -pkg uf2_bootloader-0.2.13-42-g82464f9-nosd_signed.zip -p <your-serial-port-name>
+nrfutil dfu usb-serial -pkg uf2_bootloader-0.2.13-44-gb2b4284-nosd_signed.zip -p <your-serial-port-name>
 ```
 
 ![](assets/images/upgrade-to-uf2-bootloader.png)
