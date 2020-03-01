@@ -19,4 +19,3 @@ material/*
 .build
 .mbed
 projectfiles
-*.py*
