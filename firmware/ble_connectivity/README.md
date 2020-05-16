@@ -24,7 +24,11 @@ When programming is completed, re-plug the dongle. The device named **nRF52 Conn
 
 	![](../../docs/assets/images/start-ble-connectivity-app.png)
 
-3. Try to scan the BLE devices nearby and expore more features of the app:
+3. If the app brings up the following message, click **NO**(as we have programmed the device previously).
+
+	![](../../docs/assets/images/do-not-program-the-dongle-again.png)
+
+4. Try to scan the BLE devices nearby and expore more features of the app:
 
 	![](../../docs/assets/images/expore-ble-connectivity-app.png)
 
