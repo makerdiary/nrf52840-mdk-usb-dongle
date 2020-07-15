@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017 - 2019, Nordic Semiconductor ASA
+ * Copyright (c) 2017 - 2020, Nordic Semiconductor ASA
  *
  * All rights reserved.
  *
@@ -52,14 +52,31 @@
 #include "app_timer.h"
 #include "bsp_thread.h"
 #include "nrf_assert.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log.h"
+#include "nrf_log_default_backends.h"
 
 #include <openthread/ncp.h>
 #include <openthread/tasklet.h>
 #include <openthread/thread_ftd.h>
 #include <openthread/platform/openthread-system.h>
 
+#include <mbedtls/platform.h>
+#include <openthread/heap.h>
+
+#ifdef FREERTOS
+#include "FreeRTOS.h"
+#else
+#include "mem_manager.h"
+#endif
+
+#if !OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS
+#include "nrf_cc310_platform_abort.h"
+#include "nrf_cc310_platform_mutex.h"
+#endif /* OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS */
+
 #define ROUTER_SELECTION_JITTER  5                               /**< A value of router selection jitter. */
-#define SCHED_QUEUE_SIZE         32                              /**< Maximum number of events in the scheduler queue. */
+#define SCHED_QUEUE_SIZE         40                              /**< Maximum number of events in the scheduler queue. */
 #define SCHED_EVENT_DATA_SIZE    APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum app_scheduler event size. */
 
 typedef struct
@@ -127,6 +144,16 @@ static void leds_init(void)
     LEDS_OFF(LEDS_MASK);
 }
 
+/**@brief Function for initializing the nrf log module.
+ */
+static void log_init(void)
+{
+    ret_code_t err_code = NRF_LOG_INIT(NULL);
+    APP_ERROR_CHECK(err_code);
+
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
+}
+
 
 /**@brief Function for processing Thread stack.
  */
@@ -136,14 +163,53 @@ static void thread_process(void)
     otSysProcessDrivers(m_app.p_ot_instance);
 }
 
+#if !defined OPENTHREAD_RADIO
+
+static void* ot_calloc(size_t n, size_t size)
+{
+    return nrf_calloc(n, size);
+}
+
+static void ot_free(void *p_ptr)
+{
+    nrf_free(p_ptr);
+}
+
+/**@brief Function for setting up Thread platform
+ */
+static void platform_init(void)
+{
+    APP_ERROR_CHECK(nrf_mem_init());
+
+#if !OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS
+    int ret;
+
+    ret = mbedtls_platform_set_calloc_free(ot_calloc, ot_free);
+    ASSERT(ret == 0);
+
+    ret = mbedtls_platform_setup(NULL);
+    ASSERT(ret == 0);
+
+#endif /* OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS */
+
+    otHeapSetCAllocFree(ot_calloc, ot_free);
+}
+
+#endif /* OPENTHREAD_RADIO */
+
 /***************************************************************************************************
  * @section Main
  **************************************************************************************************/
 
 int main(int argc, char *argv[])
 {
+    log_init();
     timer_init();
     leds_init();
+
+#if !defined OPENTHREAD_RADIO
+    platform_init();
+#endif
 
     uint32_t err_code = bsp_init(BSP_INIT_LEDS, NULL);
     APP_ERROR_CHECK(err_code);
