@@ -242,6 +242,27 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
+.PHONY: flash erase pkg copy
+
+# Flash the program
+flash: default
+  @echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+  pyocd flash -t nrf52840 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+
+erase:
+  pyocd erase -t nrf52840 --chip
+
+# Generate DFU package
+pkg: default
+  @echo Generating DFU package using nrfutil...
+  nrfutil pkg generate --hw-version 52 --sd-req 0 --application-version ${FW_VERSION_MAJOR}${FW_VERSION_MINOR}${FW_VERSION_PATCH} --application $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex $(OUTPUT_DIRECTORY)/nrf52840_xxaa.zip
+
+# Copy firmware and package
+copy: pkg
+  @echo Copying firmware and package...
+  cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).hex
+  cp $(OUTPUT_DIRECTORY)/nrf52840_xxaa.zip $(PROJ_DIR)/hex/$(PROJECT_NAME)_v$(FW_VERSION).zip
+
 SDK_CONFIG_FILE := $(PROJ_DIR)/config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
