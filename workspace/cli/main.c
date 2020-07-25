@@ -46,6 +46,8 @@
  *
  */
 
+#include <stdbool.h>
+#include <stdint.h>
 
 #include "app_scheduler.h"
 #include "app_timer.h"
@@ -53,6 +55,11 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log.h"
 #include "nrf_log_default_backends.h"
+
+#include "nrf.h"
+#include "nrf_drv_timer.h"
+#include "bsp.h"
+#include "app_error.h"
 
 #include "mqttsn_client.h"
 
@@ -70,6 +77,8 @@
 
 #define SCHED_QUEUE_SIZE      32                              /**< Maximum number of events in the scheduler queue. */
 #define SCHED_EVENT_DATA_SIZE APP_TIMER_SCHED_EVENT_DATA_SIZE /**< Maximum app_scheduler event size. */
+
+// mqtt-sn
 
 #define DEFAULT_CHILD_TIMEOUT    40                                         /**< Thread child timeout [s]. */
 #define DEFAULT_POLL_PERIOD      1000                                       /**< Thread Sleepy End Device polling period when MQTT-SN Asleep. [ms] */
@@ -91,6 +100,39 @@ static mqttsn_topic_t       m_topic            =                            /**<
 };
 
 static void bsp_event_handler(bsp_event_t event);
+
+// end mqtt sn
+// timer
+
+const nrf_drv_timer_t TIMER_LED = NRF_DRV_TIMER_INSTANCE(0);
+
+// end timer
+
+
+/***************************************************************************************************
+ * @section Timer
+ **************************************************************************************************/
+
+/**
+ * @brief Handler for timer events.
+ */
+void timer_led_event_handler(nrf_timer_event_t event_type, void* p_context)
+{
+    static uint32_t i;
+    uint32_t led_to_invert = ((i++) % LEDS_NUMBER);
+
+    switch (event_type)
+    {
+        case NRF_TIMER_EVENT_COMPARE0:
+            bsp_board_led_invert(led_to_invert);
+            break;
+
+        default:
+            //Do nothing.
+            break;
+    }
+}
+
 
 /***************************************************************************************************
  * @section State
@@ -474,7 +516,10 @@ static void mqttsn_init(void)
 
 static void led_state_pub(uint8_t led_state)
 {
-    uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &led_state, 1, &m_msg_id);
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publishing led state: %d", led_state);
+    char msg[] = "{ \"test\" : true }";
+
+    uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, (uint8_t *)&msg, 18, &m_msg_id);
     if (err_code != NRF_SUCCESS)
     {
         NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
@@ -523,24 +568,12 @@ static void bsp_event_handler(bsp_event_t event)
         {
             wake_up();
 
-            // if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
-            // {
-            //     otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent DISCONNECT");
-            //     err_code = mqttsn_client_disconnect(&m_client);
-            //     if (err_code != NRF_SUCCESS)
-            //     {
-            //         otPlatLog("DISCONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-            //     }
-            // }
-            // else
-            // {
             otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
             err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
             if (err_code != NRF_SUCCESS)
             {
                 otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
             }
-            // }
 
             mqtt_state = 2;
         }
@@ -569,13 +602,32 @@ static void bsp_event_handler(bsp_event_t event)
 
 int main(int argc, char *argv[])
 {
+    uint32_t time_ms = 500; //Time(in miliseconds) between consecutive compare events.
+    uint32_t time_ticks;
+    uint32_t err_code = NRF_SUCCESS;
+
     log_init();
     scheduler_init();
     timer_init();
     leds_init();
 
-    uint32_t err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
+    err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
+    
+    LEDS_ON(BSP_LED_0_MASK);
+    LEDS_ON(BSP_LED_1_MASK);
+    LEDS_ON(BSP_LED_2_MASK);
+
+    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
+    err_code = nrf_drv_timer_init(&TIMER_LED, &timer_cfg, timer_led_event_handler);
+    APP_ERROR_CHECK(err_code);
+
+    time_ticks = nrf_drv_timer_ms_to_ticks(&TIMER_LED, time_ms);
+
+    nrf_drv_timer_extended_compare(
+         &TIMER_LED, NRF_TIMER_CC_CHANNEL0, time_ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, true);
+
+    nrf_drv_timer_enable(&TIMER_LED);
 
     while (true)
     {
