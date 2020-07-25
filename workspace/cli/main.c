@@ -134,18 +134,6 @@ static void log_init(void)
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
-/**@brief Function for initializing the Thread Board Support Package.
- */
-static void thread_bsp_init(void)
-{
-    uint32_t err_code;
-    err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
-    APP_ERROR_CHECK(err_code);
-
-    err_code = bsp_thread_init(thread_ot_instance_get());
-    APP_ERROR_CHECK(err_code);
-}
-
 /**@brief Function for initializing the Thread Stack.
  */
 static void thread_instance_init(void)
@@ -257,7 +245,11 @@ void setNetworkConfiguration(otInstance *aInstance)
  */
 static void light_on(void)
 {
-    LEDS_ON(BSP_LED_3_MASK);
+    // BSP_LED_0_MASK = red
+    // BSP_LED_1_MASK = blue
+    // BSP_LED_2_MASK = green
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "light_on");
+    LEDS_ON(BSP_LED_1_MASK);
 }
 
 /**@brief Turns the MQTT-SN network indication LED off.
@@ -266,7 +258,8 @@ static void light_on(void)
  */
 static void light_off(void)
 {
-    LEDS_OFF(BSP_LED_3_MASK);
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "light_off");
+    LEDS_OFF(BSP_LED_1_MASK);
 }
 
 /**@brief Puts MQTT-SN client in sleep mode.
@@ -275,6 +268,7 @@ static void light_off(void)
  */
 static void sleep(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "sleep");
     otError error;
 
     error = otLinkSetPollPeriod(thread_ot_instance_get(), DEFAULT_POLL_PERIOD);
@@ -287,6 +281,7 @@ static void sleep(void)
  */
 static void wake_up(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "wake_up");
     otError error;
 
     error = otLinkSetPollPeriod(thread_ot_instance_get(), SHORT_POLL_PERIOD);
@@ -323,6 +318,7 @@ static void gateway_info_callback(mqttsn_event_t * p_event)
  */
 static void connected_callback(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "connected_callback");
     light_on();
 
     uint32_t err_code = mqttsn_client_topic_register(&m_client,
@@ -331,13 +327,14 @@ static void connected_callback(void)
                                                      &m_msg_id);
     if (err_code != NRF_SUCCESS)
     {
-        NRF_LOG_ERROR("REGISTER message could not be sent. Error code: 0x%x\r\n", err_code);
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "REGISTER message could not be sent. Error code: 0x%x\r\n", err_code);
     }
 }
 
 /**@brief Processes DISCONNECT message from a gateway. */
 static void disconnected_callback(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "disconnected_callback");
     light_off();
     sleep();
 }
@@ -351,7 +348,7 @@ static void disconnected_callback(void)
 static void regack_callback(mqttsn_event_t * p_event)
 {
     m_topic.topic_id = p_event->event_data.registered.packet.topic.topic_id;
-    NRF_LOG_INFO("MQTT-SN event: Topic has been registered with ID: %d.\r\n",
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Topic has been registered with ID: %d.\r\n",
                  p_event->event_data.registered.packet.topic.topic_id);
 
     sleep();
@@ -363,6 +360,7 @@ static void regack_callback(mqttsn_event_t * p_event)
  */
 static void puback_callback(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "puback_callback");
     sleep();
 }
 
@@ -372,6 +370,7 @@ static void puback_callback(void)
  */
 static void sleep_callback(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "sleep_callback");
     sleep();
 }
 
@@ -381,21 +380,23 @@ static void sleep_callback(void)
  */
 static void wakeup_callback(void)
 {
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "wakeup_callback");
     wake_up();
 }
 
 /**@brief Processes retransmission limit reached event. */
 static void timeout_callback(mqttsn_event_t * p_event)
 {
-    NRF_LOG_INFO("MQTT-SN event: Timed-out message: %d. Message ID: %d.\r\n",
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Timed-out message: %d. Message ID: %d.\r\n",
                   p_event->event_data.error.msg_type,
                   p_event->event_data.error.msg_id);
+
 }
 
 /**@brief Processes results of gateway discovery procedure. */
 static void searchgw_timeout_callback(mqttsn_event_t * p_event)
 {
-    NRF_LOG_INFO("MQTT-SN event: Gateway discovery result: 0x%x.\r\n", p_event->event_data.discovery);
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Gateway discovery result: 0x%x.\r\n", p_event->event_data.discovery);
     sleep();
 }
 
@@ -405,47 +406,47 @@ void mqttsn_evt_handler(mqttsn_client_t * p_client, mqttsn_event_t * p_event)
     switch (p_event->event_id)
     {
         case MQTTSN_EVENT_GATEWAY_FOUND:
-            NRF_LOG_INFO("MQTT-SN event: Client has found an active gateway.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client has found an active gateway.");
             gateway_info_callback(p_event);
             break;
 
         case MQTTSN_EVENT_CONNECTED:
-            NRF_LOG_INFO("MQTT-SN event: Client connected.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client connected.");
             connected_callback();
             break;
 
         case MQTTSN_EVENT_DISCONNECTED:
-            NRF_LOG_INFO("MQTT-SN event: Client disconnected.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client disconnected.");
             disconnected_callback();
             break;
 
         case MQTTSN_EVENT_REGISTERED:
-            NRF_LOG_INFO("MQTT-SN event: Client registered topic.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client registered topic.");
             regack_callback(p_event);
             break;
 
         case MQTTSN_EVENT_PUBLISHED:
-            NRF_LOG_INFO("MQTT-SN event: Client has successfully published content.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client has successfully published content.");
             puback_callback();
             break;
 
         case MQTTSN_EVENT_SLEEP_PERMIT:
-            NRF_LOG_INFO("MQTT-SN event: Client permitted to sleep.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client permitted to sleep.");
             sleep_callback();
             break;
 
         case MQTTSN_EVENT_SLEEP_STOP:
-            NRF_LOG_INFO("MQTT-SN event: Client wakes up.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client wakes up.");
             wakeup_callback();
             break;
 
         case MQTTSN_EVENT_TIMEOUT:
-            NRF_LOG_INFO("MQTT-SN event: Retransmission retries limit has been reached.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Retransmission retries limit has been reached.");
             timeout_callback(p_event);
             break;
 
         case MQTTSN_EVENT_SEARCHGW_TIMEOUT:
-            NRF_LOG_INFO("MQTT-SN event: Gateway discovery procedure has finished.\r\n");
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Gateway discovery procedure has finished.");
             searchgw_timeout_callback(p_event);
             break;
 
@@ -486,17 +487,24 @@ static void publish(void)
     led_state_pub(m_led_state);
 }
 
+int mqtt_state = 0;
+
 static void bsp_event_handler(bsp_event_t event)
 {
+    uint32_t err_code;
+
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "bsp_event_handler %d", event);
+    
     if (otThreadGetDeviceRole(thread_ot_instance_get()) < OT_DEVICE_ROLE_CHILD )
     {
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "THREAD: Got role < CHILD");
         (void)event;
         return;
     }
 
-    switch (event)
+    if (event == BSP_EVENT_KEY_0) 
     {
-        case BSP_EVENT_KEY_1:
+        if (mqtt_state == 0) 
         {
             wake_up();
 
@@ -504,45 +512,53 @@ static void bsp_event_handler(bsp_event_t event)
             if (err_code != NRF_SUCCESS)
             {
                 NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
+                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
             }
-            break;
+            else {
+                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Maybe found gateway?");
+                mqtt_state = 1;
+            }
         }
-
-        case BSP_EVENT_KEY_2:
+        else if(mqtt_state == 1) 
         {
             wake_up();
 
-            uint32_t err_code;
-
-            if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
+            // if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
+            // {
+            //     otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent DISCONNECT");
+            //     err_code = mqttsn_client_disconnect(&m_client);
+            //     if (err_code != NRF_SUCCESS)
+            //     {
+            //         otPlatLog("DISCONNECT message could not be sent. Error: 0x%x\r\n", err_code);
+            //     }
+            // }
+            // else
+            // {
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
+            err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
+            if (err_code != NRF_SUCCESS)
             {
-                err_code = mqttsn_client_disconnect(&m_client);
-                if (err_code != NRF_SUCCESS)
-                {
-                    NRF_LOG_ERROR("DISCONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-                }
+                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
             }
-            else
+            // }
+
+            mqtt_state = 2;
+        }
+        else if(mqtt_state == 2) 
+        {
+            wake_up();
+            if (mqttsn_client_state_get(&m_client) != MQTTSN_CLIENT_CONNECTED)
             {
+                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
                 err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
                 if (err_code != NRF_SUCCESS)
                 {
-                    NRF_LOG_ERROR("CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
+                    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
                 }
             }
-            break;
-        }
-
-        case BSP_EVENT_KEY_3:
-        {
-            wake_up();
+            
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publish");
             publish();
-            break;
-        }
-
-        default:
-        {
-            break;
         }
     }
 }
@@ -558,12 +574,13 @@ int main(int argc, char *argv[])
     timer_init();
     leds_init();
 
-    uint32_t err_code = bsp_init(BSP_INIT_LEDS, NULL);
+    uint32_t err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
 
     while (true)
     {
         thread_instance_init();
+
         otInstance *instance = thread_ot_instance_get();
 
         setNetworkConfiguration(instance);
@@ -574,12 +591,10 @@ int main(int argc, char *argv[])
         /* Start the Thread stack (CLI cmd > thread start) */
         otThreadSetEnabled(instance, true);
 
-        thread_bsp_init();
         mqttsn_init();
 
         while (!thread_soft_reset_was_requested())
         {
-            // NRF_LOG_ERROR("loop!");
             thread_process();
             app_sched_execute();
 
