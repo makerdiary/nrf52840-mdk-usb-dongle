@@ -63,6 +63,17 @@ SRC_FILES += \
 	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
 	$(SDK_ROOT)/components/libraries/bsp/bsp.c \
 	$(SDK_ROOT)/components/libraries/bsp/bsp_thread.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNConnectClient.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNConnectServer.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNDeserializePublish.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNPacket.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNSearchClient.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNSearchServer.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNSerializePublish.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNSubscribeClient.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNSubscribeServer.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNUnsubscribeClient.c \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNUnsubscribeServer.c \
 	$(PROJ_DIR)/../main.c \
 	$(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
 	$(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -70,6 +81,13 @@ SRC_FILES += \
 	$(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
 	$(SDK_ROOT)/external/utf_converter/utf.c \
 	$(SDK_ROOT)/components/thread/utils/thread_utils.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_client.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_gateway_discovery.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_packet_fifo.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_packet_receiver.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_packet_sender.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_platform.c \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client/mqttsn_transport_ot.c \
 
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -91,6 +109,8 @@ INC_FOLDERS += \
 	$(SDK_ROOT)/external/nRF-IEEE-802.15.4-radio-driver/src/fem \
 	$(SDK_ROOT)/components/softdevice/mbr/headers \
 	$(SDK_ROOT)/modules/nrfx/mdk \
+	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet \
+	$(SDK_ROOT)/components/thread/mqtt_sn/mqtt_sn_client \
 	$(SDK_ROOT)/external/nrf_security/nrf_cc310_plat/include \
 	$(SDK_ROOT)/components/libraries/strerror \
 	$(SDK_ROOT)/integration/nrfx/legacy \
