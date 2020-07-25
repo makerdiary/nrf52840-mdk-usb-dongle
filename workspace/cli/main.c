@@ -96,7 +96,6 @@ static mqttsn_client_t      m_client;                                       /**<
 static mqttsn_remote_t      m_gateway_addr;                                 /**< A gateway address. */
 static uint8_t              m_gateway_id;                                   /**< A gateway ID. */
 static mqttsn_connect_opt_t m_connect_opt;                                  /**< Connect options for the MQTT-SN client. */
-static uint8_t              m_led_state        = 0;                         /**< Previously sent BSP_LED_2 command. */
 static uint16_t             m_msg_id           = 0;                         /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
 static char                 m_client_id[]      = "nRF52840_publisher";      /**< The MQTT-SN Client's ID. */
 static char                 m_topic_name[]     = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
@@ -121,14 +120,18 @@ static uint32_t              m_adc_evt_counter;
 
 // end saadc
 
+static void find_gateway();
+static bool has_valid_role();
+
 /***************************************************************************************************
  * @section State
  **************************************************************************************************/
 
 static void thread_state_changed_callback(uint32_t flags, void * p_context)
 {
-    NRF_LOG_INFO("State changed! Flags: 0x%08x Current role: %d\r\n",
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "State changed! Flags: 0x%08x Current role: %d\r\n",
                  flags, otThreadGetDeviceRole(p_context));
+
 }
 
 /***************************************************************************************************
@@ -212,38 +215,47 @@ void setNetworkConfiguration(otInstance *aInstance)
     aDataset.mComponents.mIsActiveTimestampPresent = true;
      
     /* Set Channel to 17 */
-    aDataset.mChannel                      = 17;
+    aDataset.mChannel                      = 15;
+    // aDataset.mChannel                      = 17;
     aDataset.mComponents.mIsChannelPresent = true;
     
     /* Set Pan ID to 0xa393 */
-    aDataset.mPanId                      = (otPanId)0xA393;
+    aDataset.mPanId                      = (otPanId)0x1234;
+    // aDataset.mPanId                      = (otPanId)0xA393;
     aDataset.mComponents.mIsPanIdPresent = true;
 
     /* Set mMeshLocalPrefix to fda5:ecbe:8107:b60d::/64 */
-    uint8_t MeshLocalPrefix[OT_PSKC_MAX_SIZE] = {0xfd, 0xa5, 0xec, 0xbe, 0x81, 0x07, 0xb6, 0x0d};
+    // fd11:1111:1122
+    // uint8_t MeshLocalPrefix[OT_PSKC_MAX_SIZE] = {0xfd, 0xa5, 0xec, 0xbe, 0x81, 0x07, 0xb6, 0x0d};
+    uint8_t MeshLocalPrefix[OT_PSKC_MAX_SIZE] = {0xfd, 0x11, 0x11, 0x11, 0x22, 0x22, 0x00, 0x00};
     memcpy(aDataset.mMeshLocalPrefix.m8, MeshLocalPrefix, sizeof(aDataset.mMeshLocalPrefix));
     aDataset.mComponents.mIsMeshLocalPrefixPresent = true;
 
     /* Set mPSKc to 99 3f 68 51 16 9d 25 6b 53 62 eb df 34 41 31 d0 */
-    uint8_t PSKc[OT_PSKC_MAX_SIZE] = {0x99, 0x3F, 0x68, 0x51, 0x16, 0x9D, 0x25, 0x6B, 0x53, 0x62, 0xEB, 0xDF, 0x34, 0x41, 0x31, 0xD0};
-    memcpy(aDataset.mPskc.m8, PSKc, sizeof(aDataset.mPskc));
-    aDataset.mComponents.mIsExtendedPanIdPresent = true;
+    // uint8_t PSKc[OT_PSKC_MAX_SIZE] = {0x99, 0x3F, 0x68, 0x51, 0x16, 0x9D, 0x25, 0x6B, 0x53, 0x62, 0xEB, 0xDF, 0x34, 0x41, 0x31, 0xD0};
+    // uint8_t PSKc[OT_PSKC_MAX_SIZE] = {0x61, 0xE1, 0x20, 0x6D, 0x2C, 0x2B, 0x46, 0xE0, 0x79, 0xEB, 0x77, 0x5F, 0x41, 0xFC, 0x72, 0x19};
+    // memcpy(aDataset.mPskc.m8, PSKc, sizeof(aDataset.mPskc));
+    // aDataset.mComponents.mIsExtendedPanIdPresent = true;
     
     /* Set Extended Pan ID to 0a ab 0a 1b f8 26 bb c4 */
-    uint8_t extPanId[OT_EXT_PAN_ID_SIZE] = {0x0A, 0xAB, 0x0A, 0x1B, 0xF8, 0x26, 0xBB, 0xC4};
-    memcpy(aDataset.mExtendedPanId.m8, extPanId, sizeof(aDataset.mExtendedPanId));
-    aDataset.mComponents.mIsPskcPresent = true;
+    // 0x1111111122222222
+    // uint8_t extPanId[OT_EXT_PAN_ID_SIZE] = {0x0A, 0xAB, 0x0A, 0x1B, 0xF8, 0x26, 0xBB, 0xC4};
+    // uint8_t extPanId[OT_EXT_PAN_ID_SIZE] = {0x11, 0x11, 0x11, 0x11, 0x22, 0x22, 0x22, 0x22};
+    // memcpy(aDataset.mExtendedPanId.m8, extPanId, sizeof(aDataset.mExtendedPanId));
+    // aDataset.mComponents.mIsPskcPresent = true;
     
     /* Set master key to 04 02 98 29 dd f0 11 b3 fd 23 50 22 9c bc fc a2 */
-    uint8_t key[OT_MASTER_KEY_SIZE] = {0x04, 0x02, 0x98, 0x29, 0xDD, 0xF0, 0x11, 0xB3, 0xFD, 0x23, 0x50, 0x22, 0x9C, 0xBC, 0xFC, 0xA2};
+    // uint8_t key[OT_MASTER_KEY_SIZE] = {0x04, 0x02, 0x98, 0x29, 0xDD, 0xF0, 0x11, 0xB3, 0xFD, 0x23, 0x50, 0x22, 0x9C, 0xBC, 0xFC, 0xA2};
+    uint8_t key[OT_MASTER_KEY_SIZE] = {0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff};
     memcpy(aDataset.mMasterKey.m8, key, sizeof(aDataset.mMasterKey));
     aDataset.mComponents.mIsMasterKeyPresent = true;
 
-    /* Set Network Name to OTCodelab */
-    size_t length = strlen(aNetworkName);
-    assert(length <= OT_NETWORK_NAME_MAX_SIZE);
-    memcpy(aDataset.mNetworkName.m8, aNetworkName, length);
-    aDataset.mComponents.mIsNetworkNamePresent = true;
+    OT_UNUSED_VARIABLE(aNetworkName);
+    /* Set Network Name */
+    // size_t length = strlen(aNetworkName);
+    // assert(length <= OT_NETWORK_NAME_MAX_SIZE);
+    // memcpy(aDataset.mNetworkName.m8, aNetworkName, length);
+    // aDataset.mComponents.mIsNetworkNamePresent = true;
 
 #if OPENTHREAD_FTD
     otDatasetSetActive(aInstance, &aDataset);
@@ -262,6 +274,46 @@ void setNetworkConfiguration(otInstance *aInstance)
  * @section MQTT-SN
  **************************************************************************************************/
 
+
+static bool has_valid_role() 
+{
+    if (otThreadGetDeviceRole(thread_ot_instance_get()) < OT_DEVICE_ROLE_CHILD )
+    {
+        // otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "THREAD: Got role < CHILD");
+        return false;
+    }
+    return true;
+}
+
+static void find_gateway() 
+{
+    if (!has_valid_role()) 
+    {
+        return;
+    }
+
+    uint32_t err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
+    if (err_code != NRF_SUCCESS)
+    {
+        NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
+    }
+}
+
+static void connect_mqttsn()
+{
+    if (!has_valid_role()) 
+    {
+        return;
+    }
+
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
+    uint32_t err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
+    if (err_code != NRF_SUCCESS)
+    {
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
+    }
+}
 
 /**@brief Turns the MQTT-SN network indication LED on.
  *
@@ -343,6 +395,7 @@ static void gateway_info_callback(mqttsn_event_t * p_event)
 static void connected_callback(void)
 {
     otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "connected_callback");
+
     light_on();
 
     uint32_t err_code = mqttsn_client_topic_register(&m_client,
@@ -422,6 +475,7 @@ static void searchgw_timeout_callback(mqttsn_event_t * p_event)
 {
     otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Gateway discovery result: 0x%x.\r\n", p_event->event_data.discovery);
     sleep();
+
 }
 
 /**@brief Function for handling MQTT-SN events. */
@@ -432,6 +486,7 @@ void mqttsn_evt_handler(mqttsn_client_t * p_client, mqttsn_event_t * p_event)
         case MQTTSN_EVENT_GATEWAY_FOUND:
             otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "MQTT-SN event: Client has found an active gateway.");
             gateway_info_callback(p_event);
+            connect_mqttsn();
             break;
 
         case MQTTSN_EVENT_CONNECTED:
@@ -496,43 +551,10 @@ static void mqttsn_init(void)
  * @section buttons
  **************************************************************************************************/
 
-static void led_state_pub(uint8_t led_state)
-{
-    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publishing led state: %d", led_state);
-    char msg[] = "{ \"test\" : true }";
-
-    uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, (uint8_t *)&msg, 18, &m_msg_id);
-    if (err_code != NRF_SUCCESS)
-    {
-        NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
-    }
-}
-
-static void publish(void)
-{
-    m_led_state = m_led_state == 1 ? 0 : 1;
-    led_state_pub(m_led_state);
-}
-
-int mqtt_state = 0;
-
 static void bsp_event_handler(bsp_event_t event)
 {
-    uint32_t err_code;
-
-    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "bsp_event_handler %d", event);
-    
-    if (otThreadGetDeviceRole(thread_ot_instance_get()) < OT_DEVICE_ROLE_CHILD )
-    {
-        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "THREAD: Got role < CHILD");
-        (void)event;
-        return;
-    }
-
     if (event == BSP_EVENT_KEY_0) 
-    {
-        if (mqtt_state == 0) 
-        {
+    {   
             wake_up();
 
             uint32_t err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
@@ -541,41 +563,7 @@ static void bsp_event_handler(bsp_event_t event)
                 NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
                 otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
             }
-            else {
-                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Maybe found gateway?");
-                mqtt_state = 1;
-            }
-        }
-        else if(mqtt_state == 1) 
-        {
-            wake_up();
-
-            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
-            err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
-            if (err_code != NRF_SUCCESS)
-            {
-                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-            }
-
-            mqtt_state = 2;
-        }
-        else if(mqtt_state == 2) 
-        {
-            wake_up();
-            if (mqttsn_client_state_get(&m_client) != MQTTSN_CLIENT_CONNECTED)
-            {
-                otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Sent CONNECT");
-                err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
-                if (err_code != NRF_SUCCESS)
-                {
-                    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-                }
-            }
-            
-            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publish");
-            publish();
-        }
-    }
+    }         
 }
 
 
@@ -648,16 +636,24 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
             otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "%d", p_event->data.done.p_buffer[i]);
         }
 
-        int16_t val = p_event->data.done.p_buffer[0];
-        char buffer[51] = {};
-        sprintf(buffer, "{ \"measurement\" : %d }", val);
-
-        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publishing ADC state %s", buffer);
-
-        err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, (uint8_t*)&buffer, 50, &m_msg_id);
-        if (err_code != NRF_SUCCESS)
+        if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
         {
-            NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
+            int16_t val = p_event->data.done.p_buffer[0];
+            char buffer[51] = {};
+            sprintf(buffer, "{ \"measurement\" : %d }", val);
+
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publishing ADC state %s", buffer);
+
+            err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, (uint8_t*)&buffer, 50, &m_msg_id);
+            if (err_code != NRF_SUCCESS)
+            {
+                NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
+            }
+        }
+        else if (has_valid_role())
+        {
+            wake_up();
+            find_gateway();
         }
 
         m_adc_evt_counter++;
