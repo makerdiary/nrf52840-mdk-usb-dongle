@@ -56,13 +56,20 @@
 #include "nrf_log.h"
 #include "nrf_log_default_backends.h"
 
+// timer
 #include "nrf.h"
 #include "nrf_drv_timer.h"
 #include "bsp.h"
 #include "app_error.h"
 
+// saadc
+#include "nrf_drv_saadc.h"
+#include "nrf_drv_ppi.h"
+
+// mqtt
 #include "mqttsn_client.h"
 
+// thread
 #include "thread_utils.h"
 
 #include <assert.h>
@@ -102,37 +109,17 @@ static mqttsn_topic_t       m_topic            =                            /**<
 static void bsp_event_handler(bsp_event_t event);
 
 // end mqtt sn
-// timer
+// saadc
 
-const nrf_drv_timer_t TIMER_LED = NRF_DRV_TIMER_INSTANCE(0);
+#define SAMPLES_IN_BUFFER 5
+volatile uint8_t state = 1;
 
-// end timer
+static const nrf_drv_timer_t m_timer = NRF_DRV_TIMER_INSTANCE(2);
+static nrf_saadc_value_t     m_buffer_pool[2][SAMPLES_IN_BUFFER];
+static nrf_ppi_channel_t     m_ppi_channel;
+static uint32_t              m_adc_evt_counter;
 
-
-/***************************************************************************************************
- * @section Timer
- **************************************************************************************************/
-
-/**
- * @brief Handler for timer events.
- */
-void timer_led_event_handler(nrf_timer_event_t event_type, void* p_context)
-{
-    static uint32_t i;
-    uint32_t led_to_invert = ((i++) % LEDS_NUMBER);
-
-    switch (event_type)
-    {
-        case NRF_TIMER_EVENT_COMPARE0:
-            bsp_board_led_invert(led_to_invert);
-            break;
-
-        default:
-            //Do nothing.
-            break;
-    }
-}
-
+// end saadc
 
 /***************************************************************************************************
  * @section State
@@ -156,7 +143,6 @@ static void timer_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-
 /**@brief Function for initializing the LEDs.
  */
 static void leds_init(void)
@@ -164,7 +150,6 @@ static void leds_init(void)
     LEDS_CONFIGURE(LEDS_MASK);
     LEDS_OFF(LEDS_MASK);
 }
-
 
 /**@brief Function for initializing the nrf log module.
  */
@@ -195,7 +180,6 @@ static void thread_instance_init(void)
     APP_ERROR_CHECK(err_code);
 }
 
-
 /**@brief Function for deinitializing the Thread Stack.
  *
  */
@@ -205,14 +189,12 @@ static void thread_instance_finalize(void)
     thread_soft_deinit();
 }
 
-
 /**@brief Function for initializing scheduler module.
  */
 static void scheduler_init(void)
 {
     APP_SCHED_INIT(SCHED_EVENT_DATA_SIZE, SCHED_QUEUE_SIZE);
 }
-
 
 void setNetworkConfiguration(otInstance *aInstance)
 {
@@ -596,14 +578,119 @@ static void bsp_event_handler(bsp_event_t event)
     }
 }
 
+
+/***************************************************************************************************
+ * @section SAADC
+ **************************************************************************************************/
+void timer_handler(nrf_timer_event_t event_type, void * p_context)
+{
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "SAADC timer fired");
+}
+
+void saadc_sampling_event_init(void)
+{
+    ret_code_t err_code;
+
+    err_code = nrf_drv_ppi_init();
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
+    timer_cfg.bit_width = NRF_TIMER_BIT_WIDTH_32;
+    err_code = nrf_drv_timer_init(&m_timer, &timer_cfg, timer_handler);
+    APP_ERROR_CHECK(err_code);
+
+    /* setup m_timer for compare event every 400ms */
+    uint32_t ticks = nrf_drv_timer_ms_to_ticks(&m_timer, 5000);
+    nrf_drv_timer_extended_compare(&m_timer,
+                                   NRF_TIMER_CC_CHANNEL0,
+                                   ticks,
+                                   NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK,
+                                   false);
+    nrf_drv_timer_enable(&m_timer);
+
+    uint32_t timer_compare_event_addr = nrf_drv_timer_compare_event_address_get(&m_timer,
+                                                                                NRF_TIMER_CC_CHANNEL0);
+    uint32_t saadc_sample_task_addr   = nrf_drv_saadc_sample_task_get();
+
+    /* setup ppi channel so that timer compare event is triggering sample task in SAADC */
+    err_code = nrf_drv_ppi_channel_alloc(&m_ppi_channel);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_ppi_channel_assign(m_ppi_channel,
+                                          timer_compare_event_addr,
+                                          saadc_sample_task_addr);
+    APP_ERROR_CHECK(err_code);
+}
+
+
+void saadc_sampling_event_enable(void)
+{
+    ret_code_t err_code = nrf_drv_ppi_channel_enable(m_ppi_channel);
+
+    APP_ERROR_CHECK(err_code);
+}
+
+void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
+{
+    otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "saadc_callback");
+    if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
+    {
+        ret_code_t err_code;
+
+        err_code = nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
+        APP_ERROR_CHECK(err_code);
+
+        int i;
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "ADC event number: %d", (int)m_adc_evt_counter);
+
+        for (i = 0; i < SAMPLES_IN_BUFFER; i++)
+        {
+            otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "%d", p_event->data.done.p_buffer[i]);
+        }
+
+        int16_t val = p_event->data.done.p_buffer[0];
+        char buffer[51] = {};
+        sprintf(buffer, "{ \"measurement\" : %d }", val);
+
+        otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "Publishing ADC state %s", buffer);
+
+        err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, (uint8_t*)&buffer, 50, &m_msg_id);
+        if (err_code != NRF_SUCCESS)
+        {
+            NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
+        }
+
+        m_adc_evt_counter++;
+    }
+}
+
+
+void saadc_init(void)
+{
+    ret_code_t err_code;
+    nrf_saadc_channel_config_t channel_config =
+        NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
+
+    err_code = nrf_drv_saadc_init(NULL, saadc_callback);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_saadc_channel_init(0, &channel_config);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool[0], SAMPLES_IN_BUFFER);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool[1], SAMPLES_IN_BUFFER);
+    APP_ERROR_CHECK(err_code);
+
+}
+
 /***************************************************************************************************
  * @section Main
  **************************************************************************************************/
 
 int main(int argc, char *argv[])
 {
-    uint32_t time_ms = 500; //Time(in miliseconds) between consecutive compare events.
-    uint32_t time_ticks;
     uint32_t err_code = NRF_SUCCESS;
 
     log_init();
@@ -614,20 +701,11 @@ int main(int argc, char *argv[])
     err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
     
-    LEDS_ON(BSP_LED_0_MASK);
-    LEDS_ON(BSP_LED_1_MASK);
-    LEDS_ON(BSP_LED_2_MASK);
+    LEDS_OFF(BSP_LED_0_MASK & BSP_LED_1_MASK & BSP_LED_2_MASK);
 
-    nrf_drv_timer_config_t timer_cfg = NRF_DRV_TIMER_DEFAULT_CONFIG;
-    err_code = nrf_drv_timer_init(&TIMER_LED, &timer_cfg, timer_led_event_handler);
-    APP_ERROR_CHECK(err_code);
-
-    time_ticks = nrf_drv_timer_ms_to_ticks(&TIMER_LED, time_ms);
-
-    nrf_drv_timer_extended_compare(
-         &TIMER_LED, NRF_TIMER_CC_CHANNEL0, time_ticks, NRF_TIMER_SHORT_COMPARE0_CLEAR_MASK, true);
-
-    nrf_drv_timer_enable(&TIMER_LED);
+    saadc_init();
+    saadc_sampling_event_init();
+    saadc_sampling_event_enable();
 
     while (true)
     {

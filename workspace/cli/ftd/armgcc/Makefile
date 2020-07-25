@@ -76,6 +76,9 @@ SRC_FILES += \
 	$(SDK_ROOT)/external/paho/mqtt-sn/mqttsn_packet/MQTTSNUnsubscribeServer.c \
 	$(SDK_ROOT)/modules/nrfx/soc/nrfx_atomic.c \
 	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_timer.c \
+	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_saadc.c \
+	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_ppi.c \
+	$(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_ppi.c \
 	$(PROJ_DIR)/../main.c \
 	$(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
 	$(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
