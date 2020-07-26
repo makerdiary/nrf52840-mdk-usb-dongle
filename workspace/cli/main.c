@@ -131,7 +131,7 @@ static void thread_state_changed_callback(uint32_t flags, void * p_context)
 {
     otPlatLog(OT_LOG_LEVEL_DEBG, OT_LOG_REGION_UTIL, "State changed! Flags: 0x%08x Current role: %d\r\n",
                  flags, otThreadGetDeviceRole(p_context));
-
+    LEDS_OFF(LEDS_MASK);
 }
 
 /***************************************************************************************************
@@ -176,7 +176,7 @@ static void thread_instance_init(void)
     };
 
     thread_init(&thread_configuration);
-    thread_cli_init();
+    // thread_cli_init();
     thread_state_changed_callback_set(thread_state_changed_callback);
 
     uint32_t err_code = bsp_thread_init(thread_ot_instance_get());
@@ -649,9 +649,12 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
             {
                 NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
             }
+            LEDS_OFF(LEDS_MASK);
+            sleep();
         }
         else if (has_valid_role())
         {
+            light_on();
             wake_up();
             find_gateway();
         }
@@ -696,8 +699,6 @@ int main(int argc, char *argv[])
 
     err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
     APP_ERROR_CHECK(err_code);
-    
-    LEDS_OFF(BSP_LED_0_MASK & BSP_LED_1_MASK & BSP_LED_2_MASK);
 
     saadc_init();
     saadc_sampling_event_init();
@@ -740,10 +741,10 @@ void otPlatLog(otLogLevel aLogLevel, otLogRegion aLogRegion, const char *aFormat
     OT_UNUSED_VARIABLE(aLogRegion);
     OT_UNUSED_VARIABLE(aFormat);
 
-    va_list ap;
-    va_start(ap, aFormat);
-    otCliPlatLogv(aLogLevel, aLogRegion, aFormat, ap);
-    va_end(ap);
+    // va_list ap;
+    // va_start(ap, aFormat);
+    // otCliPlatLogv(aLogLevel, aLogRegion, aFormat, ap);
+    // va_end(ap);
 }
 
 
