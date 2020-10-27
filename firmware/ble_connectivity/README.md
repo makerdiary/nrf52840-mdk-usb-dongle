@@ -6,11 +6,11 @@ This section details how to use the prebuilt BLE Connectivity firmware with nRF 
 
 ## Programming the firmware
 
-The prebuilt Connectivity firmware is located in this folder with the name `connectivity_4.1.1_usb_with_s132_3.1.0.uf2`.
+The prebuilt Connectivity firmware is located in this folder with the name `connectivity_4.1.2_usb_with_s132_5.1.0.uf2`.
 
 Enter DFU mode by holding the dongle's RESET/USR button and connecting to your PC. A flash drive with the name **MDK-DONGLE** will appear.
 
-Copy the firmware `connectivity_4.1.1_usb_with_s132_3.1.0.uf2` to **MDK-DONGLE**. 
+Copy the firmware `connectivity_4.1.2_usb_with_s132_5.1.0.uf2` to **MDK-DONGLE**. 
 
 When programming is completed, re-plug the dongle. The device named **nRF52 Connectivity** will detected by the computer.
 
