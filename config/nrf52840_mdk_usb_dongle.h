@@ -86,6 +86,14 @@ extern "C" {
 #define RTS_PIN_NUMBER 0xFFFFFFFF  // UART_PIN_DISCONNECTED
 #define HWFC           false
 
+#define BSP_SELF_PINRESET_PIN NRF_GPIO_PIN_MAP(0,16)
+
+#define BSP_QSPI_SCK_PIN   33
+#define BSP_QSPI_CSN_PIN   34
+#define BSP_QSPI_IO0_PIN   35
+#define BSP_QSPI_IO1_PIN   36
+#define BSP_QSPI_IO2_PIN   37
+#define BSP_QSPI_IO3_PIN   38
 
 #ifdef __cplusplus
 }
