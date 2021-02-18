@@ -55,7 +55,7 @@ The app firmware contains `padding.bin` and `cortex-m4.tbf` which is located in 
 ## Prepare OpenSK firmware
 
 A working OpenSK firmware contains three parts: `tock-os.hex`, `padding.bin` and `cortex-m4.tbf`. 
-[IntelHex]() can be used to convert and merge the firmware.
+[IntelHex](https://github.com/python-intelhex/intelhex) can be used to convert and merge the firmware.
 
 To convert `.bin` to `.hex` file:
 ``` sh
