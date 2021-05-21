@@ -43,7 +43,7 @@ The nRF52840 MDK USB Dongle can be used to play with : *nRF5 SDK*, *OpenThread*,
 | [iBeacon](https://developer.apple.com/ibeacon/) | A Bluetooth low energy advertising message format designed by Apple |
 | [Eddystone](https://github.com/google/eddystone) | A protocol specification that defines a Bluetooth low energy message format for proximity beacon messages |
 | [CircuitPython](https://circuitpython.org/board/makerdiary_nrf52840_mdk_usb_dongle/) | A programming language designed to simplify experimenting and learning to code on low-cost microcontroller boards |
-| [TinyGo](https://tinygo.org/microcontrollers/machine/nrf52840-mdk/) | Go compiler for small devices, based on LLVM |
+| [TinyGo](https://tinygo.org/microcontrollers/nrf52840-mdk-usb-dongle) | Go compiler for small devices, based on LLVM |
 | [Rust for nrf52840-mdk](https://github.com/nrf-rs/nrf52840-mdk-rs) | Rust support for the nrf52840-mdk development board |
 | [Web Device CLI](https://github.com/makerdiary/web-device-cli) | A Web Command Line Interface via NUS (Nordic UART Service) using Web Bluetooth API |
 | [nRF52 FIDO U2F Security Key](https://github.com/makerdiary/nrf52-u2f) | An Open-Source FIDO U2F implementation on nRF52 SoC |
