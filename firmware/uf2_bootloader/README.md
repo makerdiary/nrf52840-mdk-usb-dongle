@@ -25,10 +25,10 @@ Just copy the `.uf2`-format image to the flash drive the to load new firmware.
 
 The UF2 Bootloader is self-upgradable. An update ensures you have the most recent features and improvements for your current version of UF2 Bootloader. 
 
-To update UF2 Bootloader, [adafruit-nrfutil](https://github.com/adafruit/Adafruit_nRF52_nrfutil) is needed. Run the following command to install `adafruit-nrfutil` from PyPi:
+To update UF2 Bootloader, [adafruit-nrfutil](https://github.com/adafruit/Adafruit_nRF52_nrfutil) is needed. Run the following command to install `adafruit-nrfutil` from Adafruit's GitHub repository (Version had to be locked due to updates done to the util since this was written):
 
 ``` sh
-pip3 install --user adafruit-nrfutil
+pip3 install https://github.com/adafruit/Adafruit_nRF52_nrfutil/archive/474a584a97590f0fe928f1633596f809b4ab1297.zip
 ```
 
 Here is an example of the generation of a package from a `.hex` bootloader file:
