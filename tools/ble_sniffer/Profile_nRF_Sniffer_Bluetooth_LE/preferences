@@ -1,0 +1,17 @@
+# Configuration file for Wireshark for nRF Sniffer.
+
+# Packet list column format
+# Each pair of strings consists of a column title and its format
+gui.column.format: 
+	"No.", "%m",
+	"Time", "%t",
+	"Source", "%s",
+	"PHY", "%Cus:nordic_ble.phy:0:R",
+	"Protocol", "%p",
+	"Length", "%Cus:btle.length:0:R",
+	"Delta time (µs end to start)", "%Cus:nordic_ble.delta_time:0:R",
+	"SN", "%Cus:btle.data_header.sequence_number:0:R",
+	"NESN", "%Cus:btle.data_header.next_expected_sequence_number:0:R",
+	"More Data", "%Cus:btle.data_header.more_data:0:R",
+	"Event counter", "%Cus:nordic_ble.event_counter:0:R",    
+	"Info", "%i"
