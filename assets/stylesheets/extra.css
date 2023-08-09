@@ -1,0 +1,84 @@
+:root > * {
+    --md-primary-fg-color:               #AC2E45;
+    --md-primary-fg-color--light:        #D84B61;
+    --md-primary-fg-color--dark:         #982942;
+    --md-accent-fg-color:                #C13349;
+    --md-accent-fg-color--transparent:   #F3BAC5;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-hue: 210; /* [0, 360] */
+    --md-primary-fg-color:               #AC2E45;
+    --md-primary-fg-color--light:        #D84B61;
+    --md-primary-fg-color--dark:         #982942;
+    --md-accent-fg-color:                #C13349;
+    --md-accent-fg-color--transparent:   #EB8F9F;
+}
+
+.md-header__button.md-logo :-webkit-any(img,svg) {
+    height: 36px;
+}
+
+.nordic {
+    color: #00a9ce;
+}
+
+.red-wire {
+    color: #ef5552;
+}
+
+.gray-wire {
+    color: #757575;
+}
+
+.amber-wire {
+    color: #ffc105;
+}
+
+.light-green-wire {
+    color: #8bc34b;
+}
+
+.light-blue-wire {
+    color: #02a6f2;
+}
+
+.buy-button {
+    margin: 0.5em;
+}
+
+.md-typeset table:not([class]) td {
+  vertical-align: middle;
+}
+
+/*
+.md-typeset table:not([class]) {
+  border: unset;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.035);
+}
+
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: var(--md-typeset-table-color);
+  box-shadow: unset;
+}
+
+.md-typeset table:not([class]) th {
+  min-width: 5.0rem;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  padding: 0.625em 0.625em
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) tr {
+  border-top: unset;
+  border: 1px solid var(--md-typeset-table-color);
+}
+*/
