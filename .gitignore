@@ -1,21 +1,20 @@
-nrf_sdks/*
-!nrf_sdks/README.md
-.DS_Store/*
-_build/
-build/
+# editors
+*.swp
+*~
 
-BUILD/
-mbed-os/
+# python
+.venv
+__pycache__
+*.egg-info
+dist
 
+# build
+build
+build-*
+build_*
+
+# mkdocs
 site
-factory_test_app
-dfu
-dfu_private_key.pem
 
-mkdocs-material/*
-material/*
-
-.idea
-.build
-.mbed
-projectfiles
+# macOS internals
+.DS_Store
