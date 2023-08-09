@@ -1,0 +1,284 @@
+<!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Makerdiary
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+{% extends "main.html" %}
+
+<!-- Render hero under tabs -->
+{% block tabs %}
+  {{ super() }}
+
+  <!-- Additional styles for landing page -->
+  <style>
+
+    /* Application header should be static for the landing page */
+    .md-header {
+      position: initial;
+    }
+
+    /* Hero section */
+    .mdx-container {
+      background: linear-gradient(to bottom, var(--md-primary-fg-color), var(--md-primary-fg-color--light) 99%, var(--md-default-bg-color) 99%);
+      /*padding-top: 1rem*/
+    }
+    [data-md-color-scheme=slate] .mdx-container {
+      background: linear-gradient(to bottom, var(--md-primary-fg-color), var(--md-primary-fg-color--light) 99%, var(--md-default-bg-color) 99%)
+    }
+    .mdx-hero {
+      color: var(--md-primary-bg-color);
+      margin: 0 .8rem
+    }
+    .mdx-hero h1 {
+      color: currentcolor;
+      font-weight: 700;
+      margin-bottom: 1rem
+    }
+    @media screen and (max-width:29.9375em) {
+      .mdx-hero h1 {
+        font-size: 1.4rem
+      }
+    }
+    .mdx-hero__content {
+      padding-bottom: 6rem
+    }
+    @media screen and (min-width:60em) {
+      .mdx-hero {
+        align-items: stretch;
+        display: flex
+      }
+
+      .mdx-hero__content {
+        margin-top: 3.5rem;
+        max-width: 22rem;
+        padding-bottom: 8vw
+      }
+
+      .mdx-hero__image {
+        order: 1;
+        transform: translateX(4rem);
+        width: 32rem
+      }
+    }
+    @media screen and (min-width:76.25em) {
+      .mdx-hero__image {
+        transform: translateX(8rem)
+      }
+    }
+    .mdx-hero .md-button {
+      border: .05rem solid;
+      border-radius: 0;
+      box-shadow: 0 0 0 .05rem var(--md-primary-bg-colo);
+      color: var(--md-primary-bg-color);
+      margin-right: .5rem;
+      margin-top: .5rem;
+      transition: box-shadow .1s ease
+    }
+    .mdx-hero .md-button:focus,
+    .mdx-hero .md-button:hover {
+      background-color: initial;
+      border-color: var(--md-primary-bg-color);
+      box-shadow: 0 0 0 .05rem var(--md-primary-bg-color)
+    }
+    .mdx-hero .md-button--primary,
+    .mdx-hero .md-button--primary:focus,
+    .mdx-hero .md-button--primary:hover {
+      background-color: var(--md-primary-bg-color);
+      border-color: var(--md-primary-bg-color);
+      color: var(--md-primary-fg-color--light)
+    }
+    .mdx-hero .md-button--primary:focus,
+    .mdx-hero .md-button--primary:hover {
+      box-shadow: 0 0 0 .05rem var(--md-primary-bg-color)
+    }
+
+  </style>
+
+  <!-- Hero for landing page -->
+  <section class="mdx-container">
+    <div class="md-grid md-typeset">
+      <div class="mdx-hero">
+        <div class="mdx-hero__image">
+          <img src="{{ config.theme.home.hero.image }}" alt="" draggable="false">
+        </div>
+        <div class="mdx-hero__content">
+          <h1>{{ config.theme.home.hero.title }}</h1>
+          <p>{{ config.theme.home.hero.description }}</p>
+          <a
+            href="{{ config.theme.home.hero.button_primary.link | url }}"
+            title="{{ config.theme.home.hero.button_primary.label | e }}"
+            class="md-button md-button--primary"
+          >
+            {{ config.theme.home.hero.button_primary.label }}
+          </a>
+          <a
+            href="{{ config.theme.home.hero.button_secondary.link | url }}"
+            title="{{ config.theme.home.hero.button_secondary.label | e }}"
+            class="md-button"
+          >
+            {{ config.theme.home.hero.button_secondary.label }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+  <style>
+    .md-typeset .mdx-multicolumn {
+      grid-gap: 1.4rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(19rem,1fr));
+      margin-bottom: 2.2rem;
+    }
+    @media screen and (max-width: 29.9375em) {
+      .md-typeset .mdx-multicolumn {
+        grid-template-columns: 1fr;
+      }
+    }
+    .md-typeset .mdx-multicolumn>ul {
+      display: contents;
+    }
+    .md-typeset .mdx-multicolumn>ul>li {
+      display: flex;
+      gap: 0.6rem;
+      margin: 0;
+      transition: transform .75s cubic-bezier(.075,.85,.175,1),opacity .75s;
+      margin-left: 0;
+    }
+    .mdx-multicolumn__icon {
+      fill: var(--md-primary-fg-color);
+      background-color: var(--md-default-fg-color--lightest);
+      border-radius: 100%;
+      flex-shrink: 0;
+      height: 2.2rem;
+      padding: 0.4rem;
+      width: 2.2rem;
+    }
+    .md-typeset .mdx-multicolumn>ul>li .mdx-multicolumn__title {
+      font-weight: 700;
+      margin-top: 0.175em;
+    }
+
+    .mdx-featured-blog__viewall {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .md-typeset .grid {
+      grid-gap: 1.6rem 1.4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(16rem,1fr));
+      margin: 1em 0
+    }
+    .md-typeset .grid.cards>ol,.md-typeset .grid.cards>ul {
+      display: contents
+    }
+    .md-typeset .grid.cards h3 {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+    .article_link:hover .twemoji {
+      transform: translateX(0.2rem);
+    }
+    .md-typeset .grid.cards>ol>li,.md-typeset .grid.cards>ul>li,.md-typeset .grid>.card {
+      border: .05rem solid var(--md-default-fg-color--lightest);
+      border-radius: .1rem;
+      display: block;
+      margin: 0;
+      padding: .8rem;
+      transition: border .25s,box-shadow .25s
+    }
+    .md-typeset .grid.cards>ol>li:focus-within,.md-typeset .grid.cards>ol>li:hover,.md-typeset .grid.cards>ul>li:focus-within,.md-typeset .grid.cards>ul>li:hover,.md-typeset .grid>.card:focus-within,.md-typeset .grid>.card:hover {
+      border-color: #0000;
+      box-shadow: var(--md-shadow-z2)
+    }
+  </style>
+
+  <!-- Multicolumn -->
+  {% if config.theme.home.multicolumn %}
+    {% if config.theme.home.multicolumn.heading %}
+      <header class="md-typeset">
+        <h1 id="{{ config.theme.home.multicolumn.id }}">{{ config.theme.home.multicolumn.heading }}<a href="#{{ config.theme.home.multicolumn.id }}" class="headerlink" title="Permanent link"> ¶ </a> </h1>
+      </header>
+    {% endif %}
+    {% if config.theme.home.multicolumn.columns %}
+      <div class="mdx-multicolumn">
+        <ul class="mdx-multicolumn__list">
+          {% for column in config.theme.home.multicolumn.columns %}
+            <li class="mdx-multicolumn__item md-typeset">
+              <div class="mdx-multicolumn__icon">
+                {% include ".icons/" ~ column.icon ~ ".svg" %}
+              </div>
+              <div class="mdx-multicolumn__description">
+                <h2 class="mdx-multicolumn__title">{{ column.title }}</h2>
+                <p>{{ column.description }}</p>
+              </div>
+            </li>
+          {% endfor%}
+        </ul>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if config.theme.blog %}
+    <h1 id="#latest-posts">Latest posts<a class="headerlink" href="#latest-posts" title="Permanent link">¶</a></h1>
+    {% if config.theme.blog.articles %}
+      <div class="grid cards">
+        <ul>
+          {% for article in config.theme.blog.articles %}
+            {% if loop.index < 4 %}
+              <li>
+                <img src="{{ article.cover | url }}" alt="{{ article.title | e }}" loading="lazy">
+                <h3>{{ article.title }}</h3>
+                <small>
+                  <span class="twemoji">{% include ".icons/octicons/calendar-24.svg" %}</span>
+                  {{ article.date }} · 
+                  <span class="twemoji">{% include ".icons/octicons/clock-24.svg" %}</span> 
+                  {{ article.reading_time }} read
+                </small>
+                <p>{{ article.excerpt }}</p>
+                <p>
+                  <a class="article_link" href="{{ article.link | url }}">
+                    Continue reading
+                    <span class="twemoji">
+                      {% include ".icons/octicons/arrow-right-24.svg" %}
+                    </span>
+                  </a>
+                </p>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="md-typeset mdx-featured-blog__viewall">
+        <a href="{{ config.theme.blog.catalog | url }}" class="md-button md-button--primary"> View all </a>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+<!-- Application footer -->
+{% block footer %}
+{{ super() }}
+{% endblock %}

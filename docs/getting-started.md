@@ -1,189 +1,129 @@
-# Getting started with nRF52840 MDK USB Dongle
+# nRF52840 MDK USB Dongle Quick Start Guide
 
 ## Introduction
 
-This guide details how to get started with the nRF52840 MDK USB Dongle development, and what to expect when you do so.
+This tutorial provides a quick introduction to using the nRF52840 MDK USB Dongle. The dongle is shipped with the [Bluetooth Low Energy Connectivity firmware] after July 20 2023, which allows using nRF Connect Bluetooth Low Energy app to demonstrate Bluetooth Low Energy connectivity.
 
-When you get a new dongle, it has been preprogrammed with the OpenThread NCP image. So you can easily set up a Thread NCP Joiner, which can be securely authenticated and commissioned onto a Thread network.
+## Requirements
 
-## What you'll need
+Before you start, check that you have the required hardware and software:
 
-* nRF52840 MDK USB Dongle
-* PC running a Linux based operating system or MacOS
-* wpantund
+* 1x [nRF52840 MDK USB Dongle](https://makerdiary.com/products/nrf52840-mdk-usb-dongle)(or [w/Case](https://makerdiary.com/products/nrf52840-mdk-usb-dongle-w-case) option)
+* A smartphone or a tablet with [nRF Connect for Mobile](https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile) installed
+* [nRF Connect Bluetooth Low Energy](https://github.com/NordicPlayground/pc-nrfconnect-ble-standalone/releases/) 4.0.1 or later
+* A computer running macOS, Linux, or Windows 7 or newer
 
-## Installing wpantund
+??? Warning "Update the BLE Connectivity firmware"
+    You may get a dongle without the latest BLE Connectivity firmware, because the dongle manufactured before July 20 2023 was shipped with the [OpenThread NCP firmware]. However, you can change to the latest BLE Connectivity firmware easily by following the steps below:
 
-[wpantund](https://github.com/openthread/wpantund) is a user-space network interface driver/daemon that provides a native IPv6 network interface to a low-power wireless Network Co-Processor (NCP). It was written and developed by Nest Labs to make supporting Thread connectivity on Unix-like operating systems more straightforward.
+    1. Download the latest firmware [here](https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/main/firmware/ble_connectivity).
+    2. Push and hold the button and plug your dongle into the USB port of your computer. Release the button after your dongle is connected. The RGB LED turns green. (If the button has been programmed as RESET functionality, just double-click the button to enter DFU mode.)
+    3. It will mount as a Mass Storage Device called __UF2BOOT__ (or __MDK-DONGLE__ for the old bootloader).
+    4. Drag and drop `connectivity_4.1.4_usb_with_s132_5.1.0.uf2` onto the __UF2BOOT__ (or __MDK-DONGLE__) volume. The RGB LED blinks red fast during flashing.
+    5. Re-plug the dongle and the new BLE Connectivity firmware will start running.
 
-**wpantund** is designed to marshall all access to the NCP, ensuring that it always remains in a consistent and well-defined state.
 
-Follow the [wpantund Installation Guide](https://github.com/openthread/wpantund/blob/master/INSTALL.md) to install wpantund on Ubuntu or macOS.
+## Installing the nRF Connect Bluetooth Low Energy
 
-## Connecting the USB Dongle
+The nRF Connect Bluetooth Low Energy app is an easy-to-use cross-platform application for Bluetooth Low Energy connectivity testing. Choose your Desktop platform and select version (latest released version recommended) to download:
 
-Connect the nRF52840 MDK USB Dongle to your host as shown below: 
+[Download](https://github.com/NordicPlayground/pc-nrfconnect-ble-standalone/releases/){ .md-button .md-button--primary }
 
-![](assets/images/connecting-dongle.jpg)
+After starting the nRF Connect Bluetooth Low Energy app, the application window is displayed.
 
-The USB Dongle will be recognized as an nRF52840 OpenThread Device like this:
+![](./assets/images/pc_nrfconnect_ble_app.png)
 
-![](assets/images/nrf52840-openthread-device-info.png)
+## Installing the nRF Connect for Mobile
 
-## Configure wpantund
+nRF Connect for Mobile app is a powerful generic tool that allows you to scan and explore your Bluetooth Low Energy devices and communicate with them.
 
-In the NCP design, use `wpantund` to communicate with and manage the Thread device.
+[![App Store](./assets/images/appstore.png){ width='128' display='inline' }](https://itunes.apple.com/us/app/nrf-connect/id1054362403?ls=1&mt=8)
+[![Google Play](./assets/images/google-play-badge.png){ width='148' display='inline' }](https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp)
 
-In a terminal window, start `wpantund` on the serial port with the NCP, creating the interface `utun7` and enabling info logs:
+## Connecting the dongle
 
-``` sh
-$ sudo /usr/local/sbin/wpantund -o Config:NCP:SocketPath /dev/cu.usbmodem14112  \
-        -o Config:TUN:InterfaceName utun7 \
-        -o Daemon:SyslogMask " -info"
-```
+The nRF Connect Bluetooth Low Energy app requires a serial port connection to nRF52840 MDK USB Dongle. The dongle is controlled by the app which sends serialized commands to it over a serial port.
 
-!!! tip
-	To configure wpantund without using command line parameters, modify the `/etc/wpantund.conf` file.
+To connect the dongle, complete the following steps:
 
-If the NCP is successfully running OpenThread, the output should be similar to the below:
+1. Plug your dongle into the USB port of your computer. When the USB device is started, the RGB LED turns blue.
 
-``` sh
-Sep 11 20:51:21  wpantund[39634] <Notice>: Starting wpantund 0.08.00d (Jun  9 2018 00:31:51) . . .
-Sep 11 20:51:21  wpantund[39634] <Notice>: 	SOURCE_VERSION = 0.07.01-217-g86d29d6
-Sep 11 20:51:21  wpantund[39634] <Notice>: 	BUILD_VERSION = 0.07.01-217-g86d29d6
-Sep 11 20:51:21  wpantund[39634] <Notice>: Configuration file "/etc/wpantund.conf" read.
-Sep 11 20:51:21  wpantund[39634] <Notice>: Ready. Using DBUS bus ":1.0"
-Sep 11 20:51:21  wpantund[39634] <Notice>: Running as root without dropping privileges!
-Sep 11 20:51:21  wpantund[39634] <Notice>: [-NCP-]: NCP was reset (STATUS_RESET_POWER_ON, 112)
-Sep 11 20:51:21  wpantund[39634] <Error>: Unexpected reset during NCP initialization.
-Sep 11 20:51:21  wpantund[39634] <Error>: Resetting and trying again... (retry 1)
-Sep 11 20:51:21  wpantund[39634] <Notice>: [-NCP-]: NCP was reset (STATUS_RESET_POWER_ON, 112)
-Sep 11 20:51:21  wpantund[39634] <Notice>: State change: "uninitialized" -> "offline"
-Sep 11 20:51:21  wpantund[39634] <Notice>: NCP is running "OPENTHREAD/20170716-00745-g79e35c57; NRF52840; Jul 15 2018 09:52:08"
-Sep 11 20:51:21  wpantund[39634] <Notice>: Driver is running "0.08.00d (0.07.01-217-g86d29d6; Jun  9 2018 00:31:51)"
-Sep 11 20:51:21  wpantund[39634] <Notice>: Network is not joinable
-Sep 11 20:51:21  wpantund[39634] <Notice>: Resetting interface(s). . .
-Sep 11 20:51:21  wpantund[39634] <Notice>: Finished initializing NCP
-```
+2. Open the nRF Connect Bluetooth Low Energy app, in the navigation bar, click on the __SELECT DEVICE__ menu.
 
-Leave this terminal window open so that logs from wpantund can be viewed.
+3. Select a device by clicking on its name - __nRF52 Connectivity__ in the drop-down list.
 
-A user-defined interface is required to communicate with the NCP using `wpanctl`. Open a new terminal window and using `wpanctl`, connect to the interface you just set up:
+![Connecting the board](./assets/images/nrf_connect_ble_app.gif)
 
-``` sh
-$ sudo /usr/local/bin/wpanctl -I utun7
-wpanctl:utun7>
-```
+## Establishing Bluetooth Low Energy connections
 
-## Verify NCP
+The nRF Connect Bluetooth Low Energy app can establish and maintain up to eight simultaneous Bluetooth Low Energy connections.
 
-Verify that the NCP is in the correct state:
+To connect to devices, complete the following steps:
 
-``` sh
-wpanctl:utun7> status
-utun7 => [
-	"NCP:State" => "offline"
-	"Daemon:Enabled" => true
-	"NCP:Version" => "OPENTHREAD/20170716-00745-g79e35c57; NRF52840; Jul 15 2018 09:52:08"
-	"Daemon:Version" => "0.08.00d (0.07.01-217-g86d29d6; Jun  9 2018 00:31:51)"
-	"Config:NCP:DriverName" => "spinel"
-	"NCP:HardwareAddress" => [38D6B665CE553B4F]
-]
-```
+1. To scan for nearby Bluetooth devices, click the __Start scan__ button in the Discovered devices view.
 
-Now, you can scan for networks on the NCP Joiner. If you have formed a Thread network, the output should be similar to the below:
+    The advertising devices start to appear in a list in the Discovered devices view. Each entry in the list shows the name, address, and RSSI of the received advertising packet. 
 
-![](assets/images/verifying-ncp.png)
+2. To establish a Bluetooth connection with a peer device, click the __Connect__ button associated with the device.
 
-!!! tip
-    You can follow this guide to [Build a Thread network with nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/openthread/) for testing.
+    ![Establishing Bluetooth Low Energy connections](./assets/images/establishing_ble_connections.png)
 
+    When the connection has been established, a new peripheral device appears in the Connection Map, to the right of the local device. The nRF Connect Bluetooth Low Energy app automatically performs an initial service discovery. The discovered services are listed below the connected device.
 
-## Update NCP firmware
+## Viewing service details
 
-More features will be added to the NCP firmware gradually over time. The latest pre-built NCP firmware is a `.hex` file. You can download here:
+The nRF Connect Bluetooth Low Energy app can discover and display services, characteristics, and descriptors of a connected peer device's attribute table.
 
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/ncp"><button data-md-color-primary="red-bud">NCP firmware</button></a>
+- To view the handle and UUID of an attribute, move the mouse pointer over the attribute name. A hover text is displayed.
+- To view the characteristics of a service, click the __Expand/collapse__ icon :fontawesome-solid-caret-right:{ .nordic } .
+- To view descriptors, expand the characteristics.
+- To configure the peer device to start sending notifications, click the __Toggle notifications__ icon :fontawesome-solid-square-caret-right:{ .nordic } . When a device receives a notification, the corresponding attribute is highlighted, and its value is updated.
 
-While holding the dongle's RESET/USR button, connect it to your computer. When the Dongle has entered the bootloader mode, the RGB LED pulses RED. It is now ready for programming.
+![Viewing service details](./assets/images/viewing_service.png)
 
-!!! note 
-	For programming, just follow the "[Programming](programming.md)" section.
+## Setting up advertising
 
-## How to build NCP firmware?
+The nRF Connect Bluetooth Low Energy app can also enable the local device to operate as a peripheral that can send connectable advertising packets. The contents of the advertising packets can be configured in the advertising setup.
 
-You can also build the latest NCP firmware by yourself. The following steps detail how to do that.
+To start sending advertising packets, complete the following steps:
 
-1. Clone and install OpenThread:
+1. Click the local __Device options__ icon :fontawesome-solid-gear: .
+2. Specify the contents of the advertising packets:
 
-	``` sh
-	$ git clone --recursive https://github.com/openthread/openthread.git
-	$ cd openthread
-	$ ./bootstrap
-	```
+    1. To display the Advertising setup dialog, click __Advertising setup__.
+    2. From the AD type drop-down menu, select an AD type.
+    3. In the Value field, add a data value.
+    4. Select __Add to advertising data__ or __Add to scan response__.
+    5. Repeat until all wanted fields are present.
+    6. Click __Apply__, then click __Close__.
 
-2. Build the firmware with the following commands:
+    ![](./assets/images/ble_advertising_setup.png)
 
-	``` sh
-	$ make -f examples/Makefile-nrf52840 clean
-	$ make -f examples/Makefile-nrf52840 USB=1 BOOTLOADER=1 BORDER_AGENT=1 BORDER_ROUTER=1 COMMISSIONER=1 JOINER=1 UDP_PROXY=1 CFLAGS+=-UCONFIG_GPIO_AS_PINRESET
-	```
+3. To start advertising the device, click __Start advertising__.
+4. Open nRF Connect for Mobile app, pull down to scan the device:
 
-	!!! warning
-		You MUST undefine the `CONFIG_GPIO_AS_PINRESET` flag, or the Dongle would not enter the bootloader mode next time by holding the dongle's RESET/USR button. 
+    ![](./assets/images/nrf_connect_for_mobile.png){ width='250' }
 
-		Please remember to add `CFLAGS+=-UCONFIG_GPIO_AS_PINRESET` to undefine the `CONFIG_GPIO_AS_PINRESET` flag!
+## Next steps
 
-3. Navigate to the directory with the OpenThread FTD NCP binary, and convert it to hex format:
+Now, you have finished the nRF52840 MDK USB Dongle quick start guide, it's time to learn more essential developer guides.
 
-	``` sh
-	$ cd ~/openthread/output/nrf52840/bin
-	$ arm-none-eabi-objcopy -O ihex ot-ncp-ftd ot-ncp-ftd.hex
-	```
+To learn how to program the nRF52840 MDK USB Dongle, check out this guide:
 
-	The `ot-ncp-ftd.hex` file is the expected NCP firmware.
+* [How to program the nRF52840 MDK USB Dongle](./programming/index.md)
 
-## More applications 
+To quickly get started with the nRF Connect SDK development, check the guide below for instructions:
 
-See the following topics for further introduction:
+* [Develop with nRF Connect SDK](./guides/ncs/index.md)
 
-* [Build an OpenThread Border Router with Raspberry Pi 3B](OTBR.md)
-* [Build a Thread Network Sniffer with Wireshark](thread-sniffer.md)
+You can also make the nRF52840 MDK USB Dongle become a Bluetooth LE or IEEE 802.15.4-based (such as Thread and ZigBee) packet sniffer, which can help identify and fix issues by allowing a view of what is happening on-air. Follow these guides to setup:
 
+* [nRF Sniffer for Bluetooth LE](./guides/ble-sniffer/index.md)
+* [nRF Sniffer for 802.15.4](./guides/nrf802154-sniffer/index.md)
 
-## Clone the repository
+nRF52840 MDK USB Dongle also supports Google's OpenSK, a fully open-source implementation for security keys written in Rust that supports both FIDO U2F and FIDO2 standards. Follow the guide below to get started:
 
-Clone the [makerdiary/nrf52840-mdk-usb-dongle](https://github.com/makerdiary/nrf52840-mdk-usb-dongle) repository or download it as a zip package and put its contents to your working directory.
+* [OpenSK FIDO2 Authenticator Guide](./guides/opensk/index.md)
 
-``` sh
-$ git clone https://github.com/makerdiary/nrf52840-mdk-usb-dongle.git
-```
-
-This repository provides documents and example applications that you can run on your board to ensure that everything is set up correctly.
-
-You can also star or watch this repository to let GitHub send you notifications when something new is added.
-
-<!-- Place this tag where you want the button to render. -->
-<a class="github-button" href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star makerdiary/nrf52840-mdk-usb-dongle on GitHub">Star</a>
-
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
-## Reference
-
-* [Build a Thread network with nRF52840-MDK](https://wiki.makerdiary.com/nrf52840-mdk/openthread/)
-
-* [Thread Primer](https://openthread.io/guides/thread_primer/) — covers all the Thread concepts in this documentation
-
-* [Build a Thread network with nRF52840 boards and OpenThread](https://codelabs.developers.google.com/codelabs/openthread-hardware/#0)
-
-## License
-Content on this page is licensed under the [Creative Commons Attribution 3.0 License](https://creativecommons.org/licenses/by/3.0/).
-
-## Create an Issue
-
-Interested in contributing to this project? Want to report a bug? Feel free to click here:
-
-<a href="https://github.com/makerdiary/nrf52840-mdk-usb-dongle/issues/new"><button data-md-color-primary="red-bud"><i class="fa fa-github"></i> Create an Issue</button></a>
-
+[Bluetooth Low Energy Connectivity firmware]: https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/main/firmware/ble_connectivity
+[OpenThread NCP firmware]: https://github.com/makerdiary/nrf52840-mdk-usb-dongle/tree/master/firmware/openthread/ncp

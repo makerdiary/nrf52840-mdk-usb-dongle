@@ -1,83 +1,218 @@
+# Copyright (c) 2016-2023 Makerdiary
+#
+# SPDX-License-Identifier: Apache-2.0
 
 # Project information
 site_name: nRF52840 MDK USB Dongle
-site_description: nRF52840 Micro Development Kit (USB Dongle Form Factor)
+site_url: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle
 site_author: makerdiary
-site_url: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/
+site_description: >-
+  The documentation offers all you need to start developing with nRF52840 MDK USB Dongle.
 
 # Repository
-repo_name: nrf52840-mdk-usb-dongle
+repo_name: makerdiary/nrf52840-mdk-usb-dongle
 repo_url: https://github.com/makerdiary/nrf52840-mdk-usb-dongle
-edit_uri: "https://github.com/makerdiary/nrf52840-mdk-usb-dongle/docs"
+edit_uri: ""
+#edit_uri: edit/main/docs
 
 # Copyright
-copyright: 'Copyright &copy; 2019 <a href="https://makerdiary.com">makerdiary.com</a>'
+copyright: 'Copyright &copy; 2016-2023 <a href="https://makerdiary.com" target="_blank">makerdiary</a>'
 
 # Configuration
 theme:
-  name: null
-  custom_dir: 'mkdocs-material/material'
-
-  # 404 page
-  static_templates:
-    - 404.html
-
-  # Don't include MkDocs' JavaScript
-  include_search_page: false
-  search_index_only: true
-
-  # Default values, taken from mkdocs_theme.yml
-  language: en
-  feature:
-    tabs: true
+  name: material
+  custom_dir: docs/.overrides
+  features:
+    # - announce.dismiss
+    - content.code.annotate
+    - content.code.copy
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    # - navigation.expand
+    - navigation.indexes
+    - navigation.instant
+    - navigation.prune
+    # - navigation.sections
+    - navigation.tabs
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
   palette:
-    primary: red-bud
-    accent: red-bud
+    - scheme: default
+      primary: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   font:
     text: Roboto
     code: Roboto Mono
-  favicon: 'assets/images/favicon.png'
-  logo: 'assets/images/logo.svg'
+  favicon: assets/favicon.png
+  icon:
+    logo: logo
+  # Announcement bar
+  announcement: ""
+  # Home page
+  home:
+    hero:
+      title: A small, low-cost USB Dongle designed with nRF52840
+      description: >-
+        nRF52840 MDK USB Dongle is a small, low-cost USB Dongle that supports Bluetooth 5.4,
+        Bluetooth mesh, Thread, Zigbee, 802.15.4, ANT and 2.4 GHz proprietary protocols.
+        It's shipped with the UF2 Bootloader, supports Bluetooth LE/802.15.4 packet sniffer
+        with Wireshark, and has PCBA and w/Case options to meet various scenarios.
+      image: assets/images/nrf52840dongle-hero.png
+      button_primary:
+        label: Quick Start
+        link: getting-started
+      button_secondary:
+        label: Buy Now
+        link: purchase
+    multicolumn:
+      id: everything-you-would-expect
+      heading: Everything you would expect
+      columns:
+        - icon: nordic-chip
+          title: Designed with nRF52840
+          description: >-
+            Designed with the nRF52840 SoC with a rich set of peripherals and features, supporting Bluetooth 5.4,
+            Bluetooth mesh, Thread, Zigbee, 802.15.4, ANT and 2.4 GHz proprietary protocols.
+        - icon: uf2-icon
+          title: Built-in UF2 Bootloader
+          description: >-
+            Shipped with UF2 Bootloader that allows you to flash your firmware by just dragging and dropping
+            .uf2 file onto the flash drive without using an external programmer.
+        - icon: usb-dongle
+          title: PCBA & w/Case available
+          description: >-
+            PCBA and w/Case options are available to meet various scenarios. The PCBA is cost-effective for development
+            and the w/Case option provides protection and ease of use for production.
+        - icon: material/cast-connected
+          title: Sniffer with Wireshark
+          description: >-
+            Support Bluetooth LE/802.15.4 packet sniffer with Wireshark, which can help the developer to identify and
+            fix issues by allowing a view of what is happening on-air.
+        - icon: material/link-box-variant
+          title: Built on Open Source
+          description: >-
+            Supported by many popular open-source projects, like Nordic Semi's nRF Connect SDK, Zephyr RTOS,
+            OpenSK FIDO2 Authenticator, MicroPython, CircuitPython, TinyGo and much more.
+        - icon: material/file-document-check
+          title: Well documented
+          description: >-
+            We offer an extensive set of documentation such as getting started and developer guides that can help you save
+            big by reducing development effort and build your prototypes in a very short time.
+  blog:
+    heading: Latest posts
+    catalog: blog
+    newsletter: https://makerdiary.com/newsletter
+    articles:
+      - title: Introducing nRF Connect SDK
+        cover: assets/images/ncs_intro_cover.png
+        link: blog/introducing-ncs
+        date: Aug 7, 2023
+        reading_time: 5 min
+        excerpt: >-
+            The nRF Connect SDK is a software development kit for building Bluetooth Low Energy, Wi-Fi,
+            cellular IoT, Bluetooth mesh, Thread, Zigbee and Matter products based on Nordic Semiconductor's
+            wireless devices.
+      - title: Building your own OpenSK firmware
+        cover: assets/images/building_opensk_cover.png
+        link: blog/building-opensk
+        date: Aug 7, 2023
+        reading_time: 10 min
+        excerpt: >-
+            This guide demonstrates how to build your own OpenSK firmware using GitHub Codespaces. This way will
+            simplify the complex development environment and get the firmware you expect in a short time.
+      - title: Documentation Updated!
+        cover: assets/images/docs_updated_cover.png
+        link: blog/docs-updated
+        date: Aug 7, 2023
+        reading_time: 3 min
+        excerpt: >-
+            New documentation just landed! There are many updates that we hope you'll like, some of the key
+            highlights include: Migrating to nRF Connect SDK, Firmware updates, Sniffer with Wireshark, OpenSK
+            updates and more.
 
 # Plugins
 plugins:
   - search
+  # - git-revision-date-localized
   - minify:
       minify_html: true
+  - redirects:
+      redirect_maps:
+        'nrf5-sdk.md': 'guides/ncs/index.md'
+        'OTBR.md': 'guides/ncs/samples/thread/coprocessor.md'
+        'opensk/index.md': 'guides/opensk/index.md'
+        'thread-sniffer.md': 'guides/nrf802154-sniffer/index.md'
+        'how-to-buy.md': 'purchase.md'
+  # TODO: Support Chinese
+  # - i18n:
+  #    default_language: en
+  #    languages:
+  #      en: English
+  #      zh: 简体中文
 
 # Customization
 extra:
+  generator: false
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
   social:
-    - type: comments
-      link: https://community.makerdiary.com
-    - type: globe
+    - icon: fontawesome/brands/shopify
       link: https://makerdiary.com
-    - type: github-alt
+    - icon: fontawesome/brands/github
       link: https://github.com/makerdiary
-    - type: twitter
+    - icon: fontawesome/brands/twitter
       link: https://twitter.com/makerdiary
-#  disqus: 'makerdiary'
-#  discourse: 'community.makerdiary.com'
+    - icon: fontawesome/brands/discourse
+      link: https://community.makerdiary.com
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@makerdiary
+    - icon: fontawesome/solid/blog
+      link: https://blog.makerdiary.com
+    - icon: fontawesome/brands/medium
+      link: https://medium.com/makerdiary
+    - icon: fontawesome/solid/envelope
+      link: mailto:hi@makerdiary.com
+
+extra_css:
+  - assets/stylesheets/extra.css
 
 # Extensions
 markdown_extensions:
-  - markdown.extensions.admonition
-  - markdown.extensions.codehilite:
-      guess_lang: false
-  - markdown.extensions.def_list
-  - markdown.extensions.footnotes
-  - markdown.extensions.meta
-  - markdown.extensions.toc:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
       permalink: true
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:pymdownx.emoji.twemoji
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink:
@@ -86,29 +221,88 @@ markdown_extensions:
       repo: nrf52840-mdk-usb-dongle
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
 
 # Page tree
 nav:
-  - Introduction: index.md
-  - Getting Started: getting-started.md
-  - Programming: programming.md
-  - nRF5 SDK: nrf5-sdk.md
-  - OpenThread Border Router: OTBR.md
-  - Thread Network Sniffer: thread-sniffer.md
-  - OpenSK:
-    - Overview: opensk/index.md
-    - Getting Started: opensk/getting-started.md
-    - How to build OpenSK: opensk/building.md
-  - How to Buy: how-to-buy.md
-  - Contributing: CONTRIBUTING.md
-  - License: LICENSE.md
- 
-
-# Google Analytics
-google_analytics:
-  - 'UA-54344624-2'
-  - 'auto'
+  - Home: index.md
+  - Product:
+    - Introduction: introduction.md
+    - Hardware description: hardware.md
+    - Purchase: purchase.md
+    - Revision history: revision-history.md
+    - License: LICENSE.md
+  - Getting Started:
+    - Quick Start Guide: getting-started.md
+    - Programming:
+      - programming/index.md
+      - Using UF2 Bootloader: programming/uf2boot.md
+      - Using DAPLink Firmware: programming/daplink.md
+      - Using Pitaya-Link Debug Probe: programming/pitaya-link.md
+    - Resources: resources.md
+    - Contributing: CONTRIBUTING.md
+  - Developer Guides:
+    - nRF Connect SDK:
+      - guides/ncs/index.md
+      - Setting up the environment: guides/ncs/setup.md
+      - Building and running the first sample: guides/ncs/building.md
+      - Samples:
+        - Hello World: guides/ncs/samples/hello_world.md
+        - Blinky: guides/ncs/samples/blinky.md
+        - Button: guides/ncs/samples/button.md
+        - ADC: guides/ncs/samples/adc.md
+        - USB Device:
+          - USB HID Mouse: guides/ncs/samples/usb/hid_mouse.md
+          - USB Mass Storage: guides/ncs/samples/usb/mass.md
+        - NFC:
+          - Launch App: guides/ncs/samples/nfc/launch_app.md
+          - Text record: guides/ncs/samples/nfc/text_record.md
+          - URI record: guides/ncs/samples/nfc/uri_record.md
+          - Writable NDEF message: guides/ncs/samples/nfc/writable_ndef_msg.md
+        - Bluetooth Low Energy:
+          - Beacon: guides/ncs/samples/ble/beacon.md
+          - Observer: guides/ncs/samples/ble/observer.md
+          - Peripheral: guides/ncs/samples/ble/peripheral.md
+          - Peripheral LBS: guides/ncs/samples/ble/peripheral_lbs.md
+          - Peripheral HIDS keyboard: guides/ncs/samples/ble/peripheral_hids_keyboard.md
+          - Peripheral HIDS mouse: guides/ncs/samples/ble/peripheral_hids_mouse.md
+          - NUS shell transport: guides/ncs/samples/ble/shell_bt_nus.md
+        - Thread:
+          - CLI: guides/ncs/samples/thread/cli.md
+          - CoAP: guides/ncs/samples/thread/coap.md
+          - Co-processor: guides/ncs/samples/thread/coprocessor.md
+        - Zigbee:
+          - Lighting: guides/ncs/samples/zigbee/lighting.md
+          - NCP: guides/ncs/samples/zigbee/ncp.md
+          - Shell: guides/ncs/samples/zigbee/shell.md
+    - nRF Sniffer for Bluetooth LE:
+      - guides/ble-sniffer/index.md
+      - Installation: guides/ble-sniffer/installation.md
+      - Running the nRF Sniffer: guides/ble-sniffer/running-sniffer.md
+      - nRF Sniffer usage: guides/ble-sniffer/usage.md
+      - Common sniffing actions: guides/ble-sniffer/actions.md
+    - nRF Sniffer for 802.15.4:
+      - guides/nrf802154-sniffer/index.md
+      - Installation: guides/nrf802154-sniffer/installation.md
+      - Configuring Wireshark: guides/nrf802154-sniffer/configuring.md
+      - Capturing data with the nRF Sniffer: guides/nrf802154-sniffer/capturing.md
+      - Inspecting captured data: guides/nrf802154-sniffer/inspecting-data.md
+    - OpenSK FIDO2 Authenticator:
+      - guides/opensk/index.md
+      - Getting Started: guides/opensk/getting-started.md
+      - Building OpenSK Firmware: guides/opensk/building.md
+  - Blog:
+      - blog/index.md
+      - Introducing nRF Connect SDK: blog/introducing-ncs.md
+      - Building your own OpenSK firmware: blog/building-opensk.md
+      - Documentation Updated!: blog/docs-updated.md
+  - Discussions: https://github.com/makerdiary/nrf52840-mdk-usb-dongle/discussions

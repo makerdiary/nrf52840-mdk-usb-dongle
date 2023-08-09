@@ -1,0 +1,107 @@
+<!--
+  Copyright (c) 2016-2022 Makerdiary
+-->
+
+{% extends "main.html" %}
+
+{% block tabs %}
+  {{ super() }}
+{% endblock %}
+
+<!-- Content -->
+{% block content %}
+  <style>
+    .md-typeset .grid {
+      grid-gap: 1.6rem 1.4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(16rem,1fr));
+      margin: 1em 0
+    }
+    .md-typeset .grid.cards>ol,.md-typeset .grid.cards>ul {
+      display: contents
+    }
+    .md-typeset .grid.cards h3 {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+    .md-typeset .grid.cards>ol>li,.md-typeset .grid.cards>ul>li,.md-typeset .grid>.card {
+      border: .05rem solid var(--md-default-fg-color--lightest);
+      border-radius: .1rem;
+      display: block;
+      margin: 0;
+      padding: .8rem;
+      transition: border .25s,box-shadow .25s
+    }
+    .md-typeset .grid.cards>ol>li:focus-within,.md-typeset .grid.cards>ol>li:hover,.md-typeset .grid.cards>ul>li:focus-within,.md-typeset .grid.cards>ul>li:hover,.md-typeset .grid>.card:focus-within,.md-typeset .grid>.card:hover {
+      border-color: #0000;
+      box-shadow: var(--md-shadow-z2)
+    }
+    .blog__newsletter {
+        text-align: center;
+        margin-top: 3rem;
+        padding-bottom: 2rem;
+    }
+    @media screen and (max-width:59.9375em) {
+      .blog__newsletter {
+        padding-right: 2rem;
+        padding-left: 2rem;
+      }
+    }
+    @media screen and (min-width:60em) {
+      .blog__newsletter {
+        padding-right: 12rem;
+        padding-left: 12rem;
+      }
+    }
+    .blog__newsletter p {
+        font-size: .9rem;
+        color: var(--md-default-fg-color--light);
+    }
+  </style>
+
+  {% if config.theme.blog %}
+    {% if config.theme.blog.heading %}
+      <h1>{{ config.theme.blog.heading }}</h1>
+    {% endif %}
+    {% if config.theme.blog.articles %}
+      <div class="grid cards">
+        <ul>
+          {% for article in config.theme.blog.articles %}
+            <li>
+              <img src="{{ article.cover | url }}" alt="{{ article.title | e }}" loading="lazy">
+              <h3>{{ article.title }}</h3>
+              <small>
+                <span class="twemoji">{% include ".icons/octicons/calendar-24.svg" %}</span>
+                {{ article.date }} · 
+                <span class="twemoji">{% include ".icons/octicons/clock-24.svg" %}</span> 
+                {{ article.reading_time }} read
+              </small>
+              <p>{{ article.excerpt }}</p>
+              <p>
+                <a class="article_link" href="{{ article.link | url }}">
+                  Continue reading
+                  <span class="twemoji">
+                    {% include ".icons/octicons/arrow-right-24.svg" %}
+                  </span>
+                </a>
+              </p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% if config.theme.blog.newsletter %}
+        <div class="blog__newsletter">
+          <hr>
+          <h2>Subscribe to our newsletter</h2>
+          <p>Be the first to know about recent updates to our projects, as well as preview upcoming features and beta releases.</p>
+          <a href="{{ config.theme.blog.newsletter | url }}" class="md-button md-button--primary"> Subscribe to our newsletter </a>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+<!-- Application footer -->
+{% block footer %}
+{{ super() }}
+{% endblock %}

@@ -1,0 +1,105 @@
+<!--
+  Copyright (c) 2016-2022 Martin Donath <martin.donath@squidfunk.com>
+  Copyright (c) 2016-2022 Makerdiary <zelin@makerdiary.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+{% extends "base.html" %}
+
+{% block extrahead %}
+{% if config.theme.announcement %}
+<style>
+  .md-banner a,
+  .md-banner a:focus,
+  .md-banner a:hover {
+    color: currentcolor
+  }
+  .md-banner strong {
+    white-space: nowrap
+  }
+  [dir=ltr] .md-banner .twitter {
+    margin-left: .2em
+  }
+  [dir=rtl] .md-banner .twitter {
+    margin-right: .2em
+  }
+  .md-banner__button {
+    color: inherit;
+    cursor: pointer;
+    float: right;
+    transition: opacity .25s
+  }
+  .md-banner__button:hover {
+    opacity: .7
+  }
+</style>
+{% else %}
+<style>
+  [data-md-component=announce] div {
+    display: none;
+  }
+</style>
+{% endif %}
+<style>
+  .md-typeset .mdx-author {
+    display: flex;
+    font-size: .68rem
+  }
+  .md-typeset .mdx-author img {
+    border-radius: 100%;
+    height: 2rem
+  }
+  .md-typeset .mdx-author p:first-child {
+    flex-shrink: 0;
+    margin-right: .8rem
+  }
+  .md-typeset .mdx-author p>span {
+    display: block
+  }
+</style>
+{% endblock %}
+
+<!-- Announcement bar -->
+{% block announce %}
+  <button class="md-banner__button md-icon" aria-label="Don't show this again">
+    {% include ".icons/octicons/x-24.svg" %}
+  </button>
+  {{ config.theme.announcement }}
+  <script>
+    const hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0);
+    var content, el = document.querySelector("[data-md-component=announce]");
+    if (el) {
+      content = el.querySelector(".md-typeset");
+      var hash = hashCode(JSON.stringify(content.innerHTML)).toString(16);
+      var savedKey = localStorage.getItem("__announce");
+      if (savedKey && hash === savedKey) {
+        el.hidden = true;
+      } else {
+        var button = el.querySelector(".md-banner__button");
+        if (button) {
+          button.addEventListener("click", () => {
+            localStorage.setItem("__announce", hash);
+            el.hidden = true;
+          });
+        }
+      }
+    }
+  </script>
+{% endblock %}
