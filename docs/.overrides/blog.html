@@ -119,6 +119,7 @@
                   {% if post.config.readtime %}
                     {% set time = post.config.readtime %}
                     <div class="md-meta__item">
+                      <span class="twemoji">{% include ".icons/octicons/clock-24.svg" %}</span>
                       {% if time == 1 %}
                         {{ lang.t("readtime.one") }}
                       {% else %}
