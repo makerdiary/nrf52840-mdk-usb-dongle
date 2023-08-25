@@ -19,7 +19,7 @@
 
 - The first public release
 
-### V2.0.0 <small>August 5, 2023</small> { id="DOC_V2.0.0" }
+### V2.0.0 <small>August 9, 2023</small> { id="DOC_V2.0.0" }
 
 - Update UF2 Bootloader to `0.7.1` and Application firmware to `connectivity_4.1.4_usb_with_s132_5.1.0`
 - Add Quick Start Guide

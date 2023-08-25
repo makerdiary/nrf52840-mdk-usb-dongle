@@ -5,3 +5,5 @@ hide:
   - navigation
   - toc
 ---
+
+# Latest posts

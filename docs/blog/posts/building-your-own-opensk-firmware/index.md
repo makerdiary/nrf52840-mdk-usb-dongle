@@ -1,28 +1,17 @@
 ---
-template: article.html
+title: Building your own OpenSK firmware
+date: 2023-08-08
+authors:
+  - makerdiary
+cover: cover.png
 description: >
   This guide demonstrates how to build your own OpenSK firmware using GitHub Codespaces. This way will
-  simplify the complex development environment and get the firmware you expect in a short time.
-search:
-  exclude: false
-hide:
-  - feedback
+  simplify the complex development environment and get the firmware quickly.
 ---
 
+![](cover.png){ loading=lazy }
+
 # Building your own OpenSK firmware
-
-<aside class="mdx-author" markdown>
-![@makerdiary][@makerdiary avatar]
-
-<span>[makerdiary]</span>
-<span>
-:octicons-calendar-24: Aug 7, 2023 ·
-:octicons-clock-24: 10 min read
-</span>
-</aside>
-
-[makerdiary]: https://makerdiary.com
-[@makerdiary avatar]: https://avatars.githubusercontent.com/u/8767354
 
 ## Introduction
 
@@ -43,9 +32,9 @@ Before you start, check that you have the required hardware and software:
 
 1. Go to [GitHub Codespaces](https://github.com/codespaces) and click [New codespace](https://github.com/codespaces/new) to start.
 2. On the __Create a new codespace__ page, select __google/OpenSK__ repository and the __develop__ branch, then click __Create codespace__.
-    ![](../assets/images/create-a-new-codespace.png)
+    ![](../../../assets/images/create-a-new-codespace.png)
 3. After setting up your codespace, you will see the workspace for OpenSK.
-    ![](../assets/images/codespace-workspace.png)
+    ![](../../../assets/images/codespace-workspace.png)
 4. In the __TERMINAL__ tab, run the following command to install Rust toolchain:
 
     ``` bash linenums="1"
@@ -94,10 +83,10 @@ Before you start, check that you have the required hardware and software:
 
     The output file `opensk.uf2` is the OpenSK firmware you expect.
 
-10. Download the firmware and follow the [Getting Started Guide](../guides/opensk//getting-started.md) to test your own firmware.
+10. Download the firmware and follow the [Getting Started Guide](../../../guides/opensk//getting-started.md) to test your own firmware.
 
 ## Reference
 
 - [About FIDO2](https://fidoalliance.org/fido2/)
 - [Google's OpenSK Repository](https://github.com/google/OpenSK)
-- [OpenSK FIDO2 Authenticator Guide](../guides/opensk/index.md)
+- [OpenSK FIDO2 Authenticator Guide](../../../guides/opensk/index.md)

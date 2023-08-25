@@ -113,41 +113,47 @@ theme:
           description: >-
             We offer an extensive set of documentation such as getting started and developer guides that can help you save
             big by reducing development effort and build your prototypes in a very short time.
-  blog:
-    heading: Latest posts
-    catalog: blog
-    newsletter: https://makerdiary.com/newsletter
-    articles:
-      - title: Introducing nRF Connect SDK
-        cover: assets/images/ncs_intro_cover.png
-        link: blog/introducing-ncs
-        date: Aug 7, 2023
-        reading_time: 5 min
-        excerpt: >-
-            The nRF Connect SDK is a software development kit for building Bluetooth Low Energy, Wi-Fi,
-            cellular IoT, Bluetooth mesh, Thread, Zigbee and Matter products based on Nordic Semiconductor's
-            wireless devices.
-      - title: Building your own OpenSK firmware
-        cover: assets/images/building_opensk_cover.png
-        link: blog/building-opensk
-        date: Aug 7, 2023
-        reading_time: 10 min
-        excerpt: >-
+    news:
+      id: what-is-new
+      heading: What's new
+      viewall: blog
+      posts:
+        - title: Introducing nRF Connect SDK
+          excerpt: >-
+            nRF Connect SDK is a scalable and unified software development kit for building products based on
+            Nordic Semiconductor's wireless devices.
+          cover: blog/introducing-nrf-connect-sdk/cover.png
+          url: blog/introducing-nrf-connect-sdk
+          date: 2023-08-09
+          readtime: 6
+        - title: Building your own OpenSK firmware
+          excerpt: >-
             This guide demonstrates how to build your own OpenSK firmware using GitHub Codespaces. This way will
-            simplify the complex development environment and get the firmware you expect in a short time.
-      - title: Documentation Updated!
-        cover: assets/images/docs_updated_cover.png
-        link: blog/docs-updated
-        date: Aug 7, 2023
-        reading_time: 3 min
-        excerpt: >-
-            New documentation just landed! There are many updates that we hope you'll like, some of the key
-            highlights include: Migrating to nRF Connect SDK, Firmware updates, Sniffer with Wireshark, OpenSK
-            updates and more.
-
+            simplify the complex development environment and get the firmware quickly.
+          cover: blog/building-your-own-opensk-firmware/cover.png
+          url: blog/building-your-own-opensk-firmware
+          date: 2023-08-08
+          readtime: 4
+        - title: Documentation Updated
+          excerpt: >-
+            We are excited to announce that Documentation v2.0.0 is now available! There are many updates in this
+            version that we hope you'll like, such as nRF Connect SDK support.
+          cover: blog/documentation-updated/cover.png
+          url: blog/documentation-updated
+          date: 2023-08-07
+          readtime: 3
 # Plugins
 plugins:
   - search
+  - blog:
+      blog_dir: blog
+      post_date_format: medium
+      pagination_per_page: 6
+      pagination_keep_content: true
+      post_url_format: "{slug}"
+      post_readtime_words_per_minute: 128
+      categories: false
+      archive: false
   # - git-revision-date-localized
   - minify:
       minify_html: true
@@ -302,7 +308,4 @@ nav:
       - Building OpenSK Firmware: guides/opensk/building.md
   - Blog:
       - blog/index.md
-      - Introducing nRF Connect SDK: blog/introducing-ncs.md
-      - Building your own OpenSK firmware: blog/building-opensk.md
-      - Documentation Updated!: blog/docs-updated.md
   - Discussions: https://github.com/makerdiary/nrf52840-mdk-usb-dongle/discussions
