@@ -85,7 +85,7 @@ Community support is provided via [GitHub Discussions][discussions]. We would lo
 
 ## License
 
-Copyright (c) 2016-2023 Makerdiary. See [LICENSE](./LICENSE) for further details.
+Copyright (c) 2016 - 2024 Makerdiary. See [LICENSE](./LICENSE) for further details.
 
 [ncs-guide]: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/guides/ncs
 [ble-sniffer]: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/guides/ble-sniffer
