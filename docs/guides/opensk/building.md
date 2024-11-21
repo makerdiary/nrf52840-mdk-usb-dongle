@@ -24,7 +24,7 @@ Before you start, check that you have the required hardware and software:
 4. In the __TERMINAL__ tab, run the following command to install Rust toolchain:
 
     ``` bash linenums="1"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
     ```
 
 5. Install Python dependencies:
@@ -40,11 +40,11 @@ Before you start, check that you have the required hardware and software:
 6. Install `uuid-runtime` if you are missing the `uuidgen` command:
 
     ``` bash linenums="1"
-    sudo apt-get update
+    sudo apt update
     ```
 
     ``` bash linenums="2"
-    sudo apt-get install uuid-runtime
+    sudo apt install uuid-runtime
     ```
 
 7. Run the setup script:
