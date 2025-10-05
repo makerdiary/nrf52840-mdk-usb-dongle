@@ -1,4 +1,5 @@
 # editors
+.vscode
 *.swp
 *~
 
@@ -9,9 +10,11 @@ __pycache__
 dist
 
 # build
+/build*
 build
 build-*
 build_*
+/twister-out*
 
 # mkdocs
 site
