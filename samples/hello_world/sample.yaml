@@ -1,0 +1,8 @@
+sample:
+  name: Hello World Sample
+tests:
+  sample.helloworld:
+    sysbuild: true
+    build_only: true
+    integration_platforms:
+      - nrf52840_dongle/nrf52840
