@@ -1,0 +1,21 @@
+# Copyright (c) 2016-2025 Makerdiary <https://makerdiary.com>
+# SPDX-License-Identifier: Apache-2.0
+
+manifest:
+  self: 
+    path: nrf52840-mdk-usb-dongle
+
+  remotes:
+    - name: makerdiary
+      url-base: https://github.com/makerdiary
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+    - name: nrfconnect
+      url-base: https://github.com/nrfconnect
+
+  projects:
+    - name: nrf
+      remote: nrfconnect
+      repo-path: sdk-nrf
+      revision: v3.1.1
+      import: true
