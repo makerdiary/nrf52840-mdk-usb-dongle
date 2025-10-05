@@ -85,7 +85,11 @@ Community support is provided via [GitHub Discussions][discussions]. We would lo
 
 ## License
 
-Copyright (c) 2016 - 2024 Makerdiary. See [LICENSE](./LICENSE) for further details.
+This project is licensed under the Apache License 2.0 unless otherwise stated. For the full license text, please refer to the [LICENSE](./LICENSE) file.
+
+The nRF Connect SDK and its components are licensed under the 5-Clause Nordic License. See [LICENSE-NORDIC](./LICENSE-NORDIC) for further details.
+
+This project may include some imported or reused components that are licensed under different terms. Please refer to the license files within those components for details.
 
 [ncs-guide]: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/guides/ncs
 [ble-sniffer]: https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/guides/ble-sniffer
