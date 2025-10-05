@@ -1,0 +1,13 @@
+UF2BOOT:
+  address: 0x0f4000
+  end_address: 0x100000
+  region: flash_primary
+  size: 0xc000
+MBR:
+  address: 0x0
+  end_address: 0x1000
+  placement:
+    after:
+    - start
+  region: flash_primary
+  size: 0x1000

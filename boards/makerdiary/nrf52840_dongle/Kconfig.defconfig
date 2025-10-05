@@ -1,0 +1,13 @@
+# nRF52840 MDK USB Dongle NRF52840 board configuration
+
+# Copyright (c) 2016-2025 Makerdiary <https://makerdiary.com>
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_NRF52840_DONGLE
+
+config HW_STACK_PROTECTION
+	default ARCH_HAS_STACK_PROTECTION
+
+source "boards/common/usb/Kconfig.cdc_acm_serial.defconfig"
+
+endif # BOARD_NRF52840_DONGLE

@@ -1,0 +1,53 @@
+/*
+ * Copyright (c) 2016-2025 Makerdiary <https://makerdiary.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ */
+
+/ {
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &code_partition;
+	};
+};
+
+&flash0 {
+	/*
+	 * Default flash layout for nrf52840 using UF2 and MBR
+	 *
+	 * 0x00000000 MBR 2.4.1             (4 kB)
+	 * 0x00001000 Application partition (844 kB)
+	 * 0x000d4000 Storage partition     (128 kB)
+	 * 0x000f4000 UF2 boot partition    (48 kB)
+	 */
+
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		reserved_partition_0: partition@0 {
+			label = "MBR";
+			read-only;
+			reg = <0x00000000 0x00001000>;
+		};
+
+		code_partition: partition@1000 {
+			label = "Application";
+			reg = <0x00001000 0x000d3000>;
+		};
+
+		storage_partition: partition@d4000 {
+			label = "Storage";
+			reg = <0x000d4000 0x00020000>;
+		};
+
+		boot_partition: partition@f4000 {
+			label = "UF2";
+			read-only;
+			reg = <0x000f4000 0x0000c000>;
+		};
+	};
+};
