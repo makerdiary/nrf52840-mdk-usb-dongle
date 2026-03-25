@@ -178,13 +178,13 @@ def extcap_interfaces():
     print("control {number=%d}{type=string}{display=Value}"
           "{tooltip=6 digit passkey or 16 or 32 bytes encryption key in hexadecimal starting with '0x', big endian format."
           "If the entered key is shorter than 16 or 32 bytes, it will be zero-padded in front'}"
-          "{validation=\\b^(([0-9]{6})|(0x[0-9a-fA-F]{1,64})|([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random))$\\b}" % CTRL_ARG_KEY_VAL)
+          r"{validation=\b^(([0-9]{6})|(0x[0-9a-fA-F]{1,64})|([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random))$\b}" % CTRL_ARG_KEY_VAL)
     print("control {number=%d}{type=string}{display=Adv Hop}"
           "{default=37,38,39}"
           "{tooltip=Advertising channel hop sequence. "
           "Change the order in which the sniffer switches advertising channels. "
           "Valid channels are 37, 38 and 39 separated by comma.}"
-          "{validation=^\s*((37|38|39)\s*,\s*){0,2}(37|38|39){1}\s*$}{required=true}" % CTRL_ARG_ADVHOP)
+          r"{validation=^\s*((37|38|39)\s*,\s*){0,2}(37|38|39){1}\s*$}{required=true}" % CTRL_ARG_ADVHOP)
     print("control {number=%d}{type=button}{display=Clear}{tooltop=Clear or remove device from Device list}" % CTRL_ARG_DEVICE_CLEAR)
     print("control {number=%d}{type=button}{role=help}{display=Help}{tooltip=Access user guide (launches browser)}" % CTRL_ARG_HELP)
     print("control {number=%d}{type=button}{role=restore}{display=Defaults}{tooltip=Resets the user interface and clears the log file}" % CTRL_ARG_RESTORE)
@@ -399,42 +399,42 @@ def set_key_value(sniffer, payload):
     last_used_key_val = payload
 
     if (last_used_key_type == CTRL_KEY_TYPE_PASSKEY):
-        if re.match("^[0-9]{6}$", payload):
+        if re.match(r"^[0-9]{6}$", payload):
             set_passkey(sniffer, payload)
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_OOB):
-        if re.match("^0[xX][0-9A-Za-z]{1,32}$", payload):
+        if re.match(r"^0[xX][0-9A-Za-z]{1,32}$", payload):
             set_OOB(sniffer, payload[2:])
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_DH_PRIVATE_KEY):
-        if (re.match("^0[xX][0-9A-Za-z]{1,64}$", payload)):
+        if (re.match(r"^0[xX][0-9A-Za-z]{1,64}$", payload)):
             set_dh_private_key(sniffer, payload[2:])
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_LEGACY_LTK):
-        if (re.match("^0[xX][0-9A-Za-z]{1,32}$", payload)):
+        if (re.match(r"^0[xX][0-9A-Za-z]{1,32}$", payload)):
             set_legacy_ltk(sniffer, payload[2:])
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_SC_LTK):
-        if (re.match("^0[xX][0-9A-Za-z]{1,32}$", payload)):
+        if (re.match(r"^0[xX][0-9A-Za-z]{1,32}$", payload)):
             set_sc_ltk(sniffer, payload[2:])
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_IRK):
-        if (re.match("^0[xX][0-9A-Za-z]{1,32}$", payload)):
+        if (re.match(r"^0[xX][0-9A-Za-z]{1,32}$", payload)):
             set_irk(sniffer, payload[2:])
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_ADD_ADDR):
-        if (re.match("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random)$", payload)):
+        if (re.match(r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random)$", payload)):
             add_address(sniffer, payload)
         else:
             logging.info("Invalid key value: " + str(payload))
     elif (last_used_key_type == CTRL_KEY_TYPE_FOLLOW_ADDR):
-        if (re.match("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random)$", payload)):
+        if (re.match(r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}) (public|random)$", payload)):
             follow_address(sniffer, payload)
         else:
             logging.info("Invalid key value: " + str(payload))
@@ -713,7 +713,7 @@ class ExtcapLoggerHandler(logging.Handler):
 def parse_capture_filter(capture_filter):
     """"Parse given capture filter"""
     global rssi_filter
-    m = re.search("^\s*rssi\s*(>=?)\s*(-?[0-9]+)\s*$", capture_filter, re.IGNORECASE)
+    m = re.search(r"^\s*rssi\s*(>=?)\s*(-?[0-9]+)\s*$", capture_filter, re.IGNORECASE)
     if m:
         rssi_filter = int(m.group(2))
         if rssi_filter > -10 or rssi_filter < -256:
